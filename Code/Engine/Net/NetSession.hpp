@@ -151,6 +151,8 @@ public:
 	uint GetNetTimeInMilliseconds();
 	void UpdateClientNetClock(uint hostTime);
 
+	std::string GetSessionStateAsString();
+
 public:
 	UDPSocket* m_socket = nullptr;
 	NetConnection* m_boundConnections[MAX_NUM_NET_CONNECTIONS];

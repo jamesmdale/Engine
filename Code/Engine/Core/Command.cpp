@@ -14,15 +14,20 @@ Command::Command( char const *str )
 }
 
 //  =========================================================================================
-bool CommandRun( char const *command )
+bool CommandRun( const char* command )
+{
+	Command cmd = Command(command);
+	return CommandRun(cmd);
+}
+
+//  =========================================================================================
+bool CommandRun(Command& cmd)
 {
 	bool isValidCommand = false;
 
-	Command cmd = Command(command);
-
 	std::string errorMessage = cmd.ParseCommandStringForValidFormatting();
 
-	if(errorMessage != "")
+	if (errorMessage != "")
 	{
 		DevConsolePrintf(Rgba::RED, errorMessage.c_str());
 		return isValidCommand;
@@ -32,14 +37,14 @@ bool CommandRun( char const *command )
 	ToLower(commandName);
 
 	std::map<std::string, CommandRegistration>::iterator cmdIterator = s_registeredDefinitions.begin();
-	for(cmdIterator = s_registeredDefinitions.begin(); cmdIterator != s_registeredDefinitions.end(); ++cmdIterator)
+	for (cmdIterator = s_registeredDefinitions.begin(); cmdIterator != s_registeredDefinitions.end(); ++cmdIterator)
 	{
-		if(commandName == cmdIterator->first)
+		if (commandName == cmdIterator->first)
 		{
 			break;
 		}
 	}
-	
+
 	if (cmdIterator != s_registeredDefinitions.end())
 	{
 		isValidCommand = true;
@@ -158,6 +163,13 @@ std::string Command::ParseCommandStringForValidFormatting()
 	
 
 	return std::string(""); //no errors so we return an empty string
+}
+
+//  =========================================================================================
+void Command::AppendString(const char* str)
+{
+	m_commandString = Stringf("%s %s", m_commandString.c_str(), str);
+	
 }
 
 //  =========================================================================================

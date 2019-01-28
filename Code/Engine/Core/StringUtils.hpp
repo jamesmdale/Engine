@@ -4,6 +4,7 @@
 #include <vector>
 #include "Engine\Core\Rgba.hpp"
 #include "Engine\Math\Vector2.hpp"
+#include "Engine\Core\EngineCommon.hpp"
 
 
 const std::string Stringf( const char* format, ... );
@@ -24,6 +25,13 @@ void RemoveEmptyStrings(std::vector<std::string>& outStrings);
 void ReplaceCharacterOccurances(std::string & outString, const char characterToReplace, const char replacementCharacter);
 void RemoveMatchingStrings(std::vector<std::string>& outStrings, const std::string& matchingString);
 void RemoveStringsStartingWithString(std::vector<std::string>& outStrings, const std::string& startingString );
+
+//to string
+std::string ToString(int val);
+std::string ToString(float val);
+std::string ToString(bool val);
+std::string ToString(uint val);
+std::string ToString(double val);
 
 //conversions from string
 int ConvertStringToInt(const std::string& convertString);

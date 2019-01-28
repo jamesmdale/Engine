@@ -43,7 +43,7 @@ public:
 	CommandRegistration* m_commandInfo = nullptr;
 
 public:
-	Command( char const *str );
+	Command( const char* str );
 	const char* GetName(); // would return "echo_with_color"
 
 						   // Gets the next string in the argument list.
@@ -66,9 +66,12 @@ public:
 	void IncrementTokenIndex() { m_tokenIndex++;}
 
 	bool IsCorrectNumberOfParameters(int expectedParamCount);
-	std::string ParseCommandStringForValidFormatting();								   
+	std::string ParseCommandStringForValidFormatting();
+
+	void AppendString(const char* str);
 };
 
 void RegisterCommand( char const *name, CommandRegistration definition); 
 std::vector<std::string> GetRegisteredCommandList();
-bool CommandRun( char const *command ); //if command was found registered return true
+bool CommandRun( const char* command ); //if command was found registered return true
+bool CommandRun(Command& cmd);

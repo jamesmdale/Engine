@@ -1012,6 +1012,33 @@ void NetSession::UpdateClientNetClock(uint hostTime)
 }
 
 //  =========================================================================================
+std::string NetSession::GetSessionStateAsString()
+{
+	std::string currentStateAsString = "INVALID STATE";
+
+	switch (m_state)
+	{
+	case SESSION_STATE_DISCONNECTED:
+		currentStateAsString = "DISCONNECTED";
+		break;
+	case SESSION_STATE_BOUND:		
+		currentStateAsString = "BOUND";
+		break;
+	case SESSION_STATE_CONNECTING:
+		currentStateAsString = "CONNECTING";
+		break;
+	case SESSION_STATE_JOINING:
+		currentStateAsString = "JOINING";
+		break;
+	case SESSION_STATE_READY:
+		currentStateAsString = "READY";
+		break;
+	}
+
+	return currentStateAsString;
+}
+
+//  =========================================================================================
 //  Callback
 //  =========================================================================================
 
@@ -1158,7 +1185,7 @@ void SetToDisconnect(Command& cmd)
 }
 
 //  =============================================================================
-void SetToJoin(Command & cmd)
+void SetToJoin(Command& cmd)
 {
 	std::string address = cmd.GetNextString();
 

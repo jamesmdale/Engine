@@ -174,6 +174,40 @@ void RemoveStringsStartingWithString(std::vector<std::string>& outStrings, const
 	}
 }
 
+//  =========================================================================================
+std::string ToString(int val)
+{
+	return Stringf("%i", val);
+}
+
+//  =========================================================================================
+std::string ToString(float val)
+{
+	return Stringf("%f", val);
+}
+
+//  =========================================================================================
+std::string ToString(bool val)
+{
+	std::string valAsString = "";
+
+	val ? valAsString = "true" : valAsString = "false";
+
+	return valAsString;	
+}
+
+//  =========================================================================================
+std::string ToString(uint val)
+{
+	return Stringf("%u", val);
+}
+
+//  =========================================================================================
+std::string ToString(double val)
+{
+	return Stringf("%f", val);
+}
+
 //  =============================================================================
 int ConvertStringToInt(const std::string& convertString)
 {
