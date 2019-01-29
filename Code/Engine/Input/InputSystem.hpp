@@ -58,6 +58,7 @@ public:
 	static const unsigned char KEYBOARD_TAB;
 	static const unsigned char KEYBOARD_CLEAR;
 	static const unsigned char KEYBOARD_RETURN;
+	static const unsigned char KEYBOARD_ENTER;
 	static const unsigned char KEYBOARD_CONTROL;
 	static const unsigned char KEYBOARD_MENU;
 	static const unsigned char KEYBOARD_PAUSE;

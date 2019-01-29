@@ -98,6 +98,7 @@ const unsigned char InputSystem::KEYBOARD_CAPSLOCK= VK_CAPITAL;
 const unsigned char InputSystem::KEYBOARD_CLEAR = VK_CLEAR;
 const unsigned char InputSystem::KEYBOARD_SHIFT = VK_SHIFT;
 const unsigned char InputSystem::KEYBOARD_RETURN = VK_RETURN;
+const unsigned char InputSystem::KEYBOARD_ENTER = VK_RETURN;
 const unsigned char InputSystem::KEYBOARD_BACK = VK_BACK;
 const unsigned char InputSystem::KEYBOARD_CONTROL = VK_CONTROL;
 const unsigned char InputSystem::KEYBOARD_TAB = VK_TAB;

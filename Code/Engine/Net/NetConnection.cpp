@@ -500,24 +500,36 @@ int NetConnection::GetLastReceivedAck()
 //  =============================================================================
 bool NetConnection::IsMe() const
 {
+	if (this == nullptr)
+		return false;
+
 	return NetSession::GetInstance()->m_myConnection == (this) ? true : false;
 }
 
 //  =============================================================================
 bool NetConnection::IsHost() const
 {
+	if (this == nullptr)
+		return false;
+
 	return NetSession::GetInstance()->m_hostConnection == (this) ? true : false;
 }
 
 //  =============================================================================
 bool NetConnection::IsClient() const
 {
+	if(this == nullptr)
+		return false;
+
 	return NetSession::GetInstance()->m_myConnection != (this) ? true : false;
 }
 
 //  =============================================================================
 bool NetConnection::IsTimedOut()
 {
+	if (this == nullptr)
+		return false;
+
 	//hasn't been started yet
 	if(m_myLastReceivedTimeInHPC == 0)
 		return false;
