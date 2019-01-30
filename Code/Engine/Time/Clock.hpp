@@ -35,8 +35,10 @@ public:
 	void AddChildClock( Clock* child ); 
 
 	// manipulation
-	void SetPaused( bool paused ) { m_isPaused = paused;}; 
-	void SetScale( float scale ) { m_timeScale = scale;}; 
+	inline void SetPaused( bool paused ) { m_isPaused = paused; }
+	inline bool IsPaused() { return m_isPaused; }
+	inline void SetScale( float scale ) { m_timeScale = scale; }
+	inline float GetScale() { return m_timeScale; }
 
 	void ClockSystemStartup() { Reset(); };
 
@@ -54,7 +56,6 @@ public:
 
 	float GetFPS();
 
-
 public:
 	TimeUnit m_frame; 
 	TimeUnit m_total; 
@@ -65,7 +66,7 @@ private:
 
 	double m_timeScale;
 	int m_frameCount;
-	bool m_isPaused;
+	bool m_isPaused = false;
 
 	//for the hierarchy
 	Clock* m_parentClock;

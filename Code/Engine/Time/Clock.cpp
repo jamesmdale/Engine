@@ -66,7 +66,7 @@ void Clock::AdvanceClock(uint64_t elapsedHPC, double elapsedSeconds)
 	if(m_isPaused)
 	{
 		elapsedHPC = 0;
-		elapsedSeconds = 0;
+		elapsedSeconds = 0.0;
 	}
 	else
 	{
@@ -81,7 +81,7 @@ void Clock::AdvanceClock(uint64_t elapsedHPC, double elapsedSeconds)
 	m_total.seconds += m_frame.seconds;
 	m_total.hpc += m_frame.hpc;
 
-	m_lastFrameHPC = m_lastFrameHPC + elapsedHPC;
+	m_lastFrameHPC += elapsedHPC;
 
 	for(Clock* iter : m_childrenClocks)
 	{

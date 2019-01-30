@@ -10,6 +10,7 @@ Stopwatch::Stopwatch(Clock* referenceClock)
 	m_startHPC = m_referenceClock->m_total.hpc;	
 }
 
+//  =========================================================================================
 Stopwatch::Stopwatch(float seconds, Clock* referenceClock)
 {
 	SetClock(referenceClock);
@@ -154,3 +155,4 @@ int Stopwatch::DecrementAll()
 
 	return numIntervalsPassed;
 }
+
