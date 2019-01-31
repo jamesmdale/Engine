@@ -12,6 +12,7 @@
 #include "Engine\Renderer\Texture.hpp"
 #include "Engine\Core\EngineCommon.hpp"
 
+//  =========================================================================================
 void MeshBuilder::Begin(DrawPrimitiveType type, bool doesUseIndices)
 {
 	m_type = type;
@@ -36,33 +37,37 @@ void MeshBuilder::Begin(DrawPrimitiveType type, bool doesUseIndices)
 	}*/
 }
 
-
-
+//  =========================================================================================
 void MeshBuilder::SetColor(const Rgba& color)
 {
 	m_stamp.color = color;
 }
 
+//  =========================================================================================
 void MeshBuilder::SetUV(float u, float v)
 {
 	m_stamp.uv = Vector2(u, v);
 }
 
+//  =========================================================================================
 void MeshBuilder::SetUV(const Vector2& uv)
 {
 	m_stamp.uv = uv;
 }
 
+//  =========================================================================================
 void MeshBuilder::SetNormal(const Vector3& normal)
 {
 	m_stamp.normal = normal;
 }
 
+//  =========================================================================================
 void MeshBuilder::SetTangent(const Vector4& tangent)
 {
 	m_stamp.tangent = tangent;
 }
 
+//  =========================================================================================
 int MeshBuilder::PushVertex(Vector3 position)
 {
 	m_stamp.position = position;
@@ -71,12 +76,14 @@ int MeshBuilder::PushVertex(Vector3 position)
 	return (int)m_vertices.size() - 1;
 }
 
+//  =========================================================================================
 int MeshBuilder::PushIndex(int index)
 {
 	m_indices.push_back(index);
 	return (int)m_indices.size() - 1;
 }
 
+//  =========================================================================================
 void MeshBuilder::FlushBuilder()
 {
 	m_doesUseIndices = false;
@@ -84,6 +91,7 @@ void MeshBuilder::FlushBuilder()
 	m_vertices.clear();
 }
 
+//  =========================================================================================
 void MeshBuilder::AddTriIndices(int vertex0, int vertex1, int vertex2) //adds single triangle into index array
 {
 	PushIndex(vertex0);
@@ -91,6 +99,7 @@ void MeshBuilder::AddTriIndices(int vertex0, int vertex1, int vertex2) //adds si
 	PushIndex(vertex2);
 }
 
+//  =========================================================================================
 void MeshBuilder::AddQuadIndices(int vertex0, int vertex1, int vertex2, int vertex3) //adds two triangles to index array
 {
 	PushIndex(vertex0);
@@ -101,11 +110,13 @@ void MeshBuilder::AddQuadIndices(int vertex0, int vertex1, int vertex2, int vert
 	PushIndex(vertex0);
 }
 
+//  =========================================================================================
 int MeshBuilder::GetVertexCount()
 {
 	return (int)m_vertices.size();
 }
 
+//  =========================================================================================
 int MeshBuilder::GetIndexCount()
 {
 	//if we aren't using indices. Don't return a size. (fail safe in case data is bad)
@@ -117,6 +128,7 @@ int MeshBuilder::GetIndexCount()
 	return 0;
 }
 
+//  =========================================================================================
 VertexBuilder MeshBuilder::GetVertexAtIndex(int index)
 {
 	return m_vertices[index];
@@ -157,7 +169,32 @@ void MeshBuilder::CreatePoint(const Vector3& center, const Rgba& tint, float sca
 
 }
 
+//  =========================================================================================
+void MeshBuilder::CreatePoint2D(const Vector2& center, const Rgba& tint, float scale)
+{
+	Begin(LINES_DRAW_PRIMITIVE, false); 
 
+	//y axis
+	SetColor(tint);
+	SetUV(Vector2(0.f,0.f));
+	PushVertex(Vector3(center - (Vector2::UP * scale)));
+
+	SetColor(tint);
+	SetUV(Vector2(0.f,0.f));
+	PushVertex(Vector3(center + (Vector2::UP * scale)));
+
+	//x axis
+	SetColor(tint);
+	SetUV(Vector2(0.f,0.f));
+	PushVertex(Vector3(center - (Vector2::RIGHT * scale)));
+
+	SetColor(tint);
+	SetUV(Vector2(0.f,0.f));
+	PushVertex(Vector3(center + (Vector2::RIGHT * scale)));
+
+}
+
+//  =========================================================================================
 void MeshBuilder::CreateCube(const Vector3& center, const Vector3& dimensions, const Rgba& tint)
 {
 	float xVal = 0.f;
@@ -347,7 +384,7 @@ void MeshBuilder::CreateCube(const Vector3& center, const Vector3& dimensions, c
 
 }
 
-
+//  =========================================================================================
 void MeshBuilder::CreateUVSphere(const Vector3& position, float radius, int wedges, int slices, const Rgba& tint)
 {
 	//(0,0) to (1,1)
@@ -403,6 +440,7 @@ void MeshBuilder::CreateUVSphere(const Vector3& position, float radius, int wedg
 	}
 }
 
+//  =========================================================================================
 void MeshBuilder::CreateTexturedQuad3D(const Vector3& center, const Vector2& dimensions, const Vector2& texCoordsAtMins, const Vector2& texCoordsAtMaxs, const Rgba& tint)
 {
 	MeshBuilder mb;
@@ -449,6 +487,7 @@ void MeshBuilder::CreateTexturedQuad3D(const Vector3& center, const Vector2& dim
 	AddQuadIndices(vertSize + 0, vertSize + 1, vertSize + 2, vertSize + 3);
 }
 
+//  =========================================================================================
 //normally z = 0
 void MeshBuilder::CreateQuad3D(const Vector3& center, const Vector2& dimensions, const Rgba& tint)
 {
@@ -499,11 +538,13 @@ void MeshBuilder::CreateQuad3D(const Vector3& center, const Vector2& dimensions,
 	AddQuadIndices(vertSize + 0, vertSize + 1, vertSize + 2, vertSize + 3);
 }
 
+//  =========================================================================================
 void MeshBuilder::CreateQuad2D(const Vector2& center, const Vector2& dimensions, const Rgba& tint)
 {
 	CreateQuad3D(Vector3(center.x, center.y, 0.f), dimensions, tint);
 }
 
+//  =========================================================================================
 void MeshBuilder::CreateLine2D(const Vector2 & startPosition, const Vector2 & endPosition, float width, const Rgba & tint)
 {
 	//get direction to draw
@@ -557,22 +598,26 @@ void MeshBuilder::CreateLine2D(const Vector2 & startPosition, const Vector2 & en
 	//AddQuadIndices(vertSize, vertSize + 1, vertSize + 2, vertSize + 3);
 }
 
+//  =========================================================================================
 void MeshBuilder::CreateQuad2D(const AABB2& drawBounds, const Rgba& tint)
 {
 	Vector2 center = drawBounds.GetCenter();
 	CreateQuad3D(Vector3(center.x, center.y, 0.f), drawBounds.GetDimensions(), tint);
 }
 
+//  =========================================================================================
 void MeshBuilder::CreateTexturedQuad2D(const Vector2& center, const Vector2 & dimensions, const Vector2 & texCoordsAtMins, const Vector2 & texCoordsAtMaxs, const Rgba & tint)
 {
 	CreateTexturedQuad3D(Vector3(center.x, center.y, 0.f), dimensions, texCoordsAtMins, texCoordsAtMaxs, tint);
 }
 
+//  =========================================================================================
 void MeshBuilder::CreateTiledQuad2D(const Vector2& center, const Vector2& dimensions, const Vector2& cellDimensions, const Rgba& tint)
 {
 	CreateTiledQuad3D(Vector3(center.x, center.y, 0.f), Vector3(dimensions.x, dimensions.y, 0.f), cellDimensions, tint);
 }
 
+//  =========================================================================================
 void MeshBuilder::CreateTiledQuad3D(const Vector3& center, const Vector3& dimensions, const Vector2& cellDimensions, const Rgba& tint)
 {
 	MeshBuilder mb;
@@ -626,6 +671,7 @@ void MeshBuilder::CreateTiledQuad3D(const Vector3& center, const Vector3& dimens
 	}	
 }
 
+//  =========================================================================================
 void MeshBuilder::CreateScrollableQuad2D(const Vector2& center, const Vector2& dimensions, const Rgba& tint)
 {
 	int vertSize = GetVertexCount();
@@ -660,6 +706,7 @@ void MeshBuilder::CreateScrollableQuad2D(const Vector2& center, const Vector2& d
 	AddQuadIndices(vertSize + 0, vertSize + 1, vertSize + 2, vertSize + 3);
 }
 
+//  =========================================================================================
 void MeshBuilder::CreateStarQuads3D(const Vector3& center, const Vector3& dimensions, const Rgba& tint)
 {
 	int vertSize = GetVertexCount();
@@ -740,6 +787,7 @@ void MeshBuilder::CreateStarQuads3D(const Vector3& center, const Vector3& dimens
 	AddQuadIndices(vertSize + 8, vertSize + 9,vertSize + 10, vertSize + 11);
 }
 
+//  =========================================================================================
 void MeshBuilder::CreateLine(const Vector3& positionStart, const Vector3& positionEnd, const Rgba& color)
 {
 	MeshBuilder mb;
@@ -760,6 +808,7 @@ void MeshBuilder::CreateLine(const Vector3& positionStart, const Vector3& positi
 	//color
 }
 
+//  =========================================================================================
 void MeshBuilder::CreateLine2D(const Vector2 & positionStart, const Vector2 & positionEnd, const Rgba & color)
 {
 	Begin(LINES_DRAW_PRIMITIVE, false); 
@@ -778,6 +827,7 @@ void MeshBuilder::CreateLine2D(const Vector2 & positionStart, const Vector2 & po
 	//color
 }
 
+//  =========================================================================================
 void MeshBuilder::CreateBasis(const Vector3& positionStart, float scale)
 {
 	Begin(LINES_DRAW_PRIMITIVE, false); 
@@ -810,6 +860,7 @@ void MeshBuilder::CreateBasis(const Vector3& positionStart, float scale)
 	PushVertex(positionStart + (Vector3::RIGHT * scale));
 }
 
+//  =========================================================================================
 void MeshBuilder::CreateBasis(const Matrix44& basis, const Vector3& position, float scale)
 {
 	Begin(LINES_DRAW_PRIMITIVE, false); 
@@ -842,6 +893,7 @@ void MeshBuilder::CreateBasis(const Matrix44& basis, const Vector3& position, fl
 	PushVertex(position + (basis.GetRight()* scale));
 }
 
+//  =========================================================================================
 void MeshBuilder::CreateText2DFromPoint(const Vector2& startPos, float cellHeight, float aspectScale, const std::string& text, const Rgba& tint)
 {
 	Begin(TRIANGLES_DRAW_PRIMITIVE, true);
@@ -879,6 +931,7 @@ void MeshBuilder::CreateText2DFromPoint(const Vector2& startPos, float cellHeigh
 	}
 }
 
+//  =========================================================================================
 void MeshBuilder::CreateText2D(const Vector2& center, float cellHeight, float aspectScale, const std::string& text, const Rgba& tint)
 {
 	Begin(TRIANGLES_DRAW_PRIMITIVE, true); 
@@ -921,7 +974,7 @@ void MeshBuilder::CreateText2D(const Vector2& center, float cellHeight, float as
 	}
 }
 
-
+//  =========================================================================================
 void MeshBuilder::CreateText2DInAABB2(const Vector2& center, const Vector2& dimensions, float aspectScale, const std::string& text, const Rgba& tint)
 {
 	Begin(TRIANGLES_DRAW_PRIMITIVE, true);
@@ -968,7 +1021,8 @@ void MeshBuilder::CreateText2DInAABB2(const Vector2& center, const Vector2& dime
 	}
 }
 
-void MeshBuilder::CreateBillboardQuad3d(const Vector3& center, const Vector3& up, const Vector3& right, const Vector2& dimensions, const Rgba& tint)
+//  =========================================================================================
+void MeshBuilder::CreateBillboardQuad3D(const Vector3& center, const Vector3& up, const Vector3& right, const Vector2& dimensions, const Rgba& tint)
 {
 	MeshBuilder mb;
 
@@ -1019,7 +1073,7 @@ void MeshBuilder::CreateBillboardQuad3d(const Vector3& center, const Vector3& up
 	AddQuadIndices(vertSize, vertSize + 1, vertSize + 2, vertSize + 3);
 }
 
-
+//  =========================================================================================
 void MeshBuilder::CreateFromSurfacePatch(std::function<Vector3(float, float)> SurfacePatchFunc, const Vector2& uvRangeMin, const Vector2& uvRangeMax, const IntVector2& sampleFrequency, float cellUniformScale, const Rgba& tint)
 {
 	Begin(TRIANGLES_DRAW_PRIMITIVE, true); 
@@ -1069,7 +1123,7 @@ void MeshBuilder::CreateFromSurfacePatch(std::function<Vector3(float, float)> Su
 	return;
 }
 
-
+//  =========================================================================================
 void MeshBuilder::LoadObjectFromFile(const std::string& objFilePath)
 {
 	Begin(TRIANGLES_DRAW_PRIMITIVE, true); 
@@ -1171,6 +1225,7 @@ void MeshBuilder::LoadObjectFromFile(const std::string& objFilePath)
 	return;
 }
 
+//  =========================================================================================
 Vector4 MeshBuilder::GenerateTangent(const Vector3 & normal)
 {
 	Vector3 tangent = CrossProduct(normal, Vector3::UP);

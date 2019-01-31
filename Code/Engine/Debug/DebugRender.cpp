@@ -319,7 +319,7 @@ void DebugRender::CreateDebugBillboardQuad(const Vector3& center, const Vector3&
 	//mesh creation logic
 	MeshBuilder meshBuilder;
 
-	meshBuilder.CreateBillboardQuad3d(Vector3::ZERO, up, right, dimensions, Rgba::WHITE);
+	meshBuilder.CreateBillboardQuad3D(Vector3::ZERO, up, right, dimensions, Rgba::WHITE);
 	renderObject->m_mesh = meshBuilder.CreateMesh<VertexPCU>();
 
 	renderObject->m_transform.SetLocalPosition(center);

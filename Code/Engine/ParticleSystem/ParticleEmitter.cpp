@@ -78,7 +78,7 @@ void ParticleEmitter::Update(float deltaSeconds)
 		
 		m_particles[particleIndex].Update(deltaSeconds);
 		
-		meshBuilder.CreateBillboardQuad3d(m_particles[particleIndex].m_position, m_camera->m_transform->GetWorldUp(), m_camera->m_transform->GetWorldRight(), Vector2(1.f, 1.f), Rgba::WHITE);			
+		meshBuilder.CreateBillboardQuad3D(m_particles[particleIndex].m_position, m_camera->m_transform->GetWorldUp(), m_camera->m_transform->GetWorldRight(), Vector2(1.f, 1.f), Rgba::WHITE);			
 	}	
 
 	m_renderable->AddMesh(meshBuilder.CreateMesh<VertexPCU>());
