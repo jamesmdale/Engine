@@ -1,6 +1,8 @@
 #include "Engine\Math\Vector3.hpp"
 #include "Engine\Math\Vector4.hpp"
 #include "Engine\Math\Vector2.hpp"
+#include "Engine\Math\IntVector3.hpp"
+#include "Engine\Math\IntVector2.hpp"
 #include "Engine\Math\MathUtils.hpp"
 #include "Engine\Core\EngineCommon.hpp"
 #include <string>
@@ -60,10 +62,17 @@ Vector3::Vector3(const Vector4& vector)
 	z = vector.z;
 }
 
-Vector3::Vector3(const Vector2 & vector)
+Vector3::Vector3(const Vector2& vector)
 {
 	x = vector.x;
 	y = vector.y;
+	z = 0.f;
+}
+
+Vector3::Vector3(const IntVector2& vector)
+{
+	x = (float) vector.x;
+	y = (float) vector.y;
 	z = 0.f;
 }
 

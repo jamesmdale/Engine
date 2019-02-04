@@ -79,7 +79,7 @@ public:
 	void CreateQuad2D(const Vector2& center, const Vector2& dimensions, const Rgba& tint);
 	void CreateLine2D(const Vector2& startPosition, const Vector2& endPosition, float width, const Rgba& tint);
 	void CreateQuad2D(const AABB2& drawBounds, const Rgba& tint);
-	void CreateTexturedQuad2D(const Vector2& center, const Vector2& dimensions, const Vector2& texCoordsAtMins, const Vector2& texCoordsAtMaxs, const Rgba& tint);
+	void CreateTexturedQuad2D(const Vector2& center, const Vector2& dimensions, const Vector2& texCoordsAtMins, const Vector2& texCoordsAtMaxs, const Rgba& tint, const Vector2& pivot = Vector2::ZERO);
 	void CreateTiledQuad2D(const Vector2& center, const Vector2& dimensions, const Vector2& cellDimensions, const Rgba & tint);
 	void CreateScrollableQuad2D(const Vector2& center, const Vector2& dimensions, const Rgba& tint);
 

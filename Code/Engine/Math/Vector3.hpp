@@ -1,11 +1,11 @@
 #pragma once
 #include <math.h>
 #include "engine\math\MathUtils.hpp"
-#include "Engine\Math\IntVector3.hpp"
-#include "Engine\Math\Vector4.hpp"
 
 class Vector4;
 class Vector2;
+class IntVector3;
+class IntVector2;
 
 //-----------------------------------------------------------------------------------------------
 class Vector3
@@ -20,6 +20,7 @@ public:
 	explicit Vector3(const IntVector3& vector);
 	explicit Vector3(const Vector4& vector);
 	explicit Vector3(const Vector2& vector);
+	explicit Vector3(const IntVector2& vector);
 
 															// Operators
 	const Vector3 operator+( const Vector3& vecToAdd ) const;		// vec2 + vec2

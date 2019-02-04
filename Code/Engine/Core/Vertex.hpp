@@ -1,8 +1,9 @@
 #pragma once
-#include "engine\math\Vector2.hpp"
-#include "engine\core\Rgba.hpp"
-#include "engine\math\Vector3.hpp"
 #include <vector>
+#include "Engine\Core\Rgba.hpp"
+#include "Engine\Math\Vector2.hpp"
+#include "Engine\Math\Vector3.hpp"
+#include "Engine\Math\Vector4.hpp"
 
 struct VertexAttribute;
 class VertexLayout;

@@ -606,9 +606,9 @@ void MeshBuilder::CreateQuad2D(const AABB2& drawBounds, const Rgba& tint)
 }
 
 //  =========================================================================================
-void MeshBuilder::CreateTexturedQuad2D(const Vector2& center, const Vector2 & dimensions, const Vector2 & texCoordsAtMins, const Vector2 & texCoordsAtMaxs, const Rgba & tint)
+void MeshBuilder::CreateTexturedQuad2D(const Vector2& center, const Vector2& dimensions, const Vector2& texCoordsAtMins, const Vector2& texCoordsAtMaxs, const Rgba& tint, const Vector2& pivot)
 {
-	CreateTexturedQuad3D(Vector3(center.x, center.y, 0.f), dimensions, texCoordsAtMins, texCoordsAtMaxs, tint);
+	CreateTexturedQuad3D(Vector3(center.x - pivot.x, center.y - pivot.y, 0.f), dimensions, texCoordsAtMins, texCoordsAtMaxs, tint);
 }
 
 //  =========================================================================================
