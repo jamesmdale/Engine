@@ -42,6 +42,7 @@ float AsinfAsDegrees(float y, float radius);
 
 //random generation functions
 bool CheckRandomChance( float chanceForSuccess );
+bool FlipCoin();
 float GenerateRandomFloatInRangeLessThanOne(float min);
 float GetRandomFloatZeroToOne();
 float GetRandomFloatZeroOrOne();
