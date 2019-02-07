@@ -9,7 +9,6 @@
 #include "Engine\Time\Clock.hpp"
 #include "Engine\Time\Time.hpp"
 #include <string>
-#include "..\..\..\..\Code\Game\NetGame\GameNetMessages.hpp"
 
 NetSession* g_theNetSession = nullptr;
 NetMessageDefinition* NetSession::s_registeredMessageDefinitions[UINT8_MAX];

@@ -155,6 +155,12 @@ int GetDistance(const IntVector2& start, const IntVector2& end)
 	return returnFloat;	
 }
 
+int GetManhattanDistance(const IntVector2& start, const IntVector2& end)
+{
+	return abs (start.x - end.x) + abs (start.y - end.y) ;
+}
+		
+
 int GetDistanceSquared(const IntVector2& a, const IntVector2& b)
 {
 	int dx = a.x - b.x;

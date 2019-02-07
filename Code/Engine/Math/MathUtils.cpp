@@ -370,6 +370,12 @@ int RoundToNearestInt( float inValue )
 }
 
 //  =========================================================================================
+int RoundDownToInt(float inValue)
+{
+	return (int)floorf(inValue);
+}
+
+//  =========================================================================================
 float RoundDownToDecimalPlace(float inValue, int decimalPlace)
 {
 	return floorf(inValue * decimalPlace) / decimalPlace;
