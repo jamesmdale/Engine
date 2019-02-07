@@ -1,6 +1,6 @@
 #include "Engine\Core\Transform.hpp"
 
-
+//  =========================================================================================
 Transform::Transform(Transform* parentTransform)
 {
 	if(parentTransform != nullptr)
@@ -14,6 +14,7 @@ Transform::Transform(Transform* parentTransform)
 	}
 }
 
+//  =========================================================================================
 Transform::Transform(const Vector3& position, const Vector3& rotation, const Vector3& scale)
 {
 	SetLocalPosition(position);
@@ -23,6 +24,7 @@ Transform::Transform(const Vector3& position, const Vector3& rotation, const Vec
 	SetTransformHiearchyDirty();
 }
 
+//  =========================================================================================
 Transform::~Transform()
 {
 	m_parentTransform = nullptr;
@@ -33,6 +35,7 @@ Transform::~Transform()
 	}
 }
 
+//  =========================================================================================
 void Transform::SetLocalPosition(Vector3 position)
 {
 	if(position != m_localPosition)
@@ -42,6 +45,7 @@ void Transform::SetLocalPosition(Vector3 position)
 	}
 }
 
+//  =========================================================================================
 void Transform::SetLocalRotation(Vector3 rotation)
 {
 	if(rotation != m_localRotation)
@@ -51,6 +55,7 @@ void Transform::SetLocalRotation(Vector3 rotation)
 	}	
 }
 
+//  =========================================================================================
 void Transform::SetLocalScale(Vector3 scale)
 {
 	if(scale != m_localScale)
@@ -60,12 +65,14 @@ void Transform::SetLocalScale(Vector3 scale)
 	}	
 }
 
+//  =========================================================================================
 void Transform::SetRotationFromMatrix(const Matrix44& matrix)
 {
 	//SetLocalPosition(matrix.GetPosition());
 	SetLocalRotation(matrix.GetRotation());
 }
 
+//  =========================================================================================
 void Transform::SetFromMatrix(const Matrix44 & matrix)
 {
 	SetLocalScale(matrix.GetScale());
@@ -73,25 +80,28 @@ void Transform::SetFromMatrix(const Matrix44 & matrix)
 	SetLocalPosition(matrix.GetPosition());	
 }
 
-
+//  =========================================================================================
 void Transform::SetIBasis(const Vector4& iBasis)
 {
 	m_transformMatrix.SetIBasis(iBasis);
 	SetTransformHiearchyDirty();
 }
 
+//  =========================================================================================
 void Transform::SetJBasis(const Vector4& jBasis)
 {
 	m_transformMatrix.SetJBasis(jBasis);
 	SetTransformHiearchyDirty();
 }
 
+//  =========================================================================================
 void Transform::SetKBasis(const Vector4& kBasis)
 {
 	m_transformMatrix.SetKBasis(kBasis);
 	SetTransformHiearchyDirty();
 }
 
+//  =========================================================================================
 void Transform::AddRotation(Vector3 rotation)
 {
 	if(rotation != Vector3::ZERO)
@@ -101,6 +111,7 @@ void Transform::AddRotation(Vector3 rotation)
 	}
 }
 
+//  =========================================================================================
 void Transform::TranslatePosition(Vector3 position)
 {
 	if(position != Vector3::ZERO)
@@ -110,37 +121,37 @@ void Transform::TranslatePosition(Vector3 position)
 	}
 }
 
-//gets identity with point;
+//gets identity with point;  =========================================================================================
 Matrix44 Transform::GetLocalTranslationMatrix()
 {
 	return Matrix44::MakeTranslation3D(m_localPosition);
 }
 
-//gets the rotation matrix using m_rotation.x
+//gets the rotation matrix using m_rotation.x  =========================================================================================
 Matrix44 Transform::GetLocalRotationMatrixX() 
 {
 	return Matrix44::MakeRotationAroundX3D(m_localRotation.x);
 }
 
-//gets the rotation matrix using m_rotation.y
+//gets the rotation matrix using m_rotation.y  =========================================================================================
 Matrix44 Transform::GetLocalRotationMatrixY()
 {
 	return Matrix44::MakeRotationAroundY3D(m_localRotation.y);
 }
 
-//gets the rotation matrix using m_rotation.z
+//gets the rotation matrix using m_rotation.z  =========================================================================================
 Matrix44 Transform::GetLocalRotationMatrixZ()
 {
 	return Matrix44::MakeRotationAroundZ3D(m_localRotation.z);
 }
 
-//gets the scale matrix
+//gets the scale matrix  =========================================================================================
 Matrix44 Transform::GetLocalScaleMatrix()
 {
 	return Matrix44::MakeScale3D(m_localScale.x, m_localScale.y, m_localScale.z);
 }
 
-//gets complete matrix
+//gets complete matrix  =========================================================================================
 Matrix44 Transform::GetWorldMatrix()
 {
 	if(m_isDirty == true)
@@ -168,6 +179,7 @@ Matrix44 Transform::GetWorldMatrix()
 	return m_transformMatrix;
 }
 
+//  =========================================================================================
 Vector3 Transform::GetWorldPosition()
 {
 	if(m_parentTransform != nullptr)
@@ -180,26 +192,31 @@ Vector3 Transform::GetWorldPosition()
 	}
 }
 
+//  =========================================================================================
 Vector3 Transform::GetWorldUp()
 {
 	return GetWorldMatrix().GetUp();
 }
 
+//  =========================================================================================
 Vector3 Transform::GetWorldForward()
 {
 	return GetWorldMatrix().GetForward();
 }
 
+//  =========================================================================================
 Vector3 Transform::GetWorldRight()
 {
 	return GetWorldMatrix().GetRight();
 }
 
+//  =========================================================================================
 bool Transform::IsTransformDirty()
 {
 	return m_isDirty;
 }
 
+//  =========================================================================================
 void Transform::SetTransformHiearchyDirty()
 {
 	m_isDirty = true;
@@ -234,12 +251,14 @@ void Transform::SetTransformHiearchyDirty()
 //	m_isDirty = false;
 //}
 
+//  =========================================================================================
 void Transform::AddChildTransform(Transform* childTransform)
 {
 	childTransform->m_parentTransform = this;
 	m_childrenTransforms.push_back(childTransform);
 }
 
+//  =========================================================================================
 void Transform::RemoveChildTransform(Transform * child)
 {
 	for(int childIndex = 0; childIndex < (int)m_childrenTransforms.size(); childIndex++)
@@ -253,6 +272,7 @@ void Transform::RemoveChildTransform(Transform * child)
 	}
 }
 
+//  =========================================================================================
 void Transform::CopyPositionRotationScaleFromTransform(const Transform& copyFrom)
 {
 	SetLocalPosition(copyFrom.m_localPosition);
@@ -260,7 +280,8 @@ void Transform::CopyPositionRotationScaleFromTransform(const Transform& copyFrom
 	SetLocalScale(copyFrom.m_localScale);
 }
 
-void Transform::ResetPositionData()
+//  =========================================================================================
+void Transform::ResetTransformData()
 {
 	SetLocalPosition(Vector3::ZERO);
 	SetLocalRotation(Vector3::ZERO);

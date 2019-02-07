@@ -4,6 +4,7 @@
 
 //https://msdn.microsoft.com/en-us/library/windows/desktop/bb281710(v=vs.85).aspx  - View Matrix Reference
 
+//  =========================================================================================
 Camera::Camera()
 {
 	Window* theWindow = Window::GetInstance();
@@ -20,6 +21,7 @@ Camera::Camera()
 	theWindow = nullptr;
 }
 
+//  =========================================================================================
 Camera::~Camera()
 {
 	delete(m_transform);
@@ -29,18 +31,19 @@ Camera::~Camera()
 	m_skybox = nullptr;
 }
 
-//will add later
+//will add later  =========================================================================================
 void Camera::SetColorTarget(Texture* colorTarget)
 {
 	m_frameBufferOutput.m_colorTarget = colorTarget;
 }
 
+//  =========================================================================================
 void Camera::SetDepthStencilTarget(Texture* depthTarget)
 {
 	m_frameBufferOutput.m_depthStencilTarget = depthTarget;
 }
 
-//model setters
+//model setters =========================================================================================
 void Camera::LookAt(Vector3 position, Vector3 target, Vector3 up)
 {
 	Vector3 zAxis = target - position;
@@ -59,13 +62,13 @@ void Camera::LookAt(Vector3 position, Vector3 target, Vector3 up)
 	
 	Vector4 positionDisplacement = Vector4(xAxisDot, yAxisDot, zAxisDot, 1.f);
 
-	m_transform->m_transformMatrix = Matrix44(Vector4(xAxis, 0.f), Vector4(yAxis, 0.f), Vector4(zAxis, 0.f), positionDisplacement);
+	m_transform->SetFromMatrix(Matrix44(Vector4(xAxis, 0.f), Vector4(yAxis, 0.f), Vector4(zAxis, 0.f), positionDisplacement));
 	
 	m_viewMatrix = m_transform->m_transformMatrix.InvertFastToNew();
 	//inverse of m_cameraMatrix = view
 }
 
-//this adds to current rotation
+//this adds to current rotation =========================================================================================
 void Camera::RotateByEuler(Vector3 rotation) 
 {
 	m_transform->AddRotation(rotation);
@@ -75,7 +78,7 @@ void Camera::RotateByEuler(Vector3 rotation)
 	}
 }
 
-//this adds to current position
+//this adds to current position =========================================================================================
 void Camera::Translate(Vector3 position) 
 {
 	m_transform->TranslatePosition(position);
@@ -85,7 +88,7 @@ void Camera::Translate(Vector3 position)
 	}	
 }
 
-//sets current position
+//sets current position =========================================================================================
 void Camera::SetPosition(Vector3 position)
 {
 	m_transform->SetLocalPosition(position);
@@ -100,12 +103,13 @@ void Camera::SetView(Matrix44 view)
 	m_viewMatrix = view;
 }
 
-//projection settings
+//projection settings =========================================================================================
 void Camera::SetProjection(Matrix44 projection)
 {
 	m_projMatrix = projection;
 }
 
+//  =========================================================================================
 void Camera::SetProjectionOrtho(float size, float aspectRatio, float orthoNear, float orthoFar)
 {
 	float orthoHeight = size;
@@ -114,6 +118,7 @@ void Camera::SetProjectionOrtho(float size, float aspectRatio, float orthoNear, 
 	SetOrtho(-orthoWidth/2.f, orthoWidth/2, -orthoHeight/2.f, orthoHeight/2.f, orthoNear, orthoFar);
 }
 
+//  =========================================================================================
 void Camera::SetOrtho(const float leftVal, const float rightVal, const float bottomVal, const float topVal, const float nearVal, const float farVal)
 {
 	// Establish a 3D (orthographic) drawing coordinate system: (0,0) bottom-left to (1000,1000) top-right - UPDATED: 8/24 JMD
@@ -131,6 +136,7 @@ void Camera::SetOrtho(const float leftVal, const float rightVal, const float bot
 	SetProjection(orthoProjection);
 }
 
+//  =========================================================================================
 void Camera::SetPerspective(float fovDegrees, float aspect, float nearVal, float farVal)
 {
 	Matrix44 perspectiveProjection = Matrix44();
@@ -140,6 +146,7 @@ void Camera::SetPerspective(float fovDegrees, float aspect, float nearVal, float
 	SetProjection(perspectiveProjection);
 }
 
+//  =========================================================================================
 Matrix44 Camera::GetView()
 {
 	m_viewMatrix = m_transform->GetWorldMatrix();
@@ -147,6 +154,7 @@ Matrix44 Camera::GetView()
 	return m_viewMatrix;
 }
 
+//  =========================================================================================
 Matrix44 Camera::GetViewProjection()
 {
 	Matrix44 viewProjection = m_projMatrix;

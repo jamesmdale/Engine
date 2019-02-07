@@ -76,7 +76,7 @@ public:
 
 	//helper methods
 	void CopyPositionRotationScaleFromTransform(const Transform& copyFrom);
-	void ResetPositionData();
+	void ResetTransformData();
 
 public:
 	Matrix44 m_transformMatrix;

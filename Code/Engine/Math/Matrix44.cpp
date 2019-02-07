@@ -6,6 +6,7 @@
 TODO("Refactor matrix class so make methods aren't creating pointers");
 const Matrix44 Matrix44::IDENTITY = Matrix44();
 
+//  =========================================================================================
 Matrix44::Matrix44( const float* sixteenValuesBasisMajor ) // float[16] array in order Ix, Iy...
 {
 	Ix = *sixteenValuesBasisMajor;
@@ -26,6 +27,7 @@ Matrix44::Matrix44( const float* sixteenValuesBasisMajor ) // float[16] array in
 	Tw = *(sixteenValuesBasisMajor + 15);
 }
 
+//  =========================================================================================
 Matrix44::Matrix44( const Vector2& iBasis, const Vector2& jBasis, const Vector2& translation=Vector2(0.f,0.f) )
 {
 	SetIdentity();
@@ -37,7 +39,7 @@ Matrix44::Matrix44( const Vector2& iBasis, const Vector2& jBasis, const Vector2&
 	Ty = translation.y;
 }
 
-
+//  =========================================================================================
 Matrix44::Matrix44(const Vector3& iBasis, const Vector3& jBasis, const Vector3& kBasis, const Vector3& translation=Vector3(0.f, 0.f, 0.f))
 {
 	SetIdentity();
@@ -55,6 +57,7 @@ Matrix44::Matrix44(const Vector3& iBasis, const Vector3& jBasis, const Vector3& 
 	Tz = translation.z;
 }
 
+//  =========================================================================================
 Matrix44::Matrix44(const Vector4& iBasis, const Vector4& jBasis, const Vector4& kBasis, const Vector4& translation)
 {
 	SetIdentity();
@@ -96,6 +99,8 @@ Vector2 Matrix44::TransformPosition2D( const Vector2& position2D ) // Written as
 
 	return newPosition;
 }
+
+//  =========================================================================================
 Vector2 Matrix44::TransformDisplacement2D( const Vector2& displacement2D ) // Written assuming z=0, w=0
 {
 	Vector2 newPosition;
@@ -105,6 +110,7 @@ Vector2 Matrix44::TransformDisplacement2D( const Vector2& displacement2D ) // Wr
 	return newPosition;
 }
 
+//  =========================================================================================
 Vector3 Matrix44::TransformPosition3D(const Vector3& position3D) //Written assuming w = 0
 {
 	Vector3 newPosition;
@@ -115,6 +121,7 @@ Vector3 Matrix44::TransformPosition3D(const Vector3& position3D) //Written assum
 	return newPosition;
 }
 
+//  =========================================================================================
 Vector3 Matrix44::TransformDisplacement3D(const Vector3& displacement3D) //Written assuming w=0
 {
 	Vector3 newPosition;
@@ -125,7 +132,7 @@ Vector3 Matrix44::TransformDisplacement3D(const Vector3& displacement3D) //Writt
 	return newPosition;
 }
 
-																  // Mutators
+// Mutators  =========================================================================================
 void Matrix44::SetIdentity()
 {
 	Ix = 1.0f;
@@ -146,6 +153,7 @@ void Matrix44::SetIdentity()
 	Tw = 1.0f;
 }
 
+//  =========================================================================================
 void Matrix44::SetInvalid()
 {
 	Ix = 9999.0f;
@@ -166,6 +174,7 @@ void Matrix44::SetInvalid()
 	Tw = 9999.0f;
 }
 
+//  =========================================================================================
 void Matrix44::SetEmpty()
 {
 	Ix = 0.0f;
@@ -186,6 +195,7 @@ void Matrix44::SetEmpty()
 	Tw = 0.0f;
 }
 
+//  =========================================================================================
 void Matrix44::SetValues( const float* sixteenValuesBasisMajor ) // float[16] array in order Ix, Iy...
 {
 	Ix = *sixteenValuesBasisMajor;
@@ -205,6 +215,8 @@ void Matrix44::SetValues( const float* sixteenValuesBasisMajor ) // float[16] ar
 	Tz = *sixteenValuesBasisMajor + 14;
 	Tw = *sixteenValuesBasisMajor + 15;
 }
+
+//  =========================================================================================
 void Matrix44::Append( const Matrix44& matrixToAppend ) // a.k.a. Concatenate (right-multiply)
 {
 	Matrix44 tempMatrix = CloneTemporaryMatrix44(*this);
@@ -231,7 +243,7 @@ void Matrix44::Append( const Matrix44& matrixToAppend ) // a.k.a. Concatenate (r
 	Tw = (tempMatrix.Iw * matrixToAppend.Tx) + (tempMatrix.Jw * matrixToAppend.Ty) + (tempMatrix.Kw * matrixToAppend.Tz) + (tempMatrix.Tw * matrixToAppend.Tw);
 }
 
-
+//  =========================================================================================
 void Matrix44::RotateDegrees2D( float rotationDegreesAboutZ ) //
 {
 	Matrix44 rotationMatrix = Matrix44();
@@ -244,6 +256,8 @@ void Matrix44::RotateDegrees2D( float rotationDegreesAboutZ ) //
 
 	this->Append(rotationMatrix);
 }
+
+//  =========================================================================================
 void Matrix44::Translate2D( const Vector2& translation )
 {
 	Matrix44 translationMatrix = Matrix44();
@@ -254,6 +268,8 @@ void Matrix44::Translate2D( const Vector2& translation )
 
 	this->Append(translationMatrix);
 }
+
+//  =========================================================================================
 void Matrix44::ScaleUniform2D( float scaleXY )
 {
 	Matrix44 scaleMatrix = Matrix44();
@@ -264,6 +280,8 @@ void Matrix44::ScaleUniform2D( float scaleXY )
 
 	this->Append(scaleMatrix);
 }
+
+//  =========================================================================================
 void Matrix44::Scale2D( float scaleX, float scaleY )
 {
 	Matrix44 scaleMatrix = Matrix44();
@@ -275,6 +293,7 @@ void Matrix44::Scale2D( float scaleX, float scaleY )
 	this->Append(scaleMatrix);
 }
 
+//  =========================================================================================
 void Matrix44::Translate3D( const Vector3& translation )
 {
 	Matrix44 translationMatrix = Matrix44();
@@ -287,6 +306,7 @@ void Matrix44::Translate3D( const Vector3& translation )
 	this->Append(translationMatrix);
 }
 
+//  =========================================================================================
 void Matrix44::RotateDegreesAroundX3D(float rotationDegreesAroundX)
 {
 	Matrix44 rotationMatrix = Matrix44();
@@ -300,6 +320,7 @@ void Matrix44::RotateDegreesAroundX3D(float rotationDegreesAroundX)
 	this->Append(rotationMatrix);
 }
 
+//  =========================================================================================
 void Matrix44::RotateDegreesAroundY3D(float rotationDegreesAroundY)
 {
 	Matrix44 rotationMatrix = Matrix44();
@@ -313,6 +334,7 @@ void Matrix44::RotateDegreesAroundY3D(float rotationDegreesAroundY)
 	this->Append(rotationMatrix);
 }	
 
+//  =========================================================================================
 void Matrix44::RotateDegreesAroundZ3D(float rotationDegreesAroundZ)
 {	
 	Matrix44 rotationMatrix = Matrix44();
@@ -326,6 +348,7 @@ void Matrix44::RotateDegreesAroundZ3D(float rotationDegreesAroundZ)
 	this->Append(rotationMatrix);
 }
 
+//  =========================================================================================
 void Matrix44::ScaleUniform3D( float scaleXYZ )
 {
 	Matrix44 scaleMatrix = Matrix44();
@@ -338,6 +361,7 @@ void Matrix44::ScaleUniform3D( float scaleXYZ )
 	this->Append(scaleMatrix);
 }
 
+//  =========================================================================================
 void Matrix44::Scale3D( float scaleX, float scaleY, float scaleZ )
 {
 	Matrix44 scaleMatrix = Matrix44();
@@ -350,6 +374,7 @@ void Matrix44::Scale3D( float scaleX, float scaleY, float scaleZ )
 	this->Append(scaleMatrix);
 }
 
+//  =========================================================================================
 Matrix44 Matrix44::TurnToward(Matrix44& target, float maxTurnAngle)
 {
 	//store off position to stick back in matrix after we've rotated
@@ -380,7 +405,8 @@ Matrix44 Matrix44::TurnToward(Matrix44& target, float maxTurnAngle)
 	return finalMatrix;	
 }
 
-// Producers
+//  Producers =========================================================================================
+
 Matrix44 Matrix44::MakeRotationDegrees2D( float rotationDegreesAboutZ )
 {
 	Matrix44 rotationMatrix = Matrix44();
@@ -393,6 +419,8 @@ Matrix44 Matrix44::MakeRotationDegrees2D( float rotationDegreesAboutZ )
 
 	return rotationMatrix;
 }
+
+//  =========================================================================================
 Matrix44 Matrix44::MakeTranslation2D( const Vector2& translation )
 {
 	Matrix44 translationMatrix = Matrix44();
@@ -403,6 +431,8 @@ Matrix44 Matrix44::MakeTranslation2D( const Vector2& translation )
 
 	return translationMatrix;
 }
+
+//  =========================================================================================
 Matrix44 Matrix44::MakeScaleUniform2D( float scaleXY )
 {
 	Matrix44 scaleMatrix = Matrix44();
@@ -413,6 +443,8 @@ Matrix44 Matrix44::MakeScaleUniform2D( float scaleXY )
 
 	return scaleMatrix;
 }
+
+//  =========================================================================================
 Matrix44 Matrix44::MakeScale2D( float scaleX, float scaleY )
 {
 	Matrix44 scaleMatrix = Matrix44();
@@ -423,6 +455,8 @@ Matrix44 Matrix44::MakeScale2D( float scaleX, float scaleY )
 
 	return scaleMatrix;
 }
+
+//  =========================================================================================
 Matrix44 Matrix44::MakeOrtho2D( const Vector2& bottomLeft, const Vector2& topRight )
 {
 	Matrix44 orthoMatrix;
@@ -439,6 +473,7 @@ Matrix44 Matrix44::MakeOrtho2D( const Vector2& bottomLeft, const Vector2& topRig
 	return orthoMatrix;
 }
 
+//  =========================================================================================
 Matrix44 Matrix44::MakeOrtho3D(const Vector3& center, const Vector2& dimensions, float nearPlane, float farPlane)
 {
 	Matrix44 orthoMatrix;
@@ -457,8 +492,7 @@ Matrix44 Matrix44::MakeOrtho3D(const Vector3& center, const Vector2& dimensions,
 	return orthoMatrix;
 }
 
-
-
+//  =========================================================================================
 Matrix44 Matrix44::MakeTranslation3D( const Vector3& translation )
 {
 	Matrix44 translationMatrix;
@@ -471,6 +505,7 @@ Matrix44 Matrix44::MakeTranslation3D( const Vector3& translation )
 	return translationMatrix;
 }
 
+//  =========================================================================================
 Matrix44 Matrix44::MakeRotationAroundX3D(float rotationDegreesAroundX)
 {
 	Matrix44 rotationMatrix;
@@ -487,6 +522,7 @@ Matrix44 Matrix44::MakeRotationAroundX3D(float rotationDegreesAroundX)
 	return rotationMatrix;
 }
 
+//  =========================================================================================
 Matrix44 Matrix44::MakeRotationAroundY3D(float rotationDegreesAroundY)
 {
 	Matrix44 rotationMatrix;
@@ -503,6 +539,7 @@ Matrix44 Matrix44::MakeRotationAroundY3D(float rotationDegreesAroundY)
 	return rotationMatrix;
 }
 
+//  =========================================================================================
 Matrix44 Matrix44::MakeRotationAroundZ3D(float rotationDegreesAroundZ)
 {
 	Matrix44 rotationMatrix;
@@ -519,6 +556,7 @@ Matrix44 Matrix44::MakeRotationAroundZ3D(float rotationDegreesAroundZ)
 	return rotationMatrix;
 }
 
+//  =========================================================================================
 Matrix44 Matrix44::MakeScaleUniform3D( float scaleXYZ )
 {
 	Matrix44 scaleMatrix;
@@ -531,6 +569,7 @@ Matrix44 Matrix44::MakeScaleUniform3D( float scaleXYZ )
 	return scaleMatrix;
 }
 
+//  =========================================================================================
 Matrix44 Matrix44::MakeScale3D( float scaleX, float scaleY, float scaleZ )
 {
 	Matrix44 scaleMatrix;
@@ -543,6 +582,7 @@ Matrix44 Matrix44::MakeScale3D( float scaleX, float scaleY, float scaleZ )
 	return scaleMatrix;
 }
 
+//  =========================================================================================
 Matrix44 Matrix44::CloneTemporaryMatrix44(const Matrix44& matrixToClone)
 {
 	Matrix44 clonedMatrix44 = Matrix44();
@@ -569,6 +609,7 @@ Matrix44 Matrix44::CloneTemporaryMatrix44(const Matrix44& matrixToClone)
 	return clonedMatrix44;
 }
 
+//  =========================================================================================
 Matrix44 Matrix44::SphericalInterpolateMatrix(Matrix44& start, Matrix44& end, float fractionTwoardEnd)
 {
 	Vector3 startRight = start.GetRight();
@@ -592,6 +633,7 @@ Matrix44 Matrix44::SphericalInterpolateMatrix(Matrix44& start, Matrix44& end, fl
 	return Matrix44(right, up, forward, translation);
 }
 
+//  =========================================================================================
 Matrix44 Matrix44::LookAt(const Vector3& position, const Vector3& target, const Vector3& up)
 {
 	Vector3 zAxis = target - position;
@@ -612,6 +654,7 @@ Matrix44 Matrix44::LookAt(const Vector3& position, const Vector3& target, const 
 	return lookAtMatrix;
 }
 
+//  =========================================================================================
 void Matrix44::InvertFast()
 {
 	Vector3 translation = GetPosition();
@@ -630,6 +673,7 @@ void Matrix44::InvertFast()
 	
 }
 
+//  =========================================================================================
 Matrix44 Matrix44::InvertFastToNew()
 {
 	Matrix44 invertedMatrix = *this;
@@ -653,6 +697,7 @@ Matrix44 Matrix44::InvertFastToNew()
 	return invertedMatrix;
 }
 
+//  =========================================================================================
 void Matrix44::TransposeRotation()
 {
 	Matrix44 tempMatrix = *this;
@@ -667,6 +712,7 @@ void Matrix44::TransposeRotation()
 	this->Ky = tempMatrix.Jz;
 }
 
+//  =========================================================================================
 void  Matrix44::Transpose()
 {
 	Matrix44 tempMatrix = *this;
@@ -684,6 +730,7 @@ void  Matrix44::Transpose()
 	this->Kw = tempMatrix.Tz;
 }
 
+//  =========================================================================================
 Matrix44 Matrix44::MakeRotationMatrix(Vector3 rotation)
 {
 	float cosX = CosDegrees(rotation.x);
@@ -723,12 +770,13 @@ Matrix44 Matrix44::MakeRotationMatrix(Vector3 rotation)
 	return rotationMatrix;
 }
 
+//  =========================================================================================
 Vector3 Matrix44::GetRotationFromMatrix(const Matrix44& matrix)
 {
 	return matrix.GetRotation();
 }
 
-//xyz rows
+//xyz rows  =========================================================================================
 void Matrix44::SetXRow(const Vector4& row)
 {
 	Ix = row.x;
@@ -737,6 +785,7 @@ void Matrix44::SetXRow(const Vector4& row)
 	Tx = row.w;
 }
 
+//  =========================================================================================
 void Matrix44::SetYRow(const Vector4& row)
 {
 	Iy = row.x;
@@ -745,6 +794,7 @@ void Matrix44::SetYRow(const Vector4& row)
 	Ty = row.w;
 }
 
+//  =========================================================================================
 void Matrix44::SetZRow(const Vector4& row)
 {
 	Iz = row.x;
@@ -753,6 +803,7 @@ void Matrix44::SetZRow(const Vector4& row)
 	Tz = row.w;
 }
 
+//  =========================================================================================
 void Matrix44::SetWRow(const Vector4& row)
 {
 	Iw = row.x;
@@ -761,7 +812,7 @@ void Matrix44::SetWRow(const Vector4& row)
 	Tw = row.w;
 }
 
-//basis
+//basis  =========================================================================================
 void Matrix44::SetIBasis(const Vector4& basis)
 {
 	Ix = basis.x;
@@ -770,6 +821,7 @@ void Matrix44::SetIBasis(const Vector4& basis)
 	Iw = basis.w;
 }
 
+//  =========================================================================================
 void Matrix44::SetJBasis(const Vector4& basis)
 {
 	Jx = basis.x;
@@ -778,6 +830,7 @@ void Matrix44::SetJBasis(const Vector4& basis)
 	Jw = basis.w;
 }
 
+//  =========================================================================================
 void Matrix44::SetKBasis(const Vector4& basis)
 {
 	Kx = basis.x;
@@ -786,6 +839,7 @@ void Matrix44::SetKBasis(const Vector4& basis)
 	Kw = basis.w;
 }
 
+//  =========================================================================================
 void Matrix44::SetTBasis(const Vector4& basis)
 {
 	Tx = basis.x;
@@ -794,6 +848,7 @@ void Matrix44::SetTBasis(const Vector4& basis)
 	Tw = basis.w;
 }
 
+//  =========================================================================================
 void Matrix44::SetTranslation(const Vector3& translation)
 {
 	Tx = translation.x;
@@ -802,7 +857,7 @@ void Matrix44::SetTranslation(const Vector3& translation)
 	Tw = 1.f;
 }
 
-
+//  =========================================================================================
 Vector3 Matrix44::GetRotation() const
 {
 	float xDegrees;
@@ -829,11 +884,13 @@ Vector3 Matrix44::GetRotation() const
 	return Vector3(xDegrees, yDegrees, zDegrees);
 }
 
+//  =========================================================================================
 Vector3 Matrix44::GetScale() const
 {
 	return Vector3( GetIBasis().GetLength(), GetJBasis().GetLength(), GetKBasis().GetLength());	
 }
 
+//  =========================================================================================
 Vector3 Matrix44::GetRight() const
 {
 	Vector3 rightVector = Vector3(GetIBasis());
@@ -841,6 +898,7 @@ Vector3 Matrix44::GetRight() const
 	return rightVector;
 }
 
+//  =========================================================================================
 Vector3 Matrix44::GetUp() const
 {
 	Vector3 upVector = Vector3(GetJBasis());
@@ -848,6 +906,7 @@ Vector3 Matrix44::GetUp() const
 	return upVector;
 }
 
+//  =========================================================================================
 Vector3 Matrix44::GetForward() const
 {
 	Vector3 forwardVector = Vector3(GetKBasis());
@@ -855,6 +914,7 @@ Vector3 Matrix44::GetForward() const
 	return forwardVector;
 }
 
+//  =========================================================================================
 Vector2 Matrix44::GetRight2D() const
 {
 	Vector3 forwardVector = Vector3(GetIBasis());
@@ -862,6 +922,7 @@ Vector2 Matrix44::GetRight2D() const
 	return Vector2(forwardVector.x, forwardVector.y);
 }
 
+//  =========================================================================================
 Vector2 Matrix44::GetUp2D() const
 {
 	Vector3 forwardVector = Vector3(GetKBasis());
@@ -869,8 +930,7 @@ Vector2 Matrix44::GetUp2D() const
 	return Vector2(forwardVector.x, forwardVector.y);
 }
 
-
-
+//  =========================================================================================
 void Matrix44::SetFromBasisVectors(Vector4 iBasis, Vector4 jBasis, Vector4 kBasis, Vector4 tBasis)
 {
 	SetIBasis(iBasis);
@@ -879,6 +939,7 @@ void Matrix44::SetFromBasisVectors(Vector4 iBasis, Vector4 jBasis, Vector4 kBasi
 	SetTBasis(tBasis);
 }
 
+//  =========================================================================================
 void Matrix44::PerspectiveProjection(float fovDegrees, float aspect, float nearZ, float farZ)
 {
 	float d = 1.0f / TanDegrees(fovDegrees/2.f);
@@ -894,6 +955,7 @@ void Matrix44::PerspectiveProjection(float fovDegrees, float aspect, float nearZ
 	SetFromBasisVectors( iBasis, jBasis, kBasis, tBasis );
 }
 
+//  =========================================================================================
 /*
 ===============
 |ix	jx	kx	tx|
@@ -910,7 +972,7 @@ void Matrix44::PerspectiveProjection(float fovDegrees, float aspect, float nearZ
 ===============
 
 */
-
+//  =========================================================================================
 float Matrix44::GetValueAtIndex(int index)
 {
 	index = ClampInt(index, 0, 15);
@@ -971,6 +1033,7 @@ float Matrix44::GetValueAtIndex(int index)
 	return value;
 }
 
+//  =========================================================================================
 float Matrix44::GetValueAtIndex(int indexI, int indexJ)
 {
 	//insure indexes are inside matrix bounds
@@ -980,6 +1043,7 @@ float Matrix44::GetValueAtIndex(int indexI, int indexJ)
 	return GetValueAtIndex((indexI * 4) + indexJ);
 }
 
+//  =========================================================================================
 float Matrix44::GetTrace()
 {
 	float sum = 0.0f;
@@ -992,6 +1056,7 @@ float Matrix44::GetTrace()
 	return sum;
 }
 
+//  =========================================================================================
 /*
 ===============
 |ix	jx	kx	tx|
@@ -1006,7 +1071,7 @@ EQUALS
 |2	6	10	14|
 |3	7	11	15|
 ===============
-
+//  =========================================================================================
 */
 
 void Matrix44::SetValueAtIndex(int index, float value)
@@ -1064,6 +1129,7 @@ void Matrix44::SetValueAtIndex(int index, float value)
 	}
 }
 
+//  =========================================================================================
 bool Matrix44::Invert()
 {
 	Matrix44 inverse;
@@ -1215,8 +1281,7 @@ bool Matrix44::Invert()
 	return true;
 }
 
-
-
+//  =========================================================================================
 Matrix44 Matrix44::GetInverse()
 {
 	Matrix44 inverseMatrix = *this;
