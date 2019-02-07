@@ -10,6 +10,7 @@ class Matrix44;
 
 //misc
 int RoundToNearestInt( float inValue );
+int RoundDownToInt( float inValue );
 float RoundDownToDecimalPlace(float inValue, int decimalPlace); //100 would be 0.00
 float CalculateXPoint(float centerX, float radius, float radians);
 float CalculateYPoint(float centerY, float radius, float radians);
@@ -42,6 +43,7 @@ float AsinfAsDegrees(float y, float radius);
 
 //random generation functions
 bool CheckRandomChance( float chanceForSuccess );
+bool FlipCoin();
 float GenerateRandomFloatInRangeLessThanOne(float min);
 float GetRandomFloatZeroToOne();
 float GetRandomFloatZeroOrOne();

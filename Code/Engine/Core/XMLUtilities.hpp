@@ -6,10 +6,11 @@
 #include "Engine\Math\FloatRange.hpp"
 #include "Engine\Math\IntVector2.hpp"
 #include "Engine\Math\AABB2.hpp"
+#include "Engine\Core\EngineCommon.hpp"
 #include <string>
 #include <vector>
 
-
+uint16 ParseXmlAttribute(const tinyxml2::XMLElement& element, const char* attributeName, uint16 defaultValue);
 int ParseXmlAttribute( const tinyxml2::XMLElement& element, const char* attributeName, int defaultValue );
 char ParseXmlAttribute( const tinyxml2::XMLElement& element, const char* attributeName, char defaultValue );
 bool ParseXmlAttribute( const tinyxml2::XMLElement& element, const char* attributeName, bool defaultValue );

@@ -11,6 +11,7 @@ constexpr float PI = static_cast<float>(3.14159);
 constexpr float EPSILON = static_cast<float>(0.001);
 constexpr float UINFINITY = INFINITY;
 
+//  =========================================================================================
 float ConvertDegreesToRadians(float degrees)
 {
 	float radians;
@@ -20,6 +21,7 @@ float ConvertDegreesToRadians(float degrees)
 	return (float)radians;
 }
 
+//  =========================================================================================
 int GetRandomIntLessThan(int maxNotInclusive)
 {
 	if(maxNotInclusive == 0)
@@ -29,6 +31,7 @@ int GetRandomIntLessThan(int maxNotInclusive)
 	return random;
 }
 
+//  =========================================================================================
 unsigned int GetRandomUintLessThan(unsigned int maxNotInclusive)
 {
 	if(maxNotInclusive == 0)
@@ -38,11 +41,13 @@ unsigned int GetRandomUintLessThan(unsigned int maxNotInclusive)
 	return random;
 }
 
+//  =========================================================================================
 float GetRandomFloatLessThan()
 {
 	return static_cast <float> (rand()) /( static_cast <float> (RAND_MAX));
 }
 
+//  =========================================================================================
 float GenerateRandomFloatInRangeLessThanOne(float min)
 {
 	float range = (1 - min);
@@ -51,24 +56,28 @@ float GenerateRandomFloatInRangeLessThanOne(float min)
 	return number;
 }
 
+//  =========================================================================================
 float GetRandomFloatInRange(float min, float max)
 {
 	//improved get random flaot
 	return ((max - min) * ((float)rand() / RAND_MAX)) + min;
 }
 
+//  =========================================================================================
 int GetRandomIntInRange(int min, int max)
 {
 	int range = (max - min) + 1;
 	return min + GetRandomIntLessThan(range);
 }
 
+//  =========================================================================================
 unsigned int GetRandomUintInRange(unsigned int min, unsigned int max)
 {
 	unsigned int range = (max - min) + 1;
 	return min + GetRandomUintLessThan(range);
 }
 
+//  =========================================================================================
 Vector3 GetRandomVector3InSphere(float positionMin, float positionMax)
 {
 	Vector3 randomVector;
@@ -80,11 +89,13 @@ Vector3 GetRandomVector3InSphere(float positionMin, float positionMax)
 	return randomVector;
 }
 
+//  =========================================================================================
 float GetRandomFloatZeroToOne()
 {
 	return (float)rand() / (float) RAND_MAX;
 }
 
+//  =========================================================================================
 float GetRandomFloatZeroOrOne()
 {
 	float val = GetRandomFloatZeroToOne();
@@ -96,6 +107,7 @@ float GetRandomFloatZeroOrOne()
 	return 0.f;
 }
 
+//  =========================================================================================
 int GetRandomIntZeroOrOne()
 {
 	float val = GetRandomFloatZeroToOne();
@@ -107,12 +119,15 @@ int GetRandomIntZeroOrOne()
 	return 0;
 }
 
+//  =========================================================================================
 float CalculateXPoint(float centerX, float radius, float radians)
 {
 	float xPoint = centerX + (radius * cosf(radians));
 
 	return xPoint;
 }
+
+//  =========================================================================================
 float CalculateYPoint(float centerY, float radius, float radians)
 {
 	float yPoint = centerY + (radius * sinf(radians));
@@ -120,6 +135,7 @@ float CalculateYPoint(float centerY, float radius, float radians)
 	return yPoint;
 }
 
+//  =========================================================================================
 float GetMinFloat(float a, float b)
 {
 	if (a < b)
@@ -132,6 +148,7 @@ float GetMinFloat(float a, float b)
 	}
 }
 
+//  =========================================================================================
 int GetMinInt(int a, int b)
 {
 	if (a < b)
@@ -144,31 +161,37 @@ int GetMinInt(int a, int b)
 	}
 }
 
+//  =========================================================================================
 int RotateRegularPolygon(float currentDegrees, float rotationDegrees)
 {
 	return (int)(currentDegrees + rotationDegrees);
 }
 
+//  =========================================================================================
 float ConvertRadiansToDegrees(float radians)
 {
 	 return (float)(radians * (180.0/PI));
 }
 
+//  =========================================================================================
 float CosDegrees(float degrees)
 {
 	return (cosf(ConvertDegreesToRadians(degrees)));
 }
 
+//  =========================================================================================
 float TanDegrees(float degrees)
 {
 	return (tanf(ConvertDegreesToRadians(degrees)));
 }
 
+//  =========================================================================================
 float SinDegrees(float degrees)
 {
 	return (sinf(ConvertDegreesToRadians(degrees)));
 }
 
+//  =========================================================================================
 float ClampFloat(float inValue, float minInclusiveValue, float maxInclusiveValue)
 {
 	float clampedValue;
@@ -187,6 +210,7 @@ float ClampFloat(float inValue, float minInclusiveValue, float maxInclusiveValue
 	return clampedValue;
 }
 
+//  =========================================================================================
 double ClampDouble(double inValue, double minInclusiveValue, double maxInclusiveValue)
 {
 	double clampedValue;
@@ -205,6 +229,7 @@ double ClampDouble(double inValue, double minInclusiveValue, double maxInclusive
 	return clampedValue;
 }
 
+//  =========================================================================================
 Vector3 ClampVector3Uniform(Vector3 inValue, Vector3 minInclusiveValue, Vector3 maxInclusiveValue)
 {
 	inValue.x = ClampFloat(inValue.x, minInclusiveValue.x, maxInclusiveValue.x);
@@ -214,6 +239,7 @@ Vector3 ClampVector3Uniform(Vector3 inValue, Vector3 minInclusiveValue, Vector3 
 	return inValue;
 }
 
+//  =========================================================================================
 Vector4 ClampVector4Uniform(Vector4 inValue, Vector4 minInclusiveValue, Vector4 maxInclusiveValue)
 {
 	inValue.x = ClampFloat(inValue.x, minInclusiveValue.x, maxInclusiveValue.x);
@@ -224,6 +250,7 @@ Vector4 ClampVector4Uniform(Vector4 inValue, Vector4 minInclusiveValue, Vector4 
 	return inValue;
 }
 
+//  =========================================================================================
 int ClampInt(int inValue, int minInclusiveValue, int maxInclusiveValue)
 {
 	int clampedValue;
@@ -242,6 +269,7 @@ int ClampInt(int inValue, int minInclusiveValue, int maxInclusiveValue)
 	return clampedValue;
 }
 
+//  =========================================================================================
 float ClampFloatZeroToOne(float inValue)
 {
 	float clampedValue = 0.f;
@@ -260,6 +288,7 @@ float ClampFloatZeroToOne(float inValue)
 	return clampedValue;
 }
 
+//  =========================================================================================
 float ClampFloatNegativeOneToOne( float inValue )
 {
 	float clampedValue;
@@ -278,6 +307,7 @@ float ClampFloatNegativeOneToOne( float inValue )
 	return clampedValue;
 }
 
+//  =========================================================================================
 float RangeMapFloat(float inValue, float inStart, float inEnd, float outStart, float outEnd)
 {
 	if(inStart == inEnd)
@@ -294,21 +324,25 @@ float RangeMapFloat(float inValue, float inStart, float inEnd, float outStart, f
 	return outValue;
 }
 
+//  =========================================================================================
 float AtanfAsDegrees(float y, float x)
 {
 	return ConvertRadiansToDegrees(atan2f(y, x));
 }
 
+//  =========================================================================================
 float AcosfAsDegrees(float x, float radius)
 {
 	return ConvertRadiansToDegrees(acosf(x/radius));
 }
 
+//  =========================================================================================
 float AsinfAsDegrees(float y, float radius)
 {
 	return ConvertRadiansToDegrees(asinf(y/radius));
 }
 
+//  =========================================================================================
 bool CheckRandomChance( float chanceForSuccess )
 {
 	bool isSuccess = false;
@@ -322,17 +356,32 @@ bool CheckRandomChance( float chanceForSuccess )
 	return isSuccess;
 }
 
+//  =========================================================================================
+bool FlipCoin()
+{
+	return CheckRandomChance(0.5f);
+}
+
+//  =========================================================================================
 int RoundToNearestInt( float inValue )
 {
 	int roundedInt = (int)std::roundf(inValue);	
 	return roundedInt;
 }
 
+//  =========================================================================================
+int RoundDownToInt(float inValue)
+{
+	return (int)floorf(inValue);
+}
+
+//  =========================================================================================
 float RoundDownToDecimalPlace(float inValue, int decimalPlace)
 {
 	return floorf(inValue * decimalPlace) / decimalPlace;
 }
 
+//  =========================================================================================
 float TurnToward( float currentDegrees, float goalDegrees, float maxTurnDegrees )
 {
 	float displacement = GetAngularDisplacement(currentDegrees, goalDegrees);
@@ -385,24 +434,28 @@ float GetAngularDisplacement( float startDegrees, float endDegrees )
 	return angularDisplacement;
 }
 
+//  =========================================================================================
 float DotProduct( const Vector2& a, const Vector2& b )
 {
 	float dotProduct = (a.x * b.x) + (a.y * b.y);
 	return dotProduct;
 }
 
+//  =========================================================================================
 float DotProduct(const Vector3& a, const Vector3& b)
 {
 	float dotProduct = (a.x * b.x) + (a.y * b.y) + (a.z * b.z);
 	return dotProduct;
 }
 
+//  =========================================================================================
 float DotProduct(const Vector4& a, const Vector4& b)
 {
 	float dotProduct = (a.x * b.x) + (a.y * b.y) + (a.z * b.z) + (a.w * b.w);
 	return dotProduct;
 }
 
+//  =========================================================================================
 Vector3 CrossProduct(const Vector3& a, const Vector3& b)
 {
 	//EX: UP X FORWARD = RIGHT
@@ -411,32 +464,38 @@ Vector3 CrossProduct(const Vector3& a, const Vector3& b)
 	return c;
 }
 
+//  =========================================================================================
 bool AreBitsSet( unsigned char bitFlags8, unsigned char flagsToCheck )
 {
 	return (bitFlags8 & flagsToCheck) == flagsToCheck;
 }
 
+//  =========================================================================================
 bool AreBitsSet( unsigned int bitFlags32, unsigned int flagsToCheck )
 {
 	return (bitFlags32 & flagsToCheck) == flagsToCheck;
 }
 
+//  =========================================================================================
 void SetBits( unsigned char& bitFlags8, unsigned char flagsToSet )
 {
 	 bitFlags8 |= flagsToSet;
 }
 
+//  =========================================================================================
 void SetBits( unsigned int& bitFlags32, unsigned int flagsToSet )
 {
 	bitFlags32 |= flagsToSet;
 }
 
+//  =========================================================================================
 void ClearBits( unsigned char& bitFlags8, unsigned char flagToClear )
 {
 	unsigned char actualMask = ~flagToClear;
 	bitFlags8 &= actualMask;
 }
 
+//  =========================================================================================
 void ClearBits( unsigned int& bitFlags32, unsigned int flagToClear )
 {
 	unsigned int actualMask = ~flagToClear;
@@ -444,59 +503,76 @@ void ClearBits( unsigned int& bitFlags32, unsigned int flagToClear )
 }
 
 
+//  =========================================================================================
 IntVector2 ConvertVector2ToIntVector2(Vector2 vectorToConvert)
 {
 	return IntVector2((int)vectorToConvert.x, (int)vectorToConvert.y);
 }
 
+//  =========================================================================================
 Vector3 ConvertVector2ToVector3(Vector2 vectorToConvert)
 {
 	return Vector3(vectorToConvert.x, vectorToConvert.y, 0);
 }
 
+//  =========================================================================================
 //easing functions
+//  =========================================================================================
 float SmoothStart2( float t )
 {
 	return (t * t);
 
 }
+
+//  =========================================================================================
 float SmoothStart3( float t )
 {
 	return (t * t * t);
 }
+
+//  =========================================================================================
 float SmoothStart4( float t )
 {
 	return (t * t * t * t);
 }
+
+//  =========================================================================================
 float SmoothStop2( float t )
 {
 	float flippedInput = 1 - t;
 	
 	return (1 - ( flippedInput * flippedInput));
 }
+
+//  =========================================================================================
 float SmoothStop3( float t )
 {
 	float flippedInput = 1 - t;
 
 	return (1 - (flippedInput * flippedInput * flippedInput));
 }
+
+//  =========================================================================================
 float SmoothStop4( float t )
 {
 	float flippedInput = 1 - t;
 
 	return (1 - (flippedInput * flippedInput * flippedInput * flippedInput));
 }
+
+//  =========================================================================================
 float SmoothStep3( float t )
 {
 	return Crossfade(SmoothStart2(t), SmoothStop2(t), t);
 }
 
+//  =========================================================================================
 float SmoothStartArch3(float t)
 {
 	return (t * t * (1-t));
 }
 
-//equivalent to GLSL smoothstep
+//equivalent to GLSL smoothstep =========================================================================================
 float GLSLSmoothStep(float edge0, float edge1, float x)
 {
 	float value = (x - edge0) / (edge1 - edge0);
@@ -504,6 +580,7 @@ float GLSLSmoothStep(float edge0, float edge1, float x)
 	return t * t * (3.0f - 2.0f * t);
 }
 
+//  =========================================================================================
 float Crossfade(float a, float b, float t)
 {
 	return (a + t * (b - a));
@@ -536,33 +613,37 @@ bool CyclicGreaterThan(uint16_t a, uint16_t b)
 	return CyclicLessThan(b, a);
 }
 
-
+//  =========================================================================================
 const int Interpolate(const int& start, const int& end, float fractionTowardEnd)
 {
 	return (RoundToNearestInt((end - start) * fractionTowardEnd) + start);
 }
 
-
+//  =========================================================================================
 const unsigned char Interpolate(const unsigned char& start, const unsigned char& end, float fractionTowardEnd)
 {
 	return (unsigned char)(RoundToNearestInt((end - start) * fractionTowardEnd) + start);
 }
 
+//  =========================================================================================
 float GetPi()
 {
 	return PI;
 }
 
+//  =========================================================================================
 float GetEpsilon()
 {
 	return EPSILON;
 }
 
+//  =========================================================================================
 float GetInfinity()
 {
 	return UINFINITY;
 }
 
+//  =========================================================================================
 bool IsNearZero(float inValue)
 {
 	if (inValue < 0.0f)
@@ -583,6 +664,7 @@ bool IsNearZero(float inValue)
 	return false;
 }
 
+//  =========================================================================================
 bool IsNear(const float a, const float b)
 {
 	if ((a > 0.0f && b > 0.0f) || (a < 0.0f && b < 0.0f))
@@ -601,6 +683,7 @@ bool IsNear(const float a, const float b)
 	}
 }
 
+//  =========================================================================================
 float AbsoluteValue(float value)
 {
 	if (value < 0.0f)
@@ -610,6 +693,7 @@ float AbsoluteValue(float value)
 	return value;
 }
 
+//  =========================================================================================
 float GetMagnitude(float inputFloat)
 {
 	if(inputFloat < 0.f)
@@ -619,11 +703,13 @@ float GetMagnitude(float inputFloat)
 	return inputFloat;
 }
 
+//  =========================================================================================
 float GetAbsoluteValue(float inputFloat)
 {
 	return GetMagnitude(inputFloat);
 }
 
+//  =========================================================================================
 bool SolveQuadratic(Vector2* out, float a, float b, float c)
 {
 	if(a == 0)
@@ -657,6 +743,7 @@ bool SolveQuadratic(Vector2* out, float a, float b, float c)
 	return false;
 }
 
+//  =========================================================================================
 bool GetIsPointInsideCube(const Vector3& pointToCheck, const Vector3& cubeCenterPosition, const Vector3& dimensions)
 {
 	bool isPointInside = false;
@@ -674,26 +761,31 @@ bool GetIsPointInsideCube(const Vector3& pointToCheck, const Vector3& cubeCenter
 	return isPointInside;
 }
 
+//  =========================================================================================
 float Modulus(float dividend, float divisor)
 {
 	return fmodf((divisor + fmodf(dividend, divisor)), divisor);
 }
 
+//  =========================================================================================
 float Modulus(Vector2 mod)
 {
 	return fmodf((mod.y + fmodf(mod.x, mod.y)), mod.y);
 }
 
+//  =========================================================================================
 double Modulus(double dividend, double divisor)
 {
 	return fmodf((divisor + fmodf(dividend, divisor)), divisor);
 }
 
+//  =========================================================================================
 int Modulus(int dividend, int divisor)
 {
 	return (divisor + (dividend % divisor)) % divisor;
 }
 
+//  =========================================================================================
 Vector2 PolarDegreesToCartesian(float radius, float degrees)
 {
 	float x = radius * CosDegrees(degrees);
@@ -702,12 +794,14 @@ Vector2 PolarDegreesToCartesian(float radius, float degrees)
 	return Vector2(x, y);
 }
 
+//  =========================================================================================
 Vector2 PolarRadiansToCartesian(float radius, float radians)
 {
 	float degrees = ConvertRadiansToDegrees(radians);
 	return PolarDegreesToCartesian(radius, degrees);
 }
 
+//  =========================================================================================
 Vector3 SphericalToCartesian(float radius, float rotation, float azimuth)
 {
 	float x = radius * CosDegrees(azimuth) * CosDegrees(rotation);
@@ -717,11 +811,13 @@ Vector3 SphericalToCartesian(float radius, float rotation, float azimuth)
 	return Vector3(x, y, z);
 }
 
+//  =========================================================================================
 Vector3 SphericalToCartesian(Vector3 spherical)
 {
 	return SphericalToCartesian(spherical.x, spherical.y, spherical.z);
 }
 
+//  =========================================================================================
 Vector3 CartesianToSpherical(Vector3 position)
 {
 	float radius = position.GetLength();
@@ -731,6 +827,7 @@ Vector3 CartesianToSpherical(Vector3 position)
 	return Vector3(radius, rotation, azimuth);
 }
 
+//  =========================================================================================
 Vector2 CartesianToPolarDegrees(Vector2 position)
 {
 	float radius = position.GetLength();

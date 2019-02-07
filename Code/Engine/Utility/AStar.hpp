@@ -8,6 +8,7 @@
 
 typedef std::pair<int, IntVector2> valCoordPair;
 
+//  =========================================================================================
 struct SearchCell
 {
 
@@ -25,7 +26,6 @@ public:
 		heuristicCost = copyCell.heuristicCost;
 	}
 
-
 public:
 	int parentCoordinateX = -1;
 	int parentCoordinateY = -1;
@@ -35,13 +35,14 @@ public:
 	int heuristicCost = INT_MAX;
 };
 
-
+//  =========================================================================================
 static int CalculateHeuristicValue(const IntVector2& cellPosition, const IntVector2& destinationPosition)
 {
-	return GetDistance(cellPosition, destinationPosition);
+	return GetManhattanDistance(cellPosition, destinationPosition);
 }
 
-static void GetPath(std::vector<Vector2>& outIndicies, Grid<SearchCell>& cellList, const IntVector2& cellListDimensions, const IntVector2& startPosition, const IntVector2& destinationPosition, Map* currentMap)
+//  =========================================================================================
+static void GetPath(std::vector<Vector2>& outPositions, Grid<SearchCell>& cellList, const IntVector2& cellListDimensions, const IntVector2& startPosition, const IntVector2& destinationPosition, Map* currentMap)
 {
 	//we have a path from the start to the destination. Now we just need to extract it.
 	int currentRow = destinationPosition.x;
@@ -55,7 +56,7 @@ static void GetPath(std::vector<Vector2>& outIndicies, Grid<SearchCell>& cellLis
 	{
 		IntVector2 coordinate = IntVector2((float)currentRow, (float)currentColumn);
 
-		outIndicies.push_back(currentMap->GetWorldPositionOfMapCoordinate(coordinate));
+		outPositions.push_back(Vector2(0.5f, 0.5f) + currentMap->GetWorldPositionOfMapCoordinate(coordinate));
 		int tempRow = cellList.GetValueAtCoordinate(currentRow, currentColumn).parentCoordinateX;
 		int tempColumn = cellList.GetValueAtCoordinate(currentRow, currentColumn).parentCoordinateY;
 	
@@ -69,13 +70,14 @@ static void GetPath(std::vector<Vector2>& outIndicies, Grid<SearchCell>& cellLis
 	//complete
 }
 
-static bool AStarSearchOnGrid(std::vector<Vector2>& outPositions, const IntVector2& startPosition, const IntVector2& destinationPosition, Grid<int>* grid, Map* currentMap)
+//  =========================================================================================
+static bool AStarSearchOnGrid(std::vector<Vector2>& outPositions, const IntVector2& startCoordinate, const IntVector2& destinationCoordinate, Grid<int>* grid, Map* currentMap)
 {
-	ASSERT_OR_DIE(grid->IsCellValid(startPosition) && grid->IsCellValid(destinationPosition), "Search cells out of range");
-	int value = grid->GetValueAtCoordinate(destinationPosition);
+	ASSERT_OR_DIE(grid->IsCellValid(startCoordinate) && grid->IsCellValid(destinationCoordinate), "Search cells out of range");
+	int value = grid->GetValueAtCoordinate(destinationCoordinate);
 	//ASSERT_OR_DIE(grid.GetValueAtCoordinate(startPosition) == 0 && grid.GetValueAtCoordinate(destinationPosition) == 0, "Search cell is blocked (inaccessible)");
 
-	if (startPosition == destinationPosition)
+	if (startCoordinate == destinationCoordinate)
 		return true;
 
 	//as we loop over the grid, we need to mark cells as searched
@@ -89,12 +91,12 @@ static bool AStarSearchOnGrid(std::vector<Vector2>& outPositions, const IntVecto
 	cellList.InitializeGrid(defaultSearchCell, grid->m_dimensions.x, grid->m_dimensions.y);
 
 	//set starting indices to the startposition
-	IntVector2 currentCoordinate = startPosition;
+	IntVector2 currentCoordinate = startCoordinate;
 
 	//set starting cell to lowest values
 	SearchCell* startingCell = cellList.GetReferenceAtCoordinate(currentCoordinate);
-	startingCell->parentCoordinateX = startPosition.x;
-	startingCell->parentCoordinateY = startPosition.y;
+	startingCell->parentCoordinateX = startCoordinate.x;
+	startingCell->parentCoordinateY = startCoordinate.y;
 	startingCell->heuristicCost = 0;
 	startingCell->movementCost = 0;
 	startingCell->totalCost = 0;
@@ -144,14 +146,14 @@ static bool AStarSearchOnGrid(std::vector<Vector2>& outPositions, const IntVecto
 			//confirm cell is even on grid
 			if (grid->IsCellValid(upCoordinates))
 			{
-				if (upCoordinates == destinationPosition)
+				if (upCoordinates == destinationCoordinate)
 				{
 					SearchCell* foundCell = cellList.GetReferenceAtCoordinate(upCoordinates);
 					foundCell->parentCoordinateX = currentCoordinate.x;
 					foundCell->parentCoordinateY = currentCoordinate.y;
 					isDestinationFound = true;
 					
-					GetPath(outPositions, cellList, cellList.m_dimensions, startPosition, destinationPosition, currentMap);
+					GetPath(outPositions, cellList, cellList.m_dimensions, startCoordinate, destinationCoordinate, currentMap);
 
 					foundCell = nullptr;
 					return isDestinationFound;
@@ -161,7 +163,7 @@ static bool AStarSearchOnGrid(std::vector<Vector2>& outPositions, const IntVecto
 				else if (checkedList.GetValueAtCoordinate(upCoordinates) == false && grid->GetValueAtCoordinate(upCoordinates) == 0)
 				{
 					tempMovementCost = originCell.movementCost + 1;
-					tempHeuristicCost = CalculateHeuristicValue(upCoordinates, destinationPosition);
+					tempHeuristicCost = CalculateHeuristicValue(upCoordinates, destinationCoordinate);
 					tempTotalCost = tempMovementCost + tempHeuristicCost;
 
 					//if the total cost is max (we haven't changed it yet) OR if the value we just calculated is less than the current total cost
@@ -185,14 +187,14 @@ static bool AStarSearchOnGrid(std::vector<Vector2>& outPositions, const IntVecto
 			IntVector2 downCoordinates = IntVector2(currentCoordinate.x, currentCoordinate.y - 1);
 			if (grid->IsCellValid(downCoordinates))
 			{
-				if (downCoordinates == destinationPosition)
+				if (downCoordinates == destinationCoordinate)
 				{
 					SearchCell* foundCell = cellList.GetReferenceAtCoordinate(downCoordinates);
 					foundCell->parentCoordinateX = currentCoordinate.x;
 					foundCell->parentCoordinateY = currentCoordinate.y;
 					isDestinationFound = true;					
 
-					GetPath(outPositions, cellList, cellList.m_dimensions, startPosition, destinationPosition, currentMap);
+					GetPath(outPositions, cellList, cellList.m_dimensions, startCoordinate, destinationCoordinate, currentMap);
 
 					foundCell = nullptr;
 					return isDestinationFound;
@@ -201,7 +203,7 @@ static bool AStarSearchOnGrid(std::vector<Vector2>& outPositions, const IntVecto
 				else if (checkedList.GetValueAtCoordinate(downCoordinates) == false && grid->GetValueAtCoordinate(downCoordinates) == 0)
 				{		
 					tempMovementCost = originCell.movementCost + 1;
-					tempHeuristicCost = CalculateHeuristicValue(downCoordinates, destinationPosition);
+					tempHeuristicCost = CalculateHeuristicValue(downCoordinates, destinationCoordinate);
 					tempTotalCost = tempMovementCost + tempHeuristicCost;
 
 					if (cellList.GetValueAtCoordinate(downCoordinates).totalCost == INT_MAX || cellList.GetValueAtCoordinate(downCoordinates).totalCost > tempTotalCost)
@@ -224,14 +226,14 @@ static bool AStarSearchOnGrid(std::vector<Vector2>& outPositions, const IntVecto
 			IntVector2 rightCoordinates = IntVector2(currentCoordinate.x + 1, currentCoordinate.y);
 			if (grid->IsCellValid(rightCoordinates))
 			{
-				if (rightCoordinates == destinationPosition)
+				if (rightCoordinates == destinationCoordinate)
 				{
 					SearchCell* foundCell = cellList.GetReferenceAtCoordinate(rightCoordinates);
 					foundCell->parentCoordinateX = currentCoordinate.x;
 					foundCell->parentCoordinateY = currentCoordinate.y;
 					isDestinationFound = true;					
 
-					GetPath(outPositions, cellList, cellList.m_dimensions, startPosition, destinationPosition, currentMap);
+					GetPath(outPositions, cellList, cellList.m_dimensions, startCoordinate, destinationCoordinate, currentMap);
 
 					foundCell = nullptr;
 					return isDestinationFound;
@@ -240,7 +242,7 @@ static bool AStarSearchOnGrid(std::vector<Vector2>& outPositions, const IntVecto
 				else if (checkedList.GetValueAtCoordinate(rightCoordinates) == false && grid->GetValueAtCoordinate(rightCoordinates) == 0)
 				{
 					tempMovementCost = originCell.movementCost + 1;
-					tempHeuristicCost = CalculateHeuristicValue(rightCoordinates, destinationPosition);
+					tempHeuristicCost = CalculateHeuristicValue(rightCoordinates, destinationCoordinate);
 					tempTotalCost = tempMovementCost + tempHeuristicCost;
 
 					if (cellList.GetValueAtCoordinate(rightCoordinates).totalCost == INT_MAX || cellList.GetValueAtCoordinate(rightCoordinates).totalCost > tempTotalCost)
@@ -263,14 +265,14 @@ static bool AStarSearchOnGrid(std::vector<Vector2>& outPositions, const IntVecto
 			IntVector2 leftCoordinates = IntVector2(currentCoordinate.x - 1, currentCoordinate.y);
 			if (grid->IsCellValid(leftCoordinates))
 			{
-				if (leftCoordinates == destinationPosition)
+				if (leftCoordinates == destinationCoordinate)
 				{
 					SearchCell* foundCell = cellList.GetReferenceAtCoordinate(leftCoordinates);
 					foundCell->parentCoordinateX = currentCoordinate.x;
 					foundCell->parentCoordinateY = currentCoordinate.y;
 					isDestinationFound = true;				
 
-					GetPath(outPositions, cellList, cellList.m_dimensions, startPosition, destinationPosition, currentMap);
+					GetPath(outPositions, cellList, cellList.m_dimensions, startCoordinate, destinationCoordinate, currentMap);
 
 					foundCell = nullptr;
 					return isDestinationFound;
@@ -279,7 +281,7 @@ static bool AStarSearchOnGrid(std::vector<Vector2>& outPositions, const IntVecto
 				else if (checkedList.GetValueAtCoordinate(leftCoordinates) == false && grid->GetValueAtCoordinate(leftCoordinates) == 0)
 				{
 					tempMovementCost = originCell.movementCost + 1;
-					tempHeuristicCost = CalculateHeuristicValue(leftCoordinates, destinationPosition);
+					tempHeuristicCost = CalculateHeuristicValue(leftCoordinates, destinationCoordinate);
 					tempTotalCost = tempMovementCost + tempHeuristicCost;
 
 					if (cellList.GetValueAtCoordinate(leftCoordinates).totalCost == INT_MAX || cellList.GetValueAtCoordinate(leftCoordinates).totalCost > tempTotalCost)
@@ -297,161 +299,161 @@ static bool AStarSearchOnGrid(std::vector<Vector2>& outPositions, const IntVecto
 			}
 		}		
 
-		// GET UP_RIGHT =========================================================================================
-		{
-			IntVector2 upRightCoordinates = IntVector2(currentCoordinate.x + 1, currentCoordinate.y + 1);
-			if (grid->IsCellValid(upRightCoordinates))
-			{
-				if (upRightCoordinates == destinationPosition)
-				{
-					SearchCell* foundCell = cellList.GetReferenceAtCoordinate(upRightCoordinates);
-					foundCell->parentCoordinateX = currentCoordinate.x;
-					foundCell->parentCoordinateY = currentCoordinate.y;
-					isDestinationFound = true;					
+		//// GET UP_RIGHT =========================================================================================
+		//{
+		//	IntVector2 upRightCoordinates = IntVector2(currentCoordinate.x + 1, currentCoordinate.y + 1);
+		//	if (grid->IsCellValid(upRightCoordinates))
+		//	{
+		//		if (upRightCoordinates == destinationPosition)
+		//		{
+		//			SearchCell* foundCell = cellList.GetReferenceAtCoordinate(upRightCoordinates);
+		//			foundCell->parentCoordinateX = currentCoordinate.x;
+		//			foundCell->parentCoordinateY = currentCoordinate.y;
+		//			isDestinationFound = true;					
 
-					GetPath(outPositions, cellList, cellList.m_dimensions, startPosition, destinationPosition, currentMap);
+		//			GetPath(outPositions, cellList, cellList.m_dimensions, startPosition, destinationPosition, currentMap);
 
-					foundCell = nullptr;
-					return isDestinationFound;
-				}
+		//			foundCell = nullptr;
+		//			return isDestinationFound;
+		//		}
 
-				else if (checkedList.GetValueAtCoordinate(upRightCoordinates) == false && grid->GetValueAtCoordinate(upRightCoordinates) == 0)
-				{
-					tempMovementCost = originCell.movementCost + 1;
-					tempHeuristicCost = CalculateHeuristicValue(upRightCoordinates, destinationPosition);
-					tempTotalCost = tempMovementCost + tempHeuristicCost;
+		//		else if (checkedList.GetValueAtCoordinate(upRightCoordinates) == false && grid->GetValueAtCoordinate(upRightCoordinates) == 0)
+		//		{
+		//			tempMovementCost = originCell.movementCost + 1;
+		//			tempHeuristicCost = CalculateHeuristicValue(upRightCoordinates, destinationPosition);
+		//			tempTotalCost = tempMovementCost + tempHeuristicCost;
 
-					if (cellList.GetValueAtCoordinate(upRightCoordinates).totalCost == INT_MAX || cellList.GetValueAtCoordinate(upRightCoordinates).totalCost > tempTotalCost)
-					{
-						openList.insert(std::make_pair(tempTotalCost, upRightCoordinates));
+		//			if (cellList.GetValueAtCoordinate(upRightCoordinates).totalCost == INT_MAX || cellList.GetValueAtCoordinate(upRightCoordinates).totalCost > tempTotalCost)
+		//			{
+		//				openList.insert(std::make_pair(tempTotalCost, upRightCoordinates));
 
-						SearchCell* cell = cellList.GetReferenceAtCoordinate(upRightCoordinates);
-						cell->movementCost = tempMovementCost;
-						cell->heuristicCost = tempHeuristicCost;
-						cell->totalCost = tempTotalCost;
-						cell->parentCoordinateX = currentCoordinate.x;
-						cell->parentCoordinateY = currentCoordinate.y;
-					}
-				}
-			}
-		}		
+		//				SearchCell* cell = cellList.GetReferenceAtCoordinate(upRightCoordinates);
+		//				cell->movementCost = tempMovementCost;
+		//				cell->heuristicCost = tempHeuristicCost;
+		//				cell->totalCost = tempTotalCost;
+		//				cell->parentCoordinateX = currentCoordinate.x;
+		//				cell->parentCoordinateY = currentCoordinate.y;
+		//			}
+		//		}
+		//	}
+		//}		
 
-		// GET UP_LEFT =========================================================================================
-		{
-			IntVector2 upLeftCoordinates = IntVector2(currentCoordinate.x - 1, currentCoordinate.y + 1);
-			if (grid->IsCellValid(upLeftCoordinates))
-			{
-				if (upLeftCoordinates == destinationPosition)
-				{
-					SearchCell* foundCell = cellList.GetReferenceAtCoordinate(upLeftCoordinates);
-					foundCell->parentCoordinateX = currentCoordinate.x;
-					foundCell->parentCoordinateY = currentCoordinate.y;
-					isDestinationFound = true;					
+		//// GET UP_LEFT =========================================================================================
+		//{
+		//	IntVector2 upLeftCoordinates = IntVector2(currentCoordinate.x - 1, currentCoordinate.y + 1);
+		//	if (grid->IsCellValid(upLeftCoordinates))
+		//	{
+		//		if (upLeftCoordinates == destinationPosition)
+		//		{
+		//			SearchCell* foundCell = cellList.GetReferenceAtCoordinate(upLeftCoordinates);
+		//			foundCell->parentCoordinateX = currentCoordinate.x;
+		//			foundCell->parentCoordinateY = currentCoordinate.y;
+		//			isDestinationFound = true;					
 
-					GetPath(outPositions, cellList, cellList.m_dimensions, startPosition, destinationPosition, currentMap);
+		//			GetPath(outPositions, cellList, cellList.m_dimensions, startPosition, destinationPosition, currentMap);
 
-					foundCell = nullptr;
-					return isDestinationFound;
-				}
+		//			foundCell = nullptr;
+		//			return isDestinationFound;
+		//		}
 
-				else if (checkedList.GetValueAtCoordinate(upLeftCoordinates) == false && grid->GetValueAtCoordinate(upLeftCoordinates) == 0)
-				{
-					tempMovementCost = originCell.movementCost + 1;
-					tempHeuristicCost = CalculateHeuristicValue(upLeftCoordinates, destinationPosition);
-					tempTotalCost = tempMovementCost + tempHeuristicCost;
+		//		else if (checkedList.GetValueAtCoordinate(upLeftCoordinates) == false && grid->GetValueAtCoordinate(upLeftCoordinates) == 0)
+		//		{
+		//			tempMovementCost = originCell.movementCost + 1;
+		//			tempHeuristicCost = CalculateHeuristicValue(upLeftCoordinates, destinationPosition);
+		//			tempTotalCost = tempMovementCost + tempHeuristicCost;
 
-					if (cellList.GetValueAtCoordinate(upLeftCoordinates).totalCost == INT_MAX || cellList.GetValueAtCoordinate(upLeftCoordinates).totalCost > tempTotalCost)
-					{
-						openList.insert(std::make_pair(tempTotalCost, upLeftCoordinates));
+		//			if (cellList.GetValueAtCoordinate(upLeftCoordinates).totalCost == INT_MAX || cellList.GetValueAtCoordinate(upLeftCoordinates).totalCost > tempTotalCost)
+		//			{
+		//				openList.insert(std::make_pair(tempTotalCost, upLeftCoordinates));
 
-						SearchCell* cell = cellList.GetReferenceAtCoordinate(upLeftCoordinates);
-						cell->movementCost = tempMovementCost;
-						cell->heuristicCost = tempHeuristicCost;
-						cell->totalCost = tempTotalCost;
-						cell->parentCoordinateX = currentCoordinate.x;
-						cell->parentCoordinateY = currentCoordinate.y;
-					}
-				}
-			}
-		}		
+		//				SearchCell* cell = cellList.GetReferenceAtCoordinate(upLeftCoordinates);
+		//				cell->movementCost = tempMovementCost;
+		//				cell->heuristicCost = tempHeuristicCost;
+		//				cell->totalCost = tempTotalCost;
+		//				cell->parentCoordinateX = currentCoordinate.x;
+		//				cell->parentCoordinateY = currentCoordinate.y;
+		//			}
+		//		}
+		//	}
+		//}		
 
-		// GET DOWN_RIGHT =========================================================================================
-		{			
-			IntVector2 downRightCoordinates = IntVector2(currentCoordinate.x + 1, currentCoordinate.y - 1);
-			if (grid->IsCellValid(downRightCoordinates))
-			{
-				if (downRightCoordinates == destinationPosition)
-				{
-					SearchCell* foundCell = cellList.GetReferenceAtCoordinate(downRightCoordinates);
-					foundCell->parentCoordinateX = currentCoordinate.x;
-					foundCell->parentCoordinateY = currentCoordinate.y;
-					isDestinationFound = true;					
+		//// GET DOWN_RIGHT =========================================================================================
+		//{			
+		//	IntVector2 downRightCoordinates = IntVector2(currentCoordinate.x + 1, currentCoordinate.y - 1);
+		//	if (grid->IsCellValid(downRightCoordinates))
+		//	{
+		//		if (downRightCoordinates == destinationPosition)
+		//		{
+		//			SearchCell* foundCell = cellList.GetReferenceAtCoordinate(downRightCoordinates);
+		//			foundCell->parentCoordinateX = currentCoordinate.x;
+		//			foundCell->parentCoordinateY = currentCoordinate.y;
+		//			isDestinationFound = true;					
 
-					GetPath(outPositions, cellList, cellList.m_dimensions, startPosition, destinationPosition, currentMap);
+		//			GetPath(outPositions, cellList, cellList.m_dimensions, startPosition, destinationPosition, currentMap);
 
-					foundCell = nullptr;
-					return isDestinationFound;
-				}
+		//			foundCell = nullptr;
+		//			return isDestinationFound;
+		//		}
 
-				else if (checkedList.GetValueAtCoordinate(downRightCoordinates) == false && grid->GetValueAtCoordinate(downRightCoordinates) == 0)
-				{
-					tempMovementCost = originCell.movementCost + 1;
-					tempHeuristicCost = CalculateHeuristicValue(downRightCoordinates, destinationPosition);
-					tempTotalCost = tempMovementCost + tempHeuristicCost;
+		//		else if (checkedList.GetValueAtCoordinate(downRightCoordinates) == false && grid->GetValueAtCoordinate(downRightCoordinates) == 0)
+		//		{
+		//			tempMovementCost = originCell.movementCost + 1;
+		//			tempHeuristicCost = CalculateHeuristicValue(downRightCoordinates, destinationPosition);
+		//			tempTotalCost = tempMovementCost + tempHeuristicCost;
 
-					if (cellList.GetValueAtCoordinate(downRightCoordinates).totalCost == INT_MAX || cellList.GetValueAtCoordinate(downRightCoordinates).totalCost > tempTotalCost)
-					{
-						openList.insert(std::make_pair(tempTotalCost, downRightCoordinates));
+		//			if (cellList.GetValueAtCoordinate(downRightCoordinates).totalCost == INT_MAX || cellList.GetValueAtCoordinate(downRightCoordinates).totalCost > tempTotalCost)
+		//			{
+		//				openList.insert(std::make_pair(tempTotalCost, downRightCoordinates));
 
-						SearchCell* cell = cellList.GetReferenceAtCoordinate(downRightCoordinates);
-						cell->movementCost = tempMovementCost;
-						cell->heuristicCost = tempHeuristicCost;
-						cell->totalCost = tempTotalCost;
-						cell->parentCoordinateX = currentCoordinate.x;
-						cell->parentCoordinateY = currentCoordinate.y;
-					}
-				}
-			}
-		}
+		//				SearchCell* cell = cellList.GetReferenceAtCoordinate(downRightCoordinates);
+		//				cell->movementCost = tempMovementCost;
+		//				cell->heuristicCost = tempHeuristicCost;
+		//				cell->totalCost = tempTotalCost;
+		//				cell->parentCoordinateX = currentCoordinate.x;
+		//				cell->parentCoordinateY = currentCoordinate.y;
+		//			}
+		//		}
+		//	}
+		//}
 
-		// GET DOWN_LEFT =========================================================================================
-		{
-			IntVector2 downLeftCoordinates = IntVector2(currentCoordinate.x - 1, currentCoordinate.y - 1);
-			if (grid->IsCellValid(downLeftCoordinates))
-			{
-				if (downLeftCoordinates == destinationPosition)
-				{
-					SearchCell* foundCell = cellList.GetReferenceAtCoordinate(downLeftCoordinates);
-					foundCell->parentCoordinateX = currentCoordinate.x;
-					foundCell->parentCoordinateY = currentCoordinate.y;
-					isDestinationFound = true;					
+		//// GET DOWN_LEFT =========================================================================================
+		//{
+		//	IntVector2 downLeftCoordinates = IntVector2(currentCoordinate.x - 1, currentCoordinate.y - 1);
+		//	if (grid->IsCellValid(downLeftCoordinates))
+		//	{
+		//		if (downLeftCoordinates == destinationPosition)
+		//		{
+		//			SearchCell* foundCell = cellList.GetReferenceAtCoordinate(downLeftCoordinates);
+		//			foundCell->parentCoordinateX = currentCoordinate.x;
+		//			foundCell->parentCoordinateY = currentCoordinate.y;
+		//			isDestinationFound = true;					
 
-					GetPath(outPositions, cellList, cellList.m_dimensions, startPosition, destinationPosition, currentMap);
+		//			GetPath(outPositions, cellList, cellList.m_dimensions, startPosition, destinationPosition, currentMap);
 
-					foundCell = nullptr;
-					return isDestinationFound;
-				}
+		//			foundCell = nullptr;
+		//			return isDestinationFound;
+		//		}
 
-				else if (checkedList.GetValueAtCoordinate(downLeftCoordinates) == false && grid->GetValueAtCoordinate(downLeftCoordinates) == 0)
-				{
-					tempMovementCost = originCell.movementCost + 1;
-					tempHeuristicCost = CalculateHeuristicValue(downLeftCoordinates, destinationPosition);
-					tempTotalCost = tempMovementCost + tempHeuristicCost;
+		//		else if (checkedList.GetValueAtCoordinate(downLeftCoordinates) == false && grid->GetValueAtCoordinate(downLeftCoordinates) == 0)
+		//		{
+		//			tempMovementCost = originCell.movementCost + 1;
+		//			tempHeuristicCost = CalculateHeuristicValue(downLeftCoordinates, destinationPosition);
+		//			tempTotalCost = tempMovementCost + tempHeuristicCost;
 
-					if (cellList.GetValueAtCoordinate(downLeftCoordinates).totalCost == INT_MAX || cellList.GetValueAtCoordinate(downLeftCoordinates).totalCost > tempTotalCost)
-					{
-						openList.insert(std::make_pair(tempTotalCost, downLeftCoordinates));
+		//			if (cellList.GetValueAtCoordinate(downLeftCoordinates).totalCost == INT_MAX || cellList.GetValueAtCoordinate(downLeftCoordinates).totalCost > tempTotalCost)
+		//			{
+		//				openList.insert(std::make_pair(tempTotalCost, downLeftCoordinates));
 
-						SearchCell* cell = cellList.GetReferenceAtCoordinate(downLeftCoordinates);
-						cell->movementCost = tempMovementCost;
-						cell->heuristicCost = tempHeuristicCost;
-						cell->totalCost = tempTotalCost;
-						cell->parentCoordinateX = currentCoordinate.x;
-						cell->parentCoordinateY = currentCoordinate.y;
-					}
-				}
-			}
-		}		
+		//				SearchCell* cell = cellList.GetReferenceAtCoordinate(downLeftCoordinates);
+		//				cell->movementCost = tempMovementCost;
+		//				cell->heuristicCost = tempHeuristicCost;
+		//				cell->totalCost = tempTotalCost;
+		//				cell->parentCoordinateX = currentCoordinate.x;
+		//				cell->parentCoordinateY = currentCoordinate.y;
+		//			}
+		//		}
+		//	}
+		//}		
 	}
 
 	if (!isDestinationFound)
