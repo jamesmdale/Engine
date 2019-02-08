@@ -23,21 +23,21 @@ public:
 	explicit Vector3(const IntVector2& vector);
 
 															// Operators
-	const Vector3 operator+( const Vector3& vecToAdd ) const;		// vec2 + vec2
-	const Vector3 operator-( const Vector3& vecToSubtract ) const;	// vec2 - vec2
-	const Vector3 operator*( float uniformScale ) const;			// vec2 * float
-	const Vector3 operator*( const Vector3& uniformScale ) const;			// vec2 * float
-	const Vector3 operator/( float inverseScale ) const;			// vec2 / float
-	const Vector3 operator-() const { return Vector3(-x, -y, -z ); }// -vec2
+	const Vector3 operator+( const Vector3& vecToAdd ) const;		// vec3 + vec3
+	const Vector3 operator-( const Vector3& vecToSubtract ) const;	// vec3 - vec3
+	const Vector3 operator*( float uniformScale ) const;			// vec3 * float
+	const Vector3 operator*( const Vector3& uniformScale ) const;			// vec3 * float
+	const Vector3 operator/( float inverseScale ) const;			// vec3 / float
+	const Vector3 operator-() const { return Vector3(-x, -y, -z ); }// -vec3
 	void operator*=(const Vector3& vecToMultiply);
-	void operator+=( const Vector3& vecToAdd );						// vec2 += vec2
-	void operator-=( const Vector3& vecToSubtract );				// vec2 -= vec2
-	void operator*=( const float uniformScale );					// vec2 *= float
-	void operator/=( const float uniformDivisor );					// vec2 /= float
-	void operator=( const Vector3& copyFrom );						// vec2 = vec2
-	bool operator==( const Vector3& compare ) const;				// vec2 == vec2
-	bool operator!=( const Vector3& compare ) const;				// vec2 != vec2
-	friend Vector3 operator*( float uniformScale, const Vector3& vecToScale);	// float * vec2
+	void operator+=( const Vector3& vecToAdd );						// vec3 += vec3
+	void operator-=( const Vector3& vecToSubtract );				// vec3 -= vec3
+	void operator*=( const float uniformScale );					// vec3 *= float
+	void operator/=( const float uniformDivisor );					// vec3 /= float
+	void operator=( const Vector3& copyFrom );						// vec3 = vec3
+	bool operator==( const Vector3& compare ) const;				// vec3 == vec3
+	bool operator!=( const Vector3& compare ) const;				// vec3 != vec3
+	friend Vector3 operator*( float uniformScale, const Vector3& vecToScale);	// float * vec3
 	float GetLength() const;
 	float Dot(const Vector3& dotVector);
 	float GetLengthSquared() const;
