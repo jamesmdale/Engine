@@ -72,7 +72,7 @@ std::string GetLocalIP(int port);
 
 bool GetLocalIP(NetAddress* outAddress, int port);
 
-void ServiceClientTest(TCPSocket* clientSocket);
+//void ServiceClientTest(TCPSocket* clientSocket);
 
 //DevConsole Commands
 void RemoteCommand(Command& cmd);

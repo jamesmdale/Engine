@@ -97,6 +97,7 @@ public:
 
 	inline eNetSessionState GetState() const { return m_state; }
 	inline void SetState(eNetSessionState state) { m_state = state; }
+	inline bool IsSessionStateReady(){ return m_state == SESSION_STATE_READY; }
 
 	bool IsDisconnected();
 	bool IsJoined();
