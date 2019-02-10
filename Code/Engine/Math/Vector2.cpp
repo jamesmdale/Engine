@@ -138,22 +138,27 @@ bool Vector2::operator!=( const Vector2& compare ) const
 	return isNotEqual;
 }
 
+
+//-----------------------------------------------------------------------------------------------
 Vector2 operator*( float uniformScale, const Vector2& vecToScale )
 {
 	return Vector2( vecToScale.x * uniformScale, vecToScale.y * uniformScale); // #MP1Fixme
 }
 
 
+//-----------------------------------------------------------------------------------------------
 float Vector2::GetLength() const
 {
 	return sqrtf((x*x) + (y*y));
 }
 
+//-----------------------------------------------------------------------------------------------
 float Vector2::GetLengthSquared() const
 {
 	return ((x*x)+(y*y));
 }
 
+//-----------------------------------------------------------------------------------------------
 float Vector2::NormalizeAndGetLength()
 {
 	float vectorLength = this->GetLength(); //probably should be fixed or renamed to GetLengthAndNormalize
@@ -167,6 +172,7 @@ float Vector2::NormalizeAndGetLength()
 	return vectorLength;
 }
 
+//-----------------------------------------------------------------------------------------------
 Vector2 Vector2::GetNormalized() const
 {
 	float vectorLength = this->GetLength();
@@ -178,6 +184,7 @@ Vector2 Vector2::GetNormalized() const
 		return Vector2(0, 0);
 }
 
+//-----------------------------------------------------------------------------------------------
 Vector2 Vector2::MakeDirectionAtDegrees(float degrees)
 {
 	float radians = ConvertDegreesToRadians(degrees);
@@ -185,6 +192,7 @@ Vector2 Vector2::MakeDirectionAtDegrees(float degrees)
 	return Vector2(cosf(radians), sinf(radians));
 }
 
+//-----------------------------------------------------------------------------------------------
 float Vector2::GetOrientationDegrees() const
 {
 	Vector2 origin = Vector2(0, 0);
@@ -195,6 +203,7 @@ float Vector2::GetOrientationDegrees() const
 	return degrees;
 }
 
+//-----------------------------------------------------------------------------------------------
 void Vector2::SetFromText(const char* text)
 {
 	std::string str(text);	
@@ -208,17 +217,20 @@ void Vector2::SetFromText(const char* text)
 	return;	
 }
 
+//-----------------------------------------------------------------------------------------------
 float Vector2::Dot(const Vector2& dotVector)
 {
 	return DotProduct(*this, dotVector);
 }
 
+//-----------------------------------------------------------------------------------------------
 void Vector2::Floor()
 {
 	x = floorf(x);
 	y = floorf(y);
 }
 
+//-----------------------------------------------------------------------------------------------
 float GetDistance(const Vector2& a, const Vector2& b)
 {
 	float dx = a.x - b.x;
@@ -227,12 +239,14 @@ float GetDistance(const Vector2& a, const Vector2& b)
 	return returnFloat;
 }
 
+//-----------------------------------------------------------------------------------------------
 float GetRadius(const Vector2& a)
 {
 	float radius = sqrtf((a.x * a.x) + (a.y * a.y));
 	return radius;
 }
 
+//-----------------------------------------------------------------------------------------------
 float GetDistanceSquared(const Vector2& a, const Vector2& b)
 {
 	float dx = a.x - b.x;
@@ -241,12 +255,15 @@ float GetDistanceSquared(const Vector2& a, const Vector2& b)
 	return ((dx * dx) + (dy * dy));
 }
 
+//-----------------------------------------------------------------------------------------------
 int MoveRegularPolygonX(float centerX, Vector2 movementVector)
 {
 	centerX += movementVector.x;
 
 	return (int)centerX;
 }
+
+//-----------------------------------------------------------------------------------------------
 int MoveRegularPolygonY(float centerY, Vector2 movementVector)
 {
 	centerY += movementVector.y;
@@ -254,40 +271,51 @@ int MoveRegularPolygonY(float centerY, Vector2 movementVector)
 	return (int)centerY;
 }
 
+//-----------------------------------------------------------------------------------------------
 Vector2 GetMidpoint(const Vector2& a, const Vector2& b)
 {
 	return Vector2((a.x + b.x) * 0.5f, (a.y + b.y) * 0.5f);
 }
 
+//-----------------------------------------------------------------------------------------------
 const Vector2 GetProjectedVector(const Vector2& vectorToProject, const Vector2& projectOnto)
 {
 	return (DotProduct(vectorToProject, projectOnto.GetNormalized()) * projectOnto.GetNormalized());
 }
+
+//-----------------------------------------------------------------------------------------------
 const Vector2 GetTransformedIntoBasis (const Vector2& originalVector, const Vector2& newBasisI, const Vector2& newBasisJ)
 {
 	return Vector2(DotProduct(originalVector, newBasisI.GetNormalized()), DotProduct(originalVector, newBasisJ.GetNormalized()));
 }
+
+//-----------------------------------------------------------------------------------------------
 const Vector2 GetTransformedOutOfBasis( const Vector2& vectorInBasis, const Vector2& oldBasisI, const Vector2& oldBasisJ )
 {
 	return Vector2((vectorInBasis.x * oldBasisI.x) + (vectorInBasis.y * oldBasisJ.x), (vectorInBasis.x * oldBasisI.y) +  (vectorInBasis.y * oldBasisJ.y));	
 }
+
+//-----------------------------------------------------------------------------------------------
 void DecomposeVectorIntoBasis( const Vector2& originalVector,	const Vector2& newBasisI, const Vector2& newBasisJ,	Vector2& out_vectorAlongI, Vector2& out_vectorAlongJ )
 {
 	out_vectorAlongI = (DotProduct(originalVector, newBasisI.GetNormalized()) * newBasisI);
 	out_vectorAlongJ = (DotProduct(originalVector, newBasisJ.GetNormalized()) * newBasisJ);
 }
 
+//-----------------------------------------------------------------------------------------------
 const Vector2 Reflect(const Vector2& originalVector2, const Vector2& bounceDirection)
 {
 	Vector2 projectedVector = GetProjectedVector(originalVector2, bounceDirection);
 	return (originalVector2 - (2 * projectedVector));
 }
 
+//-----------------------------------------------------------------------------------------------
 const Vector2 Interpolate(const Vector2& start, const Vector2& end, float fractionTowardEnd)
 {
 	return Vector2(Interpolate(start.x, end.x, fractionTowardEnd), Interpolate(start.y, end.y, fractionTowardEnd));
 }
 
+//-----------------------------------------------------------------------------------------------
 float GetLargerOfXY(const Vector2& vector)
 {
 	if(vector.y > vector.x)

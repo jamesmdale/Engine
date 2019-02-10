@@ -70,6 +70,7 @@ typedef unsigned char byte_t;
 typedef unsigned int uint;
 typedef unsigned char uint8;
 typedef unsigned short uint16;
+typedef unsigned char uchar8;
 
 constexpr uint16_t UNSIGNED_WORD_MAX = 32'767;
 

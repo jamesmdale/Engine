@@ -9,7 +9,7 @@ const IntVector2 IntVector2::RIGHT = IntVector2(-1, 0);
 const IntVector2 IntVector2::ZERO = IntVector2(0, 0);
 const IntVector2 IntVector2::ONE = IntVector2(1, 1);
 
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 IntVector2::IntVector2( const IntVector2& copy )	
 {
 	x = copy.x;
@@ -17,13 +17,14 @@ IntVector2::IntVector2( const IntVector2& copy )
 }
 
 
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 IntVector2::IntVector2( int initialX, int initialY )
 {
 	x = initialX;
 	y = initialY;
 }
 
+//  =========================================================================================
 IntVector2::IntVector2(const Vector2& vector)
 {
 	x = (int)vector.x;
@@ -31,28 +32,27 @@ IntVector2::IntVector2(const Vector2& vector)
 }
 
 
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 const IntVector2 IntVector2::operator + ( const IntVector2& vecToAdd ) const
 {
 	return IntVector2( x + vecToAdd.x, y + vecToAdd.y); // #MP1Fixme
 }
 
-
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 const IntVector2 IntVector2::operator-( const IntVector2& vecToSubtract ) const
 {
 	return IntVector2( x - vecToSubtract.x, y - vecToSubtract.y ); // #MP1Fixme
 }
 
 
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 const IntVector2 IntVector2::operator*( int uniformScale ) const
 {
 	return IntVector2( x * uniformScale, y * uniformScale ); // #MP1Fixme
 }
 
 
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 const IntVector2 IntVector2::operator/( int inverseScale ) const
 {
 	return IntVector2( x/inverseScale, y/inverseScale ); // #MP1Fixme
@@ -67,7 +67,7 @@ void IntVector2::operator+=( const IntVector2& vecToAdd )
 }
 
 
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 void IntVector2::operator-=( const IntVector2& vecToSubtract )
 {
 	x = x - vecToSubtract.x; // #MP1Fixme
@@ -75,7 +75,7 @@ void IntVector2::operator-=( const IntVector2& vecToSubtract )
 }
 
 
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 void IntVector2::operator*=( const int uniformScale )
 {
 	x = x * uniformScale; // #MP1Fixme
@@ -83,7 +83,7 @@ void IntVector2::operator*=( const int uniformScale )
 }
 
 
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 void IntVector2::operator/=( const int uniformDivisor )
 {
 	x = x / uniformDivisor; // #MP1Fixme
@@ -91,7 +91,7 @@ void IntVector2::operator/=( const int uniformDivisor )
 }
 
 
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 void IntVector2::operator=( const IntVector2& copyFrom )
 {
 	x = copyFrom.x; // #MP1Fixme
@@ -99,10 +99,7 @@ void IntVector2::operator=( const IntVector2& copyFrom )
 }
 
 
-//-----------------------------------------------------------------------------------------------
-
-
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 bool IntVector2::operator==( const IntVector2& compare ) const
 {
 	bool isEqual = false;
@@ -113,7 +110,7 @@ bool IntVector2::operator==( const IntVector2& compare ) const
 	return isEqual;
 }
 
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 bool IntVector2::operator!=( const IntVector2& compare ) const
 {
 	bool isNotEqual = true;
@@ -124,16 +121,36 @@ bool IntVector2::operator!=( const IntVector2& compare ) const
 	return isNotEqual;
 }
 
-bool IntVector2::operator<(const IntVector2 & compare) const
+//  =========================================================================================
+bool IntVector2::operator<(const IntVector2& compare) const
 {
-	return false;
+	if (y < compare.y)
+	{
+		return true;
+	}
+	else if (compare.y < y)
+	{
+		return false;
+	}
+	if (x < compare.x)
+	{
+		return true;
+	}
+	else if (compare.x < x)
+	{
+		return false;
+	}
+	
+	return false; //they are equal
 }
 
+//  =========================================================================================
 IntVector2 operator*( int uniformScale, const IntVector2& vecToScale )
 {
 	return IntVector2( vecToScale.x * uniformScale, vecToScale.y * uniformScale); // #MP1Fixme
 }
 
+//  =========================================================================================
 void IntVector2::SetFromText(const char* text)
 {
 	std::string str(text);	
@@ -147,6 +164,7 @@ void IntVector2::SetFromText(const char* text)
 	return;	
 }
 
+//  =========================================================================================
 int GetDistance(const IntVector2& start, const IntVector2& end)
 {
 	int dx = start.x - end.x;
@@ -155,12 +173,13 @@ int GetDistance(const IntVector2& start, const IntVector2& end)
 	return returnFloat;	
 }
 
+//  =========================================================================================
 int GetManhattanDistance(const IntVector2& start, const IntVector2& end)
 {
 	return abs (start.x - end.x) + abs (start.y - end.y) ;
 }
 		
-
+//  =========================================================================================
 int GetDistanceSquared(const IntVector2& a, const IntVector2& b)
 {
 	int dx = a.x - b.x;
@@ -169,12 +188,16 @@ int GetDistanceSquared(const IntVector2& a, const IntVector2& b)
 	return ((dx * dx) + (dy * dy));
 }
 
+//  =========================================================================================
 int MoveRegularPolygonX(int centerX, IntVector2 movementVector)
 {
 	centerX += movementVector.x;
 
 	return (int)centerX;
 }
+
+
+//  =========================================================================================
 int MoveRegularPolygonY(int centerY, IntVector2 movementVector)
 {
 	centerY += movementVector.y;
@@ -182,11 +205,13 @@ int MoveRegularPolygonY(int centerY, IntVector2 movementVector)
 	return (int)centerY;
 }
 
+//  =========================================================================================
 const IntVector2 Interpolate(const IntVector2& start, const IntVector2& end, float fractionTowardEnd)
 {
 	return IntVector2(Interpolate(start.x, end.x, fractionTowardEnd), Interpolate(start.y, end.y, fractionTowardEnd));
 }
 
+//  =========================================================================================
 int GetLargerOfXY(const IntVector2& vector)
 {
 	if(vector.y > vector.x)

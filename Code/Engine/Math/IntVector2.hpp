@@ -25,6 +25,7 @@ public:
 	void operator=( const IntVector2& copyFrom );						// vec2 = vec2
 	bool operator==( const IntVector2& compare ) const;				// vec2 == vec2
 	bool operator!=( const IntVector2& compare ) const;				// vec2 != vec2
+	bool operator<(const IntVector2& compare) const;				// vec2 < compareVec2
 	friend IntVector2 operator*( int uniformScale, const IntVector2& vecToScale);	// int * vec2
 	void SetFromText(const char* text);
 
