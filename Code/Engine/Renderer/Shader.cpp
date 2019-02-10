@@ -3,12 +3,14 @@
 #include "Engine\Renderer\ShaderProgram.hpp"
 #include "Engine\Core\EngineCommon.hpp"
 
+//  =========================================================================================
 Shader::Shader()
 {
 	m_program = nullptr;
 	ResetRenderState();	
 }
 
+//  =========================================================================================
 Shader::~Shader()
 {
 	TODO("Make sure that this data is instanced before deleting");
@@ -16,6 +18,7 @@ Shader::~Shader()
 	m_program = nullptr;
 }
 
+//  =========================================================================================
 Shader::Shader(const Shader * copyShader)
 {
 	m_program = new ShaderProgram(copyShader->m_program);
@@ -31,11 +34,13 @@ Shader::Shader(const Shader * copyShader)
 	}
 }
 
+//  =========================================================================================
 void Shader::SetProgram(ShaderProgram* program)
 {
 	m_program = program;
 }
 
+//  =========================================================================================
 void Shader::EnableColorBlending(BlendOperationType operationType, BlendFactorType sourceColor, BlendFactorType destinationColor)
 {
 	m_state.m_colorBlendOperation = operationType;
@@ -43,6 +48,7 @@ void Shader::EnableColorBlending(BlendOperationType operationType, BlendFactorTy
 	m_state.m_colorDestinationFactor = destinationColor;
 }
 
+//  =========================================================================================
 void Shader::EnableAlphaBlending(BlendOperationType operationType, BlendFactorType sourceAlpha, BlendFactorType destinationAlpha)
 {
 	m_state.m_alphaBlendOperation = operationType;
@@ -50,12 +56,14 @@ void Shader::EnableAlphaBlending(BlendOperationType operationType, BlendFactorTy
 	m_state.m_alphaDestinationFactor = destinationAlpha;
 }
 
+//  =========================================================================================
 void Shader::EnableCompleteBlending(BlendOperationType operationTypeColor, BlendFactorType sourceColor, BlendFactorType destinationColor, BlendOperationType operationTypeAlpha, BlendFactorType sourceAlpha, BlendFactorType destinationAlpha)
 {
 	EnableColorBlending( operationTypeColor,  sourceColor,  destinationColor);
 	EnableAlphaBlending( operationTypeAlpha, sourceAlpha, destinationAlpha);
 }
 
+//  =========================================================================================
 void Shader::DisableBlending()
 {
 	// Blend control
@@ -68,32 +76,38 @@ void Shader::DisableBlending()
 	m_state.m_alphaDestinationFactor = BLEND_ONE;			// BLEND_ONE
 }
 
+//  =========================================================================================
 void Shader::SetDepth(DepthComparisonType compareType, bool shouldWrite)
 {
 	m_state.m_depthCompare = compareType;
 	m_state.m_depthWrite = shouldWrite;
 }
 
+//  =========================================================================================
 void Shader::DisableDepth()
 {
 	SetDepth(ALWAYS_DEPTH_TYPE, false);
 }
 
+//  =========================================================================================
 void Shader::SetCullMode(CullModeType mode)
 {
 	m_state.m_cullMode = mode;
 }
 
+//  =========================================================================================
 void Shader::SetFillMode(DrawModeType mode)
 {
 	m_state.m_drawMode = mode;
 }
 
+//  =========================================================================================
 void Shader::SetFrontFace(WindOrderType order)
 {
 	m_state.m_windOrder = order;
 }
 
+//  =========================================================================================
 void Shader::ResetRenderState()
 {
 	m_state.m_cullMode = CULL_MODE_BACK;						// CULL_BACK
@@ -123,7 +137,7 @@ void Shader::ResetRenderState()
 	TODO("reset does use lighting");
 }
 
-
+//  =========================================================================================
 Shader* Shader::Clone(Shader * shaderToClone)
 {
 	if(shaderToClone == nullptr)

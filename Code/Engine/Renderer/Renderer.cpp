@@ -97,7 +97,7 @@ void main( void )
    outColor = vec4( 1, 0, 1, 1 ); 
 })";
 
-
+//  =========================================================================================
 Renderer* Renderer::CreateInstance()
 {
 	if (g_theRenderer == nullptr) 
@@ -107,11 +107,13 @@ Renderer* Renderer::CreateInstance()
 	return g_theRenderer; 
 }
 
+//  =========================================================================================
 Renderer* Renderer::GetInstance()
 {
 	return g_theRenderer; 
 }
 
+//  =========================================================================================
 static HGLRC CreateOldRenderContext( HDC hdc ) 
 {
 	// Setup the output to be able to render how we want
@@ -149,6 +151,7 @@ static HGLRC CreateOldRenderContext( HDC hdc )
 	return context; 
 }
 
+//  =========================================================================================
 //------------------------------------------------------------------------
 // Creates a real context as a specific version (major.minor)
 static HGLRC CreateRealRenderContext( HDC hdc, int major, int minor ) 
@@ -229,8 +232,9 @@ static HGLRC CreateRealRenderContext( HDC hdc, int major, int minor )
 }
 
 
+//  =========================================================================================
 //startup begins here
-
+//  =========================================================================================
 bool RenderStartup() 
 {
 	HWND hwnd = GetActiveWindow();
@@ -266,13 +270,14 @@ bool RenderStartup()
 	return true; 
 }
 
+//  =========================================================================================
 void Renderer::Shutdown()
 {
 	delete(g_theRenderer);
 	g_theRenderer = nullptr;
 }
 
-
+//  =========================================================================================
 TODO("Add to endframe");
 void GLShutdown()
 {
@@ -288,13 +293,14 @@ void GLShutdown()
 	::FreeLibrary( (HMODULE)gGLLibrary ); 
 }
 
-
+//  =========================================================================================
 void Renderer::BeginFrame()
 {
 	UseShaderProgram(CreateOrGetShaderProgramFromPath("default")); //always bind default passthrough at beginframe
 	DisableAllLights(); //Reset lighting presets
 }
 
+//  =========================================================================================
 void Renderer::EndFrame()
 {
 	PROFILER_PUSH();
@@ -304,12 +310,14 @@ void Renderer::EndFrame()
 	SwapBuffers( (HDC)gHDC ); // Note: call this once at the end of each frame
 }
 
+//  =========================================================================================
 void Renderer::LineWidth(float lineWidth)
 {
 	UNUSED(lineWidth);
 	UNIMPLEMENTED();//glLineWidth(lineWidth);
 }
 
+//  =========================================================================================
 void Renderer::Enable()
 {
 	glEnable(GL_BLEND);
@@ -319,6 +327,7 @@ void Renderer::Enable()
 	GL_CHECK_ERROR();
 }
 
+//  =========================================================================================
 void Renderer::ClearColor(const Rgba& color) const
 {
 	glClearColor( color.r, color.g, color.b, color.a);
@@ -328,6 +337,7 @@ void Renderer::ClearColor(const Rgba& color) const
 	GL_CHECK_ERROR();
 }
 
+//  =========================================================================================
 void Renderer::EnableDepth(DepthComparisonType compareType, bool shouldWrite)
 {
 	//enable/disable the test
@@ -342,6 +352,7 @@ void Renderer::EnableDepth(DepthComparisonType compareType, bool shouldWrite)
 	GL_CHECK_ERROR();
 }
 
+//  =========================================================================================
 void Renderer::ClearDepth(const float& amount = 1.0f) const
 {
 	glDepthMask(GL_TRUE);
@@ -354,6 +365,7 @@ void Renderer::ClearDepth(const float& amount = 1.0f) const
 	GL_CHECK_ERROR();
 }
 
+//  =========================================================================================
 void Renderer::DisableDepth()
 {
 	// You can glDisable( GL_DEPTH_TEST ) as well, 
@@ -363,12 +375,14 @@ void Renderer::DisableDepth()
 	EnableDepth( ALWAYS_DEPTH_TYPE, false ); 
 }
 
+//  =========================================================================================
 void Renderer::Clear() const
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	GL_CHECK_ERROR();
 }
 
+//  =========================================================================================
 void Renderer::DrawLine(const Vector2& startingPoint, const Vector2& endPoint)
 {
 	//TODO: refactor for drawmesh
@@ -380,6 +394,7 @@ void Renderer::DrawLine(const Vector2& startingPoint, const Vector2& endPoint)
 	DrawMeshImmediate(&vertex[0], 2, LINES_DRAW_PRIMITIVE);
 }
 
+//  =========================================================================================
 void Renderer::DrawLine(const Vector3& startingPoint, const Vector3& endPoint)
 {
 	//TODO: refactor for drawmesh
@@ -391,6 +406,7 @@ void Renderer::DrawLine(const Vector3& startingPoint, const Vector3& endPoint)
 	DrawMeshImmediate(&vertex[0], 2, LINES_DRAW_PRIMITIVE);
 }
 
+//  =========================================================================================
 void Renderer::DrawLineWithColor(const Vector3& startingPoint, const Vector3& endPoint, const Rgba& color)
 {
 	VertexPCU vertex[2];
@@ -400,6 +416,7 @@ void Renderer::DrawLineWithColor(const Vector3& startingPoint, const Vector3& en
 	DrawMeshImmediate(&vertex[0], 2, LINES_DRAW_PRIMITIVE);
 }
 
+//  =========================================================================================
 void Renderer::DrawDottedDisc2WithColor(const Disc2& disc, const Rgba& color, const float& numSides)
 {
 	UNIMPLEMENTED();
@@ -439,29 +456,35 @@ void Renderer::DrawDottedDisc2WithColor(const Disc2& disc, const Rgba& color, co
 //	UNIMPLEMENTED();//glScalef(x, y, z);
 //}
 
+//  =========================================================================================
 void Renderer::Blend() const
 {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 	GL_CHECK_ERROR();
 }
+
+//  =========================================================================================
 void Renderer::ResetBlend() const
 {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	GL_CHECK_ERROR();
 }
 
+//  =========================================================================================
 void Renderer::SetDrawMode(DrawModeFaceType face, DrawModeType mode)
 {
 	glPolygonMode(GetGLDrawFace(face), GetGLDrawMode(mode));
 	GL_CHECK_ERROR();
 }
 
+//  =========================================================================================
 void Renderer::SetDefaultDrawMode()
 {
 	glPolygonMode(FRONT_AND_BACK_FACE_MODE, FILL_DRAW_MODE);
 	GL_CHECK_ERROR();
 }
 
+//  =========================================================================================
 void Renderer::DrawAABB(const AABB2& bounds, const Rgba& tint)
 {
 	Vector2 texCoordsAtMins = AABB2::ZERO_TO_ONE.mins;
@@ -479,6 +502,7 @@ void Renderer::DrawAABB(const AABB2& bounds, const Rgba& tint)
 	DrawMeshImmediate(&vertex[0], 6, TRIANGLES_DRAW_PRIMITIVE);
 }
 
+//  =========================================================================================
 TODO("Convert other draw methods to use matrixes so we can use transforms more easily");
 void Renderer::DrawOrientedTexturedAABB(Matrix44& transformMatrix,
 	const AABB2& bounds,
@@ -536,6 +560,7 @@ void Renderer::DrawOrientedTexturedAABB(Matrix44& transformMatrix,
 //	DrawMeshImmediate(&vertex[0], 6, GetGLDrawPrimitive(TRIANGLES), position);
 //}
 
+//  =========================================================================================
 void Renderer::BindTexture(const Texture& texture, int index, Sampler* sampler) //for now always zero
 {
 	//m_currentTexture = texture;
@@ -553,6 +578,7 @@ void Renderer::BindTexture(const Texture& texture, int index, Sampler* sampler) 
 	GL_CHECK_ERROR();
 }
 
+//  =========================================================================================
 void Renderer::BindTextureCube(TextureCube* textureCube, int index)
 {
 	BindSampler(m_defaultSampler, index);
@@ -565,11 +591,13 @@ void Renderer::BindTextureCube(TextureCube* textureCube, int index)
 	GL_CHECK_ERROR();
 }
 
+//  =========================================================================================
 void Renderer::BindSampler(Sampler* sampler, int textureIndex)
 {
 	glBindSampler( textureIndex, sampler->GetHandle() ); 
 }
 
+//  =========================================================================================
 void Renderer::DrawCube(const Vector3& center, const Vector3& dimensions,
 	const Rgba& tint,
 	const AABB2& uvTop,
@@ -658,6 +686,7 @@ void Renderer::DrawCube(const Vector3& center, const Vector3& dimensions,
 	//DrawMeshImmediateWithIndices(&vertex[0], )
 }
 
+//  =========================================================================================
 void Renderer::DrawSkybox(Skybox* skybox)
 {
 	SetShader(skybox->m_shader);
@@ -667,6 +696,7 @@ void Renderer::DrawSkybox(Skybox* skybox)
 	DrawMesh(skybox->m_mesh, skybox->m_model);	
 }
 
+//  =========================================================================================
 void Renderer::BindMeshToProgram(ShaderProgram* program, Mesh* mesh)
 {
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->m_vbo->GetHandle());
@@ -704,6 +734,7 @@ void Renderer::BindMeshToProgram(ShaderProgram* program, Mesh* mesh)
 	}
 }
 
+//  =========================================================================================
 void Renderer::DrawTexturedAABB(const AABB2& bounds, const Texture& texture, const Vector2& texCoordsAtMins, const Vector2& texCoordsAtMaxs, const Rgba& tint)
 {
 	SetTexture(texture);
@@ -720,7 +751,7 @@ void Renderer::DrawTexturedAABB(const AABB2& bounds, const Texture& texture, con
 	DrawMeshImmediate(&vertex[0], 6, TRIANGLES_DRAW_PRIMITIVE);
 }
 
-
+//  =========================================================================================
 void Renderer::DrawTexturedAABB(Matrix44& transformMatrix, const AABB2& bounds, const Texture& texture, const Vector2& texCoordsAtMins, const Vector2& texCoordsAtMaxs, const Rgba& tint)
 {
 	SetTexture(texture);
@@ -737,6 +768,7 @@ void Renderer::DrawTexturedAABB(Matrix44& transformMatrix, const AABB2& bounds, 
 	DrawMeshImmediate(&vertex[0], 6, TRIANGLES_DRAW_PRIMITIVE, transformMatrix);
 }
 
+//  =========================================================================================
 void Renderer::DrawTriangle(const Vector3& aPosition, const Vector3& bPosition, const Vector3& cPosition, const Rgba& tint)
 {
 	Vector2 texCoordsAtMins = AABB2::ZERO_TO_ONE.mins;
@@ -750,6 +782,7 @@ void Renderer::DrawTriangle(const Vector3& aPosition, const Vector3& bPosition, 
 	DrawMeshImmediate(&vertex[0], 3, TRIANGLES_DRAW_PRIMITIVE);
 }
 
+//  =========================================================================================
 Texture* Renderer::CreateOrGetTexture(const std::string& imageFilePath)
 {
 	std::map<std::string, Texture*>::iterator texture = m_loadedTextures.find(imageFilePath);
@@ -766,6 +799,7 @@ Texture* Renderer::CreateOrGetTexture(const std::string& imageFilePath)
 	}
 }
 
+//  =========================================================================================
 Texture* Renderer::CreateOrGetTexture(Image& image)
 {
 	std::map<std::string, Texture*>::iterator texture = m_loadedTextures.find(image.GetImagePath());
@@ -782,6 +816,7 @@ Texture* Renderer::CreateOrGetTexture(Image& image)
 	}
 }
 
+//  =========================================================================================
 BitmapFont* Renderer::CreateOrGetBitmapFont(const char* bitmapFontName)
 {
 	std::map<std::string, BitmapFont*>::iterator font = m_loadedFonts.find(bitmapFontName);
@@ -802,6 +837,7 @@ BitmapFont* Renderer::CreateOrGetBitmapFont(const char* bitmapFontName)
 	}
 }
 
+//  =========================================================================================
 Image * Renderer::CreateOrGetImage(const std::string imageFilePath)
 {
 	std::map<std::string, Image*>::iterator image = m_loadedImages.find(imageFilePath);
@@ -818,6 +854,7 @@ Image * Renderer::CreateOrGetImage(const std::string imageFilePath)
 	}
 }
 
+//  =========================================================================================
 Shader * Renderer::CreateOrGetShader(const std::string& shaderName)
 {
 	std::map<std::string, Shader*>::iterator shader = m_loadedShaders.find(shaderName);
@@ -834,6 +871,7 @@ Shader * Renderer::CreateOrGetShader(const std::string& shaderName)
 	}
 }
 
+//  =========================================================================================
 Material* Renderer::CreateOrGetMaterial(const std::string& materialName)
 {
 	std::map<std::string, Material*>::iterator material = m_loadedMaterials.find(materialName);
@@ -851,6 +889,7 @@ Material* Renderer::CreateOrGetMaterial(const std::string& materialName)
 	}
 }
 
+//  =========================================================================================
 Texture* Renderer::CreateRenderTarget(int width, int height, TextureFormatType format)
 {
 	Texture* texture = new Texture();
@@ -860,21 +899,25 @@ Texture* Renderer::CreateRenderTarget(int width, int height, TextureFormatType f
 	return texture;
 }
 
+//  =========================================================================================
 Texture* Renderer::CreateDepthStencilTarget(int width, int height)
 {
 	return CreateRenderTarget(width,height, TEXTURE_FORMAT_D24S8);
 }
 
+//  =========================================================================================
 Texture * Renderer::GetDefaultDepthStencilTarget()
 {
 	return m_defaultDepthTarget;
 }
 
+//  =========================================================================================
 Texture * Renderer::GetDefaultRenderTarget()
 {
 	return m_defaultColorTarget;
 }
 
+//  =========================================================================================
 bool Renderer::CopyFrameBuffer(FrameBuffer* destination, FrameBuffer* source)
 {
 	// we need at least the src.
@@ -938,16 +981,19 @@ bool Renderer::CopyFrameBuffer(FrameBuffer* destination, FrameBuffer* source)
 	return GLSucceeded();
 }
 
+//  =========================================================================================
 void Renderer::SetTexture(const Texture& texture)
 {
 	BindTexture(texture, 0);
 }
 
+//  =========================================================================================
 void Renderer::SetTexture(const Texture& texture, int index)
 {
 	BindTexture(texture, index);
 }
 
+//  =========================================================================================
 void Renderer::SetCamera(Camera* camera)
 {
 	if (camera == nullptr) {
@@ -960,6 +1006,7 @@ void Renderer::SetCamera(Camera* camera)
 	m_currentCamera = camera;
 }
 
+//  =========================================================================================
 void Renderer::DrawMeshImmediate(const VertexPCU* verts, int const numVerts, int drawPrimitive, const Matrix44& modelMatrix)
 {
 	m_defaultMesh->SetDrawInstructions((DrawPrimitiveType)drawPrimitive, 0, false);
@@ -969,6 +1016,7 @@ void Renderer::DrawMeshImmediate(const VertexPCU* verts, int const numVerts, int
 	DrawMesh(m_defaultMesh, modelMatrix);
 }
 
+//  =========================================================================================
 TODO("Complete mesh immediate with indices.  Maybe consolidate into one method with a bool for indices 'True/False'");
 void Renderer::DrawMeshImmediateWithIndices(const VertexPCU* verts, int* indices, int const numVerts, int const numIndices, int drawPrimitive)
 {
@@ -979,6 +1027,7 @@ void Renderer::DrawMeshImmediateWithIndices(const VertexPCU* verts, int* indices
 	DrawMesh(m_defaultMesh, Matrix44::IDENTITY);
 }
 
+//  =========================================================================================
 void Renderer::DrawMesh(Mesh* mesh, const Matrix44& modelMatrix)
 {
 	//int programHandle = BindShaderProgram(m_currentShader.m_program);
@@ -1030,6 +1079,7 @@ void Renderer::DrawMesh(Mesh* mesh, const Matrix44& modelMatrix)
 
 //TYPE SPECIFIC STUFF
 
+//  =========================================================================================
 void Renderer::DrawText2D(const Vector2& drawMins, const std::string& asciiText, float cellHeight, const Rgba& tint, float aspectScale, const BitmapFont* font)
 {
 	//glyph aspect is currently always 1
@@ -1045,6 +1095,7 @@ void Renderer::DrawText2D(const Vector2& drawMins, const std::string& asciiText,
 	}
 }
 
+//  =========================================================================================
 void Renderer::DrawText2DCentered(const Vector2& drawCenterPoint, const std::string& asciiText, float cellHeight, const Rgba& tint, float aspectScale, const BitmapFont* font)
 {
 	float cellWidth = cellHeight * (font->m_baseAspect * aspectScale);
@@ -1063,6 +1114,7 @@ void Renderer::DrawText2DCentered(const Vector2& drawCenterPoint, const std::str
 	}
 }
 
+//  =========================================================================================
 void Renderer::DrawOrientedText2DCentered(Matrix44& transformMatrix, const std::string& asciiText, float cellHeight, const Rgba& tint, float aspectScale, const BitmapFont * font)
 {
 	float cellWidth = cellHeight * (font->m_baseAspect * aspectScale);
@@ -1087,6 +1139,7 @@ void Renderer::DrawOrientedText2DCentered(Matrix44& transformMatrix, const std::
 	}
 }
 
+//  =========================================================================================
 void Renderer::PostStartup()
 {
 	// m_defaultVAO is a GLuint member variable
@@ -1162,6 +1215,7 @@ void Renderer::PostStartup()
 	specLightBuffer = nullptr;
 }
 
+//  =========================================================================================
 void Renderer::ReloadShaders()
 {
 	for (std::map<std::string, ShaderProgram*>::iterator shaderIterator = m_loadedShaderPrograms.begin(); shaderIterator!=m_loadedShaderPrograms.end(); ++shaderIterator)
@@ -1176,12 +1230,14 @@ void Renderer::ReloadShaders()
 	DebuggerPrintf("Reloaded shaders!");
 }
 
+//  =========================================================================================
 //TODO: Delete this method after SD2:A01
 void Renderer::LoadErrorShader()
 {
 	UseShaderProgram(CreateOrGetShaderProgramFromPath("Data/Shaders/errorTest"));
 }
 
+//  =========================================================================================
 void Renderer::CopyTexture(Texture* destination, Texture* source)
 {
 	FrameBuffer sourceBuffer;
@@ -1193,6 +1249,7 @@ void Renderer::CopyTexture(Texture* destination, Texture* source)
 	CopyFrameBuffer(&destinationBuffer, &sourceBuffer);
 }
 
+//  =========================================================================================
 void Renderer::SetAmbientLight(const Rgba& color, float intensity)
 {
 	LightBuffer* buffer = m_lightBuffer->as<LightBuffer>();
@@ -1202,6 +1259,7 @@ void Renderer::SetAmbientLight(const Rgba& color, float intensity)
 	buffer = nullptr;
 }
 
+//  =========================================================================================
 void Renderer::SetAmbientLightIntensity(float intensity)
 {
 	LightBuffer* buffer = m_lightBuffer->as<LightBuffer>();
@@ -1210,6 +1268,7 @@ void Renderer::SetAmbientLightIntensity(float intensity)
 	buffer = nullptr;
 }
 
+//  =========================================================================================
 void Renderer::DisableAllLights()
 {
 	LightBuffer* buffer = m_lightBuffer->as<LightBuffer>();
@@ -1218,6 +1277,7 @@ void Renderer::DisableAllLights()
 	buffer = nullptr;
 }
 
+//  =========================================================================================
 void Renderer::ResetSpecularBuffer()
 {
 	//reset spec buffer
@@ -1227,6 +1287,7 @@ void Renderer::ResetSpecularBuffer()
 	buffer = nullptr;
 }
 
+//  =========================================================================================
 void Renderer::EnablePointLight(int index, const Vector3& position, const Rgba& color, float intensity, const Vector3& attenuationConstants)
 {
 	LightBuffer* buffer = m_lightBuffer->as<LightBuffer>();
@@ -1245,6 +1306,7 @@ void Renderer::EnablePointLight(int index, const Vector3& position, const Rgba& 
 	buffer = nullptr;
 }
 
+//  =========================================================================================
 void Renderer::EnableDirectionalLight(int index, const Vector3& position, const Rgba& color, float intensity, const Vector3& attenuationConstants, const Vector3& forward, float directionFactor, float innerAngle, float outerAngle, float isShadowCasting, const Matrix44& viewProjectionMatrix)
 {
 	LightBuffer* buffer = m_lightBuffer->as<LightBuffer>();
@@ -1263,6 +1325,7 @@ void Renderer::EnableDirectionalLight(int index, const Vector3& position, const 
 	buffer = nullptr;
 }
 
+//  =========================================================================================
 void Renderer::EnableConeLight(int index, const Vector3& position, Rgba & color, float intensity, const Vector3& attenuationConstants, const Vector3& forward, float directionFactor, float innerAngle, float outerAngle)
 {
 	LightBuffer* buffer = m_lightBuffer->as<LightBuffer>();
@@ -1281,6 +1344,7 @@ void Renderer::EnableConeLight(int index, const Vector3& position, Rgba & color,
 	buffer = nullptr;
 }
 
+//  =========================================================================================
 void Renderer::EnableLight(int index, const Vector3 & position, const Rgba & color, float intensity, const Vector3 & attenuationConstants, const Vector3 & forward, float directionFactor, float innerAngle, float outerAngle, float isShadowCasting, const Matrix44& viewProjectionMatrix)
 {
 	LightBuffer* buffer = m_lightBuffer->as<LightBuffer>();
@@ -1298,6 +1362,7 @@ void Renderer::EnableLight(int index, const Vector3 & position, const Rgba & col
 	buffer = nullptr;
 }
 
+//  =========================================================================================
 void Renderer::EnableLight(int index, const Light& light)
 {
 	LightBuffer* buffer = m_lightBuffer->as<LightBuffer>();
@@ -1314,6 +1379,7 @@ void Renderer::EnableLight(int index, const Light& light)
 	buffer = nullptr;
 }
 
+//  =========================================================================================
 void Renderer::SetLightBufferFromArray(std::vector<Light*> lights)
 {
 	DisableAllLights();
@@ -1324,7 +1390,7 @@ void Renderer::SetLightBufferFromArray(std::vector<Light*> lights)
 	}
 }
 
-
+//  =========================================================================================
 void Renderer::SetSpecularConstants(float specularAmount, float specularPower)
 {
 	SpecularLightBuffer* buffer = m_specularLightBuffer->as<SpecularLightBuffer>();
@@ -1335,6 +1401,7 @@ void Renderer::SetSpecularConstants(float specularAmount, float specularPower)
 	buffer = nullptr;
 }
 
+//  =========================================================================================
 void Renderer::SetSpecularAmount(float specularAmount)
 {
 	SpecularLightBuffer* buffer = m_specularLightBuffer->as<SpecularLightBuffer>();
@@ -1344,6 +1411,7 @@ void Renderer::SetSpecularAmount(float specularAmount)
 	buffer = nullptr;
 }
 
+//  =========================================================================================
 void Renderer::SetSpecularPower(float specularPower)
 {
 	SpecularLightBuffer* buffer = m_specularLightBuffer->as<SpecularLightBuffer>();
@@ -1353,6 +1421,7 @@ void Renderer::SetSpecularPower(float specularPower)
 	buffer = nullptr;
 }
 
+//  =========================================================================================
 Vector4 Renderer::GetAmbientLight()
 {
 	LightBuffer* buffer = m_lightBuffer->as<LightBuffer>();
@@ -1362,6 +1431,7 @@ Vector4 Renderer::GetAmbientLight()
 	return color;
 }
 
+//  =========================================================================================
 Rgba Renderer::GetAmbientLightAsRGBA()
 {
 	LightBuffer* buffer = m_lightBuffer->as<LightBuffer>();
@@ -1371,6 +1441,7 @@ Rgba Renderer::GetAmbientLightAsRGBA()
 	return Rgba(ambientLight);
 }
 
+//  =========================================================================================
 float Renderer::GetAmbientLightIntensity()
 {
 	LightBuffer* buffer = m_lightBuffer->as<LightBuffer>();
@@ -1380,6 +1451,7 @@ float Renderer::GetAmbientLightIntensity()
 	return intensity;
 }
 
+//  =========================================================================================
 float Renderer::GetSpecularAmount()
 {
 	SpecularLightBuffer* buffer = m_specularLightBuffer->as<SpecularLightBuffer>();
@@ -1389,6 +1461,7 @@ float Renderer::GetSpecularAmount()
 	return specAmount;
 }
 
+//  =========================================================================================
 float Renderer::GetSpecularPower()
 {
 	SpecularLightBuffer* buffer = m_specularLightBuffer->as<SpecularLightBuffer>();
@@ -1397,8 +1470,7 @@ float Renderer::GetSpecularPower()
 	return specAmount;
 }
 
-//uniform binds --------------------------------------------------------------------------------------------------
-
+// uniform binds  =========================================================================================
 TODO("Make generic method for all uniform binding.");
 bool Renderer::SetMatrix44Uniform(int programHandle, std::string uniformName, const Matrix44& input)
 {
@@ -1419,6 +1491,7 @@ bool Renderer::SetMatrix44Uniform(int programHandle, std::string uniformName, co
 	return success;
 }
 
+//  =========================================================================================
 bool Renderer::SetFloatUniform(int programHandle, std::string uniformName, float input)
 {
 	bool success = false;
@@ -1437,6 +1510,7 @@ bool Renderer::SetFloatUniform(int programHandle, std::string uniformName, float
 	return success;
 }
 
+//  =========================================================================================
 bool Renderer::SetVector2Uniform(int programHandle, std::string uniformName, const Vector2 & input)
 {
 	bool success = false;
@@ -1455,6 +1529,7 @@ bool Renderer::SetVector2Uniform(int programHandle, std::string uniformName, con
 	return success;
 }
 
+//  =========================================================================================
 bool Renderer::SetVector3Uniform(int programHandle, std::string uniformName, const Vector3& input)
 {
 	bool success = false;
@@ -1473,6 +1548,7 @@ bool Renderer::SetVector3Uniform(int programHandle, std::string uniformName, con
 	return success;
 }
 
+//  =========================================================================================
 bool Renderer::SetVector4Uniform(int programHandle, std::string uniformName, const Vector4& input)
 {
 	bool success = false;
@@ -1491,6 +1567,7 @@ bool Renderer::SetVector4Uniform(int programHandle, std::string uniformName, con
 	return success;
 }
 
+//  =========================================================================================
 void Renderer::BindMaterial(Material* material)
 {
 	SetShader(material->GetShader());
@@ -1530,7 +1607,7 @@ void Renderer::BindMaterial(Material* material)
 	}
 }
 
-
+//  =========================================================================================
 void Renderer::BindRenderState(const RenderState& state)
 {
 	GL_CHECK_ERROR();
@@ -1572,6 +1649,7 @@ void Renderer::BindRenderState(const RenderState& state)
 	}
 }
 
+//  =========================================================================================
 void Renderer::BindShaderProgram(ShaderProgram* program)
 {
 	GL_CHECK_ERROR();
@@ -1579,6 +1657,7 @@ void Renderer::BindShaderProgram(ShaderProgram* program)
 	GL_CHECK_ERROR();
 }
 
+//  =========================================================================================
 void Renderer::SetShader(Shader* shader)
 {
 	if(shader == nullptr)
@@ -1593,6 +1672,7 @@ void Renderer::SetShader(Shader* shader)
 	BindShaderProgram(m_currentShader->GetProgram());
 }
 
+//  =========================================================================================
 ShaderProgram* Renderer::CreateOrGetShaderProgramFromPath(const std::string& shaderFilePath)
 {
 	std::map<std::string, ShaderProgram*>::iterator shaderProgram = m_loadedShaderPrograms.find(shaderFilePath);
@@ -1633,6 +1713,7 @@ ShaderProgram* Renderer::CreateOrGetShaderProgramFromPath(const std::string& sha
 	}
 }
 
+//  =========================================================================================
 ShaderProgram* Renderer::CreateOrGetShaderProgramFromSeparatePaths(const std::string& id, const std::string& shaderFilePathVS, const std::string& shaderFilePathFS)
 {
 	TODO("Support inline shaders if coming from files");
@@ -1664,6 +1745,7 @@ ShaderProgram* Renderer::CreateOrGetShaderProgramFromSeparatePaths(const std::st
 	}
 }
 
+//  =========================================================================================
 void Renderer::UseShaderProgram(ShaderProgram* programPtr)
 {
 	if(programPtr != nullptr)
@@ -1677,6 +1759,7 @@ void Renderer::UseShaderProgram(ShaderProgram* programPtr)
 	
 }
 
+//  =========================================================================================
 TODO("Revisit affects, framebuffer swapping, copying textures whe we have samplers and more types");
 void Renderer::ApplyEffect( ShaderProgram *program )
 {

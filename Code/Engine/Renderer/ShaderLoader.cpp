@@ -4,8 +4,7 @@
 #include "Engine\Renderer\Renderer.hpp"
 #include "Engine\Core\ErrorWarningAssert.hpp"
 
-
-
+//  =========================================================================================
 ShaderLoader::ShaderLoader(const tinyxml2::XMLElement& element)
 {
 	m_id = ParseXmlAttribute(element, "name", m_id);
@@ -97,6 +96,7 @@ ShaderLoader::ShaderLoader(const tinyxml2::XMLElement& element)
 	}
 }
 
+//  =========================================================================================
 Shader* ShaderLoader::LoadShaderFromXML(const std::string& filePath)
 {
 	Renderer* theRenderer = Renderer::GetInstance();
@@ -115,6 +115,7 @@ Shader* ShaderLoader::LoadShaderFromXML(const std::string& filePath)
 	return shader;	
 }
 
+//  =========================================================================================
 Shader* ShaderLoader::CreateShaderFromDefinition()
 {
 	Renderer* theRenderer = Renderer::GetInstance();

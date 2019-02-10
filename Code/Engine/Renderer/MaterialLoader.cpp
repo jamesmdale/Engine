@@ -6,6 +6,7 @@
 #include "Engine\Renderer\Shader.hpp"
 #include "Engine\Renderer\ShaderProgram.hpp"
 
+//  =========================================================================================
 MaterialLoader::MaterialLoader(const tinyxml2::XMLElement& element)
 {
 	m_id = ParseXmlAttribute(element, "name", m_id);
@@ -32,6 +33,7 @@ MaterialLoader::MaterialLoader(const tinyxml2::XMLElement& element)
 	}
 }
 
+//  =========================================================================================
 Material* MaterialLoader::LoadMaterialFromXML(const std::string& filePath)
 {
 	Renderer* theRenderer = Renderer::GetInstance();
@@ -48,6 +50,7 @@ Material* MaterialLoader::LoadMaterialFromXML(const std::string& filePath)
 	return material;	
 }
 
+//  =========================================================================================
 Material* MaterialLoader::CreateMaterialFromDefinition()
 {
 	Renderer* theRenderer = Renderer::GetInstance();
