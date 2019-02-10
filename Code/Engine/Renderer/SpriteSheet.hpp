@@ -7,8 +7,8 @@ class SpriteSheet
 {
 public:
 	SpriteSheet(const Texture& texture, int tilesWide, int tilesHigh);
-	AABB2 GetTexCoordsForSpriteCoords(const IntVector2& spriteCoords) const;
-	AABB2 GetTexCoordsForSpriteIndex(const int& spriteIndex) const;
+	AABB2 GetTexCoordsForSpriteCoords(const IntVector2& spriteCoords, bool doesFlip = true) const;
+	AABB2 GetTexCoordsForSpriteIndex(const int& spriteIndex, bool doesFlip = true) const;
 	int GetNumSprites() const;
 	const Texture* GetSpriteSheetTexture() const;
 	

@@ -343,6 +343,12 @@
     <ClCompile Include="Time\SimpleTimer.cpp">
       <Filter>General</Filter>
     </ClCompile>
+    <ClCompile Include="Math\SmoothNoise.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\RawNoise.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Vector2.hpp">
@@ -483,6 +489,8 @@
     <ClInclude Include="Net\NetMessageChannel.hpp" />
     <ClInclude Include="File\FIleHelpers.hpp" />
     <ClInclude Include="Time\SimpleTimer.hpp" />
+    <ClInclude Include="Math\RawNoise.hpp" />
+    <ClInclude Include="Math\SmoothNoise.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="ThirdParty\fmod\fmod_vc.lib" />

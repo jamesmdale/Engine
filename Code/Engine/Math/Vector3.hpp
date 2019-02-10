@@ -22,7 +22,7 @@ public:
 	explicit Vector3(const Vector2& vector);
 	explicit Vector3(const IntVector2& vector);
 
-															// Operators
+	// Operators
 	const Vector3 operator+( const Vector3& vecToAdd ) const;		// vec3 + vec3
 	const Vector3 operator-( const Vector3& vecToSubtract ) const;	// vec3 - vec3
 	const Vector3 operator*( float uniformScale ) const;			// vec3 * float
