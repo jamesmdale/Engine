@@ -53,8 +53,6 @@ bool CSVWriter::WriteToFile(const std::string& filePath)
 	//create a final newline to end writing
 	std::ofstream writer(filePath.c_str());
 
-	bool newRow = true;
-
 	for (int contentIndex = 0; contentIndex < (int)m_content.size(); ++contentIndex)
 	{
 		if (!writer.is_open())

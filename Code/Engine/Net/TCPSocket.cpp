@@ -18,6 +18,8 @@ TCPSocket::~TCPSocket()
 
 bool TCPSocket::Listen(uint16 port, int maxQueued)
 {
+	UNUSED(maxQueued);
+
 	sockaddr* addr = new sockaddr();
 	int addrLength = 0;
 
@@ -35,7 +37,9 @@ bool TCPSocket::Listen(uint16 port, int maxQueued)
 	size_t addrLen;
 
 	bool success = m_address.ToSockAddr((sockaddr*)&sockAddrStorage, &addrLen);
-	int result = ::bind((SOCKET)m_socketHandle, (sockaddr*)&sockAddrStorage, addrLen);
+	UNUSED(success);
+
+	int result = ::bind((SOCKET)m_socketHandle, (sockaddr*)&sockAddrStorage, (int)addrLen);
 
 	if (result == SOCKET_ERROR) {
 		// failed to bind - if you want to know why, call WSAGetLastError()
@@ -97,7 +101,7 @@ bool TCPSocket::Connect(const NetAddress& addr)
 
 	bool success = addr.ToSockAddr((sockaddr*)&sockAddrStorage, &addrLen);
 
-	int result = ::connect((SOCKET)m_socketHandle, (sockaddr*)&sockAddrStorage, addrLen);	
+	int result = ::connect((SOCKET)m_socketHandle, (sockaddr*)&sockAddrStorage, (int)addrLen);	
 
 	if (result == SOCKET_ERROR || !success)
 	{
@@ -105,13 +109,13 @@ bool TCPSocket::Connect(const NetAddress& addr)
 		UNUSED(errorCode);
 
 		std::string addrAsString = addr.ToString();
-		DebuggerPrintf("Could not connect to address: %s", addrAsString);
+		DebuggerPrintf("Could not connect to address: %s", addrAsString.c_str());
 		return false;
 	}
 	else
 	{
 		std::string addrAsString = addr.ToString();
-		DebuggerPrintf("Connected to address: %s", addrAsString);
+		DebuggerPrintf("Connected to address: %s", addrAsString.c_str());
 		m_address = addr;
 	}
 	
@@ -143,7 +147,7 @@ size_t TCPSocket::Send(const void* data)
 //  =============================================================================
 size_t TCPSocket::Send(size_t dataSize, const void* data)
 {
-	int result = ::send((SOCKET)m_socketHandle, (char*)data, dataSize, 0);
+	int result = ::send((SOCKET)m_socketHandle, (char*)data, (int)dataSize, 0);
 
 	int errorCode = WSAGetLastError();
 	UNUSED(errorCode);
@@ -157,7 +161,7 @@ size_t TCPSocket::Send(size_t dataSize, const void* data)
 //  =============================================================================
 int TCPSocket::Receive(void* outBuffer, const size_t maxByteSize)
 {
-	int result = ::recv((SOCKET)m_socketHandle, (char*)outBuffer, maxByteSize, 0);
+	int result = ::recv((SOCKET)m_socketHandle, (char*)outBuffer, (int)maxByteSize, 0);
 
 	if (result < 0)
 	{

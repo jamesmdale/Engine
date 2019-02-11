@@ -63,7 +63,7 @@ struct DelayedReceivedPacket
 		}
 	}
 
-	uint64_t m_timeToProcess = 0.0;
+	uint64_t m_timeToProcess = 0;
 	NetPacket* m_packet = nullptr;
 	NetAddress m_senderAddress;
 };
@@ -179,7 +179,7 @@ public:
 	uint m_minAddedLatencyInMilliseconds = 50;
 	uint m_maxAddedLatencyInMilliseconds = 100;
 
-	float m_sessionSendLatencyInMilliseconds = 0.1;
+	float m_sessionSendLatencyInMilliseconds = 0.1f;
 
 	// netclock variables ----------------------------------------------
 	//ONLY USED BY CLIENT

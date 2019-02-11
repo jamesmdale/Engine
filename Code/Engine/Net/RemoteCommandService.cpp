@@ -140,7 +140,10 @@ void RemoteCommandService::SendCommand(uint index, bool isEcho, const char* mess
 	ToEndianness( &uslength, sizeof(uslength), message.GetEndianness());
 
 	size_t lengthValue = sock->Send( 2, &uslength );  // templated overload
-	size_t messageValue = sock->Send( length, message.GetBuffer() ); 
+	size_t messageValue = sock->Send( length, message.GetBuffer() );
+
+	UNUSED(lengthValue);
+	UNUSED(messageValue);
 }
 
 //  =============================================================================
@@ -396,7 +399,8 @@ void RemoteCommandService::ProcessClient(TCPSession* hostSession)
 		//we've already starting reading so we need to continue reading from the last location
 		size_t packetSize = hostSession->m_bytePacker->PeekBuffer(true);
 
-		uint bytesNeeded = packetSize + 2U - hostSession->m_bytePacker->GetWrittenByteCount();
+		uint bytesNeeded = (uint)(packetSize + 2U - hostSession->m_bytePacker->GetWrittenByteCount());
+		UNUSED(bytesNeeded);
 
 		if (bytesNeeded > 0)
 		{
@@ -479,7 +483,8 @@ void RemoteCommandService::ServiceClient(TCPSession* clientSession)
 		//we've already starting reading so we need to continue reading from the last location
 		size_t packetSize = clientSession->m_bytePacker->PeekBuffer(true);
 
-		uint bytesNeeded = packetSize + 2U - clientSession->m_bytePacker->GetWrittenByteCount();
+		uint bytesNeeded = (uint)(packetSize + 2U - clientSession->m_bytePacker->GetWrittenByteCount());
+		UNUSED(bytesNeeded);
 
 		if (bytesNeeded > 0)
 		{
@@ -565,6 +570,8 @@ void RemoteCommand(Command& cmd)
 	RemoteCommandService* theCommandService = RemoteCommandService::GetInstance();
 	eRemoteCommandState remoteState =  theCommandService->m_state;
 
+	UNUSED(remoteState);
+
 	int connectionIndex = 0;
 	std::string indexString = cmd.PeekNextString();
 
@@ -602,6 +609,8 @@ void RemoteCommandBroadcast(Command& cmd)
 	RemoteCommandService* theCommandService = RemoteCommandService::GetInstance();
 	eRemoteCommandState remoteState = theCommandService->m_state;
 
+	UNUSED(remoteState);
+
 	std::string commandMessage = cmd.GetRemainingContentAsString();
 
 	for (int connectionIndex = 0; connectionIndex < (int)theCommandService->m_connections.size(); ++connectionIndex)
@@ -612,7 +621,9 @@ void RemoteCommandBroadcast(Command& cmd)
 
 void RemoteCommandToggleEcho(Command& cmd)
 {
-	g_isEchoEnabled != g_isEchoEnabled;
+	UNUSED(cmd);
+
+	g_isEchoEnabled = !g_isEchoEnabled;
 
 	std::string echoState = "";
 
@@ -706,7 +717,7 @@ void RemoteCommandHost(Command& cmd)
 	else
 	{
 		g_host = new TCPSocket();
-		bool success = g_host->Listen(portNum, REMOTE_SERVICE_MAX_CLIENTS);
+		bool success = g_host->Listen((uint16_t)portNum, REMOTE_SERVICE_MAX_CLIENTS);
 
 		if (success)
 		{
@@ -770,9 +781,13 @@ void SpawnProcess(Command& cmd)
 //  =============================================================================
 void HostRemoteCommandProcessor(Command& cmd, int clientIndex)
 {	
+	UNUSED(cmd);
+	UNUSED(clientIndex);
+
 	RemoteCommandService* theCommandService = RemoteCommandService::GetInstance();
 	eRemoteCommandState commandServiceState = theCommandService->m_state;	
 
+	UNUSED(commandServiceState);
 
 	theCommandService = nullptr;
 }
@@ -780,9 +795,11 @@ void HostRemoteCommandProcessor(Command& cmd, int clientIndex)
 //  =============================================================================
 void ClientRemoteCommandProcessor(Command& cmd)
 {
+	UNUSED(cmd);
 	RemoteCommandService* theCommandService = RemoteCommandService::GetInstance();
 	eRemoteCommandState commandServiceState = theCommandService->m_state;	
 
+	UNUSED(commandServiceState);
 
 	theCommandService = nullptr;
 }
@@ -790,6 +807,7 @@ void ClientRemoteCommandProcessor(Command& cmd)
 //  =============================================================================
 void TestBytePackerSend(Command& cmd)
 {
+	UNUSED(cmd);
 	RemoteCommandService* theCommandService = RemoteCommandService::GetInstance();
 
 	theCommandService->SendCommand(0, g_isEchoEnabled, "blerp");

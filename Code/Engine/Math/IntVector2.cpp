@@ -169,8 +169,8 @@ int GetDistance(const IntVector2& start, const IntVector2& end)
 {
 	int dx = start.x - end.x;
 	int dy = start.y - end.y;
-	int returnFloat = sqrtf((dx * dx) + (dy * dy));
-	return returnFloat;	
+	int returnInt = (int)sqrtf(((float)dx * (float)dx) + ((float)dy * (float)dy));
+	return returnInt;	
 }
 
 //  =========================================================================================

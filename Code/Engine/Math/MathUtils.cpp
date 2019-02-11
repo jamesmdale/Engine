@@ -776,7 +776,7 @@ float Modulus(Vector2 mod)
 //  =========================================================================================
 double Modulus(double dividend, double divisor)
 {
-	return fmodf((divisor + fmodf(dividend, divisor)), divisor);
+	return fmod((divisor + fmod(dividend, divisor)), divisor);
 }
 
 //  =========================================================================================

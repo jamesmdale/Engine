@@ -13,7 +13,21 @@ uint16 ParseXmlAttribute(const tinyxml2::XMLElement& element, const char* attrib
 		parsedElement = (uint16)atoi(elementText.c_str());
 	}
 
-	return parsedElement;
+	return (uint16_t)parsedElement;
+}
+
+//  =========================================================================================
+uchar8 ParseXmlAttribute(const tinyxml2::XMLElement& element, const char* attributeName, uchar8 defaultValue)
+{
+	int parsedElement = defaultValue;
+	std::string defaultStringValue = "";
+	std::string elementText = ParseXmlAttribute(element, attributeName, defaultStringValue);
+	if (elementText != "")
+	{
+		parsedElement = (uchar8)atoi(elementText.c_str());
+	}
+
+	return (uchar8)parsedElement;
 }
 
 //  =========================================================================================

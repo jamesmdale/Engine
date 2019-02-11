@@ -37,8 +37,8 @@ public:
 	// manipulation
 	inline void SetPaused( bool paused ) { m_isPaused = paused; }
 	inline bool IsPaused() { return m_isPaused; }
-	inline void SetScale( float scale ) { m_timeScale = scale; }
-	inline float GetScale() { return m_timeScale; }
+	inline void SetScale( float scale ) { m_timeScale = (double)scale; }
+	inline float GetScale() { return (float)m_timeScale; }
 
 	void ClockSystemStartup() { Reset(); };
 

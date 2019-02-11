@@ -19,7 +19,7 @@ Plane::Plane(const Vector3& a, const Vector3& b, const Vector3& c)
 	Vector3 e0 = b - a;
 	Vector3 e1 = c - a;
 
-	Vector3 normal = CrossProduct(e1, e0);
+	normal = CrossProduct(e1, e0);
 
 	ASSERT_OR_DIE(!IsNearZero(normal.GetLength()), "INVALID PLANE NORMAL! PLANE NORMAL = 0");
 

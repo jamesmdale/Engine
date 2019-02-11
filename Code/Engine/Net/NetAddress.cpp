@@ -92,7 +92,7 @@ bool NetAddress::FromSockAddr(const sockaddr* addr)
 	uint port = ::ntohs(ipv4->sin_port);
 
 	m_Ipv4Address = ip;
-	m_port = port;
+	m_port = (uint16_t)port;
 	return true;
 }
 

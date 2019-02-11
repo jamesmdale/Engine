@@ -106,6 +106,7 @@ size_t UDPSocket::SendTo(const NetAddress& address, const void* data, const size
 		(int)addressLength);
 
 	int errorCode = WSAGetLastError();
+	UNUSED(errorCode);
 
 	if (sent > 0) 
 	{

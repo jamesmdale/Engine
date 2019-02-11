@@ -302,6 +302,8 @@ void LogSystem::HookIntoLog(LogCallback callback, void* userArguments)
 
 void LogSystem::UnhookIntoLog(LogCallback callback, void* userArguments)
 {
+	UNUSED(userArguments);
+
 	//check if callback is already registered
 	for (int hookIndex = 0; hookIndex < (int)g_registeredLogHooks.size(); ++hookIndex)
 	{
@@ -317,9 +319,9 @@ void LogSystem::UnhookIntoLog(LogCallback callback, void* userArguments)
 //  =============================================================================
 void WriteToFile(const LogEntry& log, void* filePointer)
 {
-	std::string output = Stringf("%s: %s", log.m_tag.c_str(), log.m_text.c_str());
+	UNUSED(filePointer);
 
-	bool doesPrint = true;
+	std::string output = Stringf("%s: %s", log.m_tag.c_str(), log.m_text.c_str());
 
 	*g_logFile << output << "\n";
 	*g_datedLogFile << output << "\n";

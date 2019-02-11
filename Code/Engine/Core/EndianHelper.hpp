@@ -1,7 +1,7 @@
 #pragma once
 #include "Engine\Core\EngineCommon.hpp"
 
-static enum eEndianness
+enum eEndianness
 {
 	LITTLE_ENDIAN = 0,
 	BIG_ENDIAN

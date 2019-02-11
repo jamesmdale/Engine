@@ -12,6 +12,8 @@
 
 void LoadObjectFromFile(const std::string & objFilePath, std::vector<Vector3>& outVertices, std::vector<float>& outIndicies, std::vector<Vector2>& outUVS, std::vector<Vector3>& outNormals)
 {
+	UNUSED(outIndicies);
+
 	MeshBuilder mb;
 
 	std::string buffer = (const char*) FileReadToNewBuffer(objFilePath.c_str());

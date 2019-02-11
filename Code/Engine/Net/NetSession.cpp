@@ -509,6 +509,7 @@ void NetSession::SendHeartBeat(int index)
 	uint netTime = GetNetTimeInMilliseconds();
 	NetMessage* message = new NetMessage("heartbeat");
 	bool success = message->WriteBytes(sizeof(uint), &netTime, false);
+	UNUSED(success);
 
 	// messages are sent to connections (not sessions)
 	connection->QueueMessage(message);	
@@ -646,7 +647,7 @@ void NetSession::ProcessDelayedPacket(DelayedReceivedPacket* packet)
 
 				headerSize += sizeof(uint16_t);
 
-				uint16_t reliableId = message->GetReliableId();
+				reliableId = message->GetReliableId();
 				if (!connection->HasReceivedReliableId(reliableId))
 				{
 					connection->MarkReliableReceived(reliableId);
@@ -727,9 +728,6 @@ bool NetSession::SendMessageWithoutConnection(NetMessage* message, NetConnection
 {
 	bool success = false;
 	NetSession* theNetSession = NetSession::GetInstance();
-
-	bool areMessagesPacked = false;
-	int currentMessageIndex = 0;
 
 	std::vector<NetPacket*> packetsToSend;
 	NetPacket* packet = new NetPacket(theNetSession->m_myConnection->GetConnectionIndex(), 0);
@@ -971,11 +969,11 @@ void NetSession::UpdateNetClock(float deltaSeconds)
 
 	if (deltaMilliseconds + m_currentClientTimeInMilliseconds > m_desiredClientTimeInMilliseconds)
 	{
-		m_currentClientTimeInMilliseconds += (1.f - MAX_NET_TIME_DILATION) * deltaMilliseconds;
+		m_currentClientTimeInMilliseconds += (uint)(1.f - MAX_NET_TIME_DILATION) * deltaMilliseconds;
 	}
 	else if (deltaMilliseconds + m_currentClientTimeInMilliseconds < m_desiredClientTimeInMilliseconds)
 	{
-		m_currentClientTimeInMilliseconds += (1.f + MAX_NET_TIME_DILATION) * deltaMilliseconds;
+		m_currentClientTimeInMilliseconds += (uint)(1.f + MAX_NET_TIME_DILATION) * (float)deltaMilliseconds;
 	}
 }
 
@@ -1007,7 +1005,7 @@ void NetSession::UpdateClientNetClock(uint hostTime)
 		isFirstUpdate = false;
 	}		
 
-	m_lastReceivedHostTimeInMilliseconds = hostTime + (m_myConnection->GetRoundTripTimeMilliseconds() * 0.5f);
+	m_lastReceivedHostTimeInMilliseconds = hostTime + (uint)(m_myConnection->GetRoundTripTimeMilliseconds() * 0.5f);
 	m_desiredClientTimeInMilliseconds = hostTime;
 }
 
@@ -1099,6 +1097,7 @@ NetMessageCallback GetRegisteredNetCallbackById(int id)
 //  =========================================================================================
 void AddConnectionToIndex(Command& cmd)
 {
+	UNUSED(cmd);
 	//int index = cmd.GetNextInt();
 	//std::string address = cmd.GetNextString();
 
@@ -1158,7 +1157,7 @@ void SetToHost(Command& cmd)
 	}
 
 	//attempt to host with given parameters
-	theNetSesssion->Host(id.c_str(), port, portRange);
+	theNetSesssion->Host(id.c_str(), (uint16_t)port, (uint16_t)portRange);
 
 	//check error code generated from Host function
 	if (theNetSesssion->m_errorCode == SESSION_ERROR_INTERNAL)
@@ -1170,6 +1169,8 @@ void SetToHost(Command& cmd)
 //  =============================================================================
 void SetToDisconnect(Command& cmd)
 {
+	UNUSED(cmd);
+
 	NetSession* theNetSession = NetSession::GetInstance();
 
 	if (theNetSession->m_myConnection == nullptr)
@@ -1357,7 +1358,7 @@ void SetNetSimLag(Command& cmd)
 		return;
 	}
 
-	NetSession::GetInstance()->SetSimulatedLatency(minimumLatency, maximumLatency);
+	NetSession::GetInstance()->SetSimulatedLatency((uint)minimumLatency, (uint)maximumLatency);
 	DevConsolePrintf("Latency set to Min:%f and Max%f", minimumLatency, maximumLatency);
 }
 
@@ -1471,6 +1472,8 @@ void SetGlobalHeartRate(Command& cmd)
 //  =============================================================================
 bool OnPing(NetMessage& message, NetConnection* fromConnection)
 {
+	UNUSED(message);
+
 	DevConsolePrintf("Received PING from %s (Connection:%i)", fromConnection->GetNetAddress().ToString().c_str(), (int)fromConnection->GetConnectionIndex());
 
 	NetMessage* pongMessage = new NetMessage("pong");
@@ -1491,6 +1494,8 @@ bool OnPing(NetMessage& message, NetConnection* fromConnection)
 //  =============================================================================
 bool OnPong(NetMessage& message, NetConnection* fromConnection)
 {
+	UNUSED(message);
+
 	DevConsolePrintf("Received PONG from %s (Connection:%i)", fromConnection->GetNetAddress().ToString().c_str(), (int)fromConnection->GetConnectionIndex());
 	return true;
 }
@@ -1619,9 +1624,10 @@ bool OnAck(NetMessage& message, NetConnection* fromConnection)
 //  =============================================================================
 bool OnJoinRequest(NetMessage& message, NetConnection* fromConnection)
 {
+	UNUSED(message);
+
 	NetSession* theNetSession = NetSession::GetInstance();
 
-	bool successfulConnection = false;
 	if (theNetSession->m_myConnection != theNetSession->m_hostConnection ||
 		theNetSession->GetNumBoundConnections() >= MAX_NUM_NET_CONNECTIONS)
 	{
@@ -1641,7 +1647,7 @@ bool OnJoinRequest(NetMessage& message, NetConnection* fromConnection)
 		NetConnectionInfo info;
 		info.SetNetAddress(fromConnection->GetNetAddress());
 		info.SetUniqueId(theNetSession->GenerateUniqueId().c_str());
-		info.SetConnectionIndex(theNetSession->GetFirstUnboundConnectionIndex());
+		info.SetConnectionIndex((uint8_t)theNetSession->GetFirstUnboundConnectionIndex());
 
 		NetConnection* newConnection = theNetSession->CreateConnection(info);
 		if (newConnection == nullptr)
@@ -1657,6 +1663,7 @@ bool OnJoinRequest(NetMessage& message, NetConnection* fromConnection)
 			NetMessage* successMessage = new NetMessage("join_accept");
 
 			size_t val = sizeof(char[MAX_UNIQUE_ID_LENGTH]);
+			UNUSED(val);
 
 			successMessage->WriteBytes(sizeof(char[MAX_UNIQUE_ID_LENGTH]), &theNetSession->m_hostConnection->m_info.m_uniqueId, false);
 			successMessage->WriteBytes(sizeof(char[MAX_UNIQUE_ID_LENGTH]), &info.m_uniqueId, false);
@@ -1674,6 +1681,9 @@ bool OnJoinRequest(NetMessage& message, NetConnection* fromConnection)
 //  =============================================================================
 bool OnJoinDenied(NetMessage& message, NetConnection* fromConnection)
 {
+	UNUSED(fromConnection);
+	UNUSED(message);
+
 	NetSession* theNetSession = NetSession::GetInstance();
 
 	theNetSession->Disconnect();
@@ -1684,6 +1694,8 @@ bool OnJoinDenied(NetMessage& message, NetConnection* fromConnection)
 //  =============================================================================
 bool OnJoinAccepted(NetMessage& message, NetConnection* fromConnection)
 {
+	UNUSED(fromConnection);
+
 	NetSession* theNetSession = NetSession::GetInstance();
 
 	//connection already accepted
@@ -1716,12 +1728,17 @@ bool OnJoinAccepted(NetMessage& message, NetConnection* fromConnection)
 //  =============================================================================
 bool OnNewConnection(NetMessage& message, NetConnection* fromConnection)
 {
+	UNUSED(message);
+	UNUSED(fromConnection);
 	return false;
 }
 
 //  =============================================================================
 bool OnJoinFinished(NetMessage& message, NetConnection* fromConnection)
 {
+	UNUSED(message);
+	UNUSED(fromConnection);
+
 	NetSession* theNetSession = NetSession::GetInstance();
 
 	//we are already finished joining.

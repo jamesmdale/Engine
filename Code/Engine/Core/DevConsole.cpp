@@ -350,7 +350,7 @@ void DevConsole::RenderRemoteCommandService()
 		}
 
 		int rcTextCount = 2;
-		int startingPostionFromTop = REMOTE_TEXT_CELL_HEIGHT;
+		int startingPostionFromTop = (int)REMOTE_TEXT_CELL_HEIGHT;
 
 		theRenderer->DrawText2D(Vector2(remoteConnectionBounds.mins.x, remoteConnectionBounds.maxs.y - (startingPostionFromTop * rcTextCount)), Stringf("REMOTE COMMAND SERVICE %s", state.c_str()), REMOTE_TEXT_CELL_HEIGHT, Rgba::WHITE, 1.f, Renderer::GetInstance()->CreateOrGetBitmapFont("SquirrelFixedFont"));
 		rcTextCount++;
@@ -403,7 +403,7 @@ void DevConsole::RenderNetSession()
 	if (theNetSession != nullptr)
 	{
 		int netSessionTextCount = 2;
-		int startingPostionFromTop = REMOTE_TEXT_CELL_HEIGHT;
+		int startingPostionFromTop = (int)REMOTE_TEXT_CELL_HEIGHT;
 
 		theRenderer->DrawText2D(Vector2(netSessionBounds.mins.x, netSessionBounds.maxs.y - (startingPostionFromTop * netSessionTextCount)),
 			Stringf("NET SESSION SERVICE"),
@@ -577,6 +577,8 @@ void DevConsolePrintf( char const *format,  ...)
 
 void DevConsolePrint(const Rgba& color, const std::string& formattedString)
 {
+	UNUSED(color);
+
 	g_theDevConsole->QueueMessage( HistoryItem(Rgba::WHITE, formattedString, false));
 }
 
@@ -745,7 +747,7 @@ bool DevConsole::LoadPreviousConsoleSession(std::string fileName)
 
 	if (IsStringNullOrEmpty(buffer))
 	{
-		errno_t errorVal = fopen_s(&fp, filePath.c_str(), "r");
+		errorVal = fopen_s(&fp, filePath.c_str(), "r");
 		return false;
 	}
 		
@@ -909,6 +911,7 @@ void EchoWithColor(Command &cmd)
 //  =========================================================================================
 void FlushLog(Command& cmd)
 {
+	UNUSED(cmd);
 	LogSystem::GetInstance()->FlushLoop();
 	DevConsolePrintf("Log cleared!");
 }
@@ -916,6 +919,8 @@ void FlushLog(Command& cmd)
 //  =========================================================================================
 void EnableLogOuputToDevConsole(Command& cmd)
 {
+	UNUSED(cmd);
+
 	//register
 	LogSystem::GetInstance()->HookIntoLog(WriteLogToDevconsole, nullptr);
 	DevConsolePrintf("Printing log to console!");
@@ -924,6 +929,8 @@ void EnableLogOuputToDevConsole(Command& cmd)
 //  =========================================================================================
 void DisableLogOuputToDevConsole(Command& cmd)
 {
+	UNUSED(cmd);
+
 	//register
 	LogSystem::GetInstance()->UnhookIntoLog(WriteLogToDevconsole, nullptr);
 	DevConsolePrintf("Hiding log print from console!");
@@ -932,6 +939,8 @@ void DisableLogOuputToDevConsole(Command& cmd)
 //  =========================================================================================
 void LogBlacklistMode(Command & cmd)
 {
+	UNUSED(cmd);
+
 	LogSystem::GetInstance()->LogBlacklistTags();
 	DevConsolePrintf("Enabled blacklist mode for log tags. (Exclued items that match tags in list)");
 	DevConsolePrintf("Clearing tag list...");
@@ -940,6 +949,8 @@ void LogBlacklistMode(Command & cmd)
 //  =========================================================================================
 void LogWhiteListMode(Command & cmd)
 {
+	UNUSED(cmd);
+
 	LogSystem::GetInstance()->LogWhitelistTags();
 	DevConsolePrintf("Enabled whitelist mode for log tags (Only shows items that match tags in list)");
 	DevConsolePrintf("Clearing tag list...");
@@ -994,6 +1005,8 @@ void LogHideTag(Command & cmd)
 //  =========================================================================================
 void SaveCommandHistory(Command& cmd)
 {
+	UNUSED(cmd);
+
 	if(DevConsole::GetInstance()->SaveCommandInputHistory("history"))
 		DevConsolePrintf("History saved!");
 	else
@@ -1005,6 +1018,8 @@ void SaveCommandHistory(Command& cmd)
 //  =========================================================================================
 void WriteLogToDevconsole(const LogEntry& log, void * filePointer)
 {
+	UNUSED(filePointer);
+
 	if(DevConsole::GetInstance()->IsOpen())
 	{
 		std::string tag = ToLowerAsNew(log.m_tag.c_str());

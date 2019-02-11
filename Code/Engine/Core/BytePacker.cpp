@@ -40,7 +40,7 @@ BytePacker::BytePacker(size_t bufferSize, eEndianness byteOrder)
 //  doesn't own buffer can't grow =============================================================================
 BytePacker::BytePacker(size_t bufferSize, void* buffer, eEndianness byteOrder)
 {
-	m_bufferSize = m_bufferSize;
+	m_bufferSize = bufferSize;
 	m_endianness = byteOrder;
 	m_buffer = buffer;
 
@@ -132,6 +132,7 @@ bool BytePacker::WriteBytes(size_t byteCount, const void* data, bool doesConside
 	}
 
 	uint8_t val = *(uint8_t*)data;
+	UNUSED(val);
 
 	//write data
 	memcpy((byte_t*)m_buffer + m_writeHead, data, byteCount);
@@ -220,11 +221,11 @@ size_t BytePacker::ReadSize(size_t* outsize)
 //  =============================================================================
 bool BytePacker::WriteString(const char* writeString)
 {
-	int character = 0;
 	std::string convertedString (writeString);
 	
 	//determine the encoded size
 	size_t writtenSize = WriteSize(convertedString.size() + 1);
+	UNUSED(writtenSize);
 
 	//write the data to the buffer	
 	bool success = WriteBytes(convertedString.size() + 1, writeString, false);

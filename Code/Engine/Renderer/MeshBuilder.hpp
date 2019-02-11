@@ -95,11 +95,14 @@ public:
 	template <class T>
 	void CreateGraph(const AABB2& bounds, Graph<T>* graph, const Rgba& graphBackgroundColor = Rgba::BLACK, const Rgba& graphColor = Rgba::YELLOW, const Rgba& textColor = Rgba::WHITE)
 	{
+		UNUSED(textColor);
+
 		CreateQuad2D(bounds.GetCenter(), bounds.GetDimensions(), graphBackgroundColor);
 
 		int dataSize = (int)graph->m_dataPoints.size();
 		float barWidth = (bounds.maxs.x - bounds.mins.x)/(float)dataSize;
 		double maxValueInDataRange = graph->GetLargestDataPoint();
+		UNUSED(maxValueInDataRange);
 
 		for (int dataIndex = 0; dataIndex < dataSize; ++dataIndex)
 		{

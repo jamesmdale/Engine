@@ -231,6 +231,7 @@ void Profiler::ResumeProfiler()
 //  =========================================================================================
 void Pause(Command & cmd)
 {
+	UNUSED(cmd);
 	Profiler::GetInstance()->PauseProfiler();
 }
 
@@ -238,12 +239,14 @@ void Pause(Command & cmd)
 //  =========================================================================================
 void Resume(Command & cmd)
 {
+	UNUSED(cmd);
 	Profiler::GetInstance()->ResumeProfiler();
 }
 
 //  =========================================================================================
 void LogHistory(Command & cmd)
 {
+	UNUSED(cmd);
 	Profiler::GetInstance()->PrintHistory();
 }
 

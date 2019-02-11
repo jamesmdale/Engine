@@ -9,7 +9,7 @@ void ToEndianness(void* outBuffer, size_t bufferSize, eEndianness endianness)
 
 	byte_t* byteBuffer = (byte_t*)outBuffer;
 	uint i = 0;
-	uint j = bufferSize - 1U;
+	uint j = (uint)(bufferSize - 1U);
 
 	while (i < j)
 	{
@@ -27,7 +27,7 @@ void FromEndianness(void* outBuffer, size_t bufferSize, eEndianness endianness)
 
 	byte_t* byteBuffer = (byte_t*)outBuffer;
 	uint i = 0;
-	uint j = bufferSize - 1U;
+	uint j = uint(bufferSize - 1U);
 
 	while (i < j)
 	{

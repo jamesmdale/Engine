@@ -16,7 +16,7 @@ public:
 	uint64_t GetStopTime();
 
 private:
-	uint64_t m_startTime = 0.0;
-	uint64_t m_endTime = 0.0;
+	uint64_t m_startTime = 0;
+	uint64_t m_endTime = 0;
 };
 

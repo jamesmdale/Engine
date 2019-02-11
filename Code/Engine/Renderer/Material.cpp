@@ -177,7 +177,6 @@ void Material::SetProperty(const std::string& name, float value)
 	prop->SetData((void*)&value);	
 }
 
-
 void Material::SetProperty(const std::string & name, const Vector4& value)
 {
 	MaterialPropertyVector4* prop = (MaterialPropertyVector4*)GetExistingPropertyOfSameTypeOrClear(name, VECTOR4_MATERIAL_PROPERTY);
@@ -296,12 +295,12 @@ void Material::AddShaderBindingToPropertyList(const Binding& binding)
 {
 	TODO("Add more bindings as necessary");
 
-	if(binding.m_dataType == "int")
-	{
-		int val = ConvertStringToInt(binding.m_value);
-		SetProperty(binding.m_bindingName, val);
-		return;
-	}
+	//if(binding.m_dataType == "int")
+	//{
+	//	int val = ConvertStringToInt(binding.m_value);
+	//	SetProperty(binding.m_bindingName, val);
+	//	return;
+	//}
 
 	if(binding.m_dataType == "float")
 	{

@@ -1,5 +1,6 @@
-#include "engine\math\Disc2.hpp"
-#include "engine\math\AABB2.hpp"
+#include "engine\Math\Disc2.hpp"
+#include "engine\Math\AABB2.hpp"
+#include "Engine\Core\EngineCommon.hpp"
 
 Disc2::Disc2( const Disc2& copy )	
 {
@@ -163,6 +164,7 @@ bool DoesDiscOverlapWithAABB2(const Disc2& disc, const AABB2& box)
 
 	Vector2 directionToCenterVector = box.GetCenter() - disc.center;
 	float length = directionToCenterVector.NormalizeAndGetLength();
+	UNUSED(length);
 
 	Vector2 positionToCheck = (directionToCenterVector * disc.radius) + disc.center;
 	

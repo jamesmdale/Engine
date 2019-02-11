@@ -157,7 +157,7 @@ float GetUnclampedMasterDeltaSeconds()
 		return std::numeric_limits<float>::min();
 	}
 
-	float deltaSeconds = g_masterClock->m_frame.seconds;;
+	float deltaSeconds = (float)g_masterClock->m_frame.seconds;
 	return deltaSeconds;
 }
 

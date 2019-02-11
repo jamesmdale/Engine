@@ -68,7 +68,7 @@ bool NetPacket::WriteMessage(NetMessage& netMessage, NetConnection* connection, 
 	//write size
 	bool success = false;
 
-	uint16_t totalMessageSize = sizeof(uint8_t) + netMessage.GetWrittenByteCount();
+	uint16_t totalMessageSize = sizeof(uint8_t) + (uint8_t)netMessage.GetWrittenByteCount();
 
 	//calculate size of message header
 	if (netMessage.m_definition->IsReliable())
@@ -122,6 +122,7 @@ bool NetPacket::WriteMessage(NetMessage& netMessage, NetConnection* connection, 
 //  =============================================================================
 bool NetPacket::ReadMessage(NetMessage& netMessage)
 {
+	UNUSED(netMessage);
 	bool success = false;
 
 	////get total message size

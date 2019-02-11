@@ -40,7 +40,7 @@ NetConnection::~NetConnection()
 	{
 		if (m_netMessageChannels[channelIndex] != nullptr)
 		{
-			CloseMessageChannel((int)channelIndex);
+			CloseMessageChannel((uint8_t)channelIndex);
 		}
 	}
 
@@ -78,8 +78,6 @@ NetConnection::~NetConnection()
 		delete(m_trackedPackets[packetIndex]);
 		m_trackedPackets[packetIndex] = nullptr;
 	}
-
-	int i = 0;
 }
 
 //  =============================================================================
@@ -343,7 +341,7 @@ void NetConnection::OnReceivePacket(NetPacket* packet)
 
 		if (header.m_receivedAckHistoryBitfield & bitFlag)
 		{
-			OnMyAckReceived(header.m_highestReceivedAck - (bitfieldIndex + 1U));
+			OnMyAckReceived(header.m_highestReceivedAck - (uint16_t)(bitfieldIndex + 1U));
 		}
 	}
 
@@ -394,11 +392,11 @@ void NetConnection::OnMyAckReceived(uint16_t ack)
 		//take blend of the two
 		if (rttInHPC > 0.f)
 		{
-			m_rttInSeconds = (m_rttInSeconds * 0.9f) + (PerformanceCounterToSeconds(rttInHPC) * 0.1f);
+			m_rttInSeconds = (m_rttInSeconds * 0.9f) + ((float)PerformanceCounterToSeconds(rttInHPC) * 0.1f);
 		}			
 		else
 		{
-			m_rttInSeconds = PerformanceCounterToMilliseconds(rttInHPC);
+			m_rttInSeconds = (float)PerformanceCounterToMilliseconds(rttInHPC);
 		}
 		
 		m_myLastReceivedTimeInHPC = GetMasterClock()->GetLastHPC();
@@ -475,14 +473,14 @@ float NetConnection::GetLossPercentage()
 float NetConnection::GetLastReceivedTimeInSeconds()
 {
 	uint64_t time = GetMasterClock()->GetLastHPC() - m_myLastReceivedTimeInHPC;
-	return PerformanceCounterToSeconds(time);
+	return (float)PerformanceCounterToSeconds(time);
 }
 
 //  =============================================================================
 float NetConnection::GetLastSentTimeInSeconds()
 {
 	uint64_t time = GetMasterClock()->GetLastHPC() - m_lastSendTimeInHPC;
-	return PerformanceCounterToSeconds(time);
+	return (float)PerformanceCounterToSeconds(time);
 }
 
 //  =============================================================================
@@ -554,9 +552,9 @@ void NetConnection::SetState(eNetConnectionState state)
 	if (IsMe())// && !IsHost())
 	{
 		NetMessage* message = new NetMessage("update_state");
-		eNetConnectionState state = GetState();
+		eNetConnectionState myState = GetState();
 
-		message->WriteBytes(sizeof(eNetConnectionState), (void*)&state, false);
+		message->WriteBytes(sizeof(eNetConnectionState), (void*)&myState, false);
 
 		//send updated state to host connection
 		NetSession* theNetSession = NetSession::GetInstance();
@@ -670,7 +668,7 @@ uint8_t NetConnection::OpenNewMessageChannel()
 		{
 			NetMessageChannel* channel = new NetMessageChannel();
 			m_netMessageChannels[channelIndex] = channel;
-			return channelIndex;
+			return (uint8_t)channelIndex;
 		}
 	}
 
