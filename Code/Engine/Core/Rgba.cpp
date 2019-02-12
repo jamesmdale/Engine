@@ -9,8 +9,10 @@ const Rgba Rgba::ORANGE = Rgba(255, 140, 0, 255);
 const Rgba Rgba::GREEN = Rgba(0, 255, 0, 255);
 const Rgba Rgba::BLUE = Rgba(0, 0, 255, 255);
 const Rgba Rgba::LIGHT_BLUE = Rgba(126, 221, 214, 255);
+const Rgba Rgba::LIGHT_YELLOW = Rgba (255, 210, 30, 255);
+const Rgba Rgba::LIGHT_RED = Rgba (255, 160, 147, 255);
 const Rgba Rgba::WHITE = Rgba(255, 255, 255, 255);
-const Rgba Rgba::YELLOW = Rgba(255, 255, 0, 255);
+const Rgba Rgba::YELLOW = Rgba(255, 210, 30, 255);
 const Rgba Rgba::PURPLE = Rgba(255, 0, 255, 255);
 const Rgba Rgba::BLACK = Rgba(0, 0, 0, 255);
 const Rgba Rgba::NEAR_BLACK = Rgba(3, 3, 3, 255);
@@ -26,6 +28,7 @@ const Rgba Rgba::LIGHT_BLUE_TRANSPARENT = Rgba(124, 124, 248, 200);
 const Rgba Rgba::LIGHT_GREEN_TRANSPARENT = Rgba(124, 248, 124, 200);
 const Rgba Rgba::LIGHT_WHITE_TRANSPARENT = Rgba(255, 255, 255, 50);
 const Rgba Rgba::LIGHT_PINK_TRANSPARENT = Rgba (255, 0, 255, 100);
+
 
 const Rgba Rgba::NORMAL_MAP_FLAT = Rgba(127, 127, 255, 255);
 

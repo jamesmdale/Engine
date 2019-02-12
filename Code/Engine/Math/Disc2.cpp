@@ -2,23 +2,28 @@
 #include "engine\Math\AABB2.hpp"
 #include "Engine\Core\EngineCommon.hpp"
 
+//  =========================================================================================
 Disc2::Disc2( const Disc2& copy )	
 {
 	center = copy.center;
 	radius = copy.radius;
 }
+
+//  =========================================================================================
 Disc2::Disc2(float initialX, float initialY, float initialRadius)
 {
 	center = Vector2(initialX, initialY);
 	radius = initialRadius;
 }
 
+//  =========================================================================================
 Disc2::Disc2(const Vector2& initialCenter, float initialRadius)
 {
 	center = initialCenter;
 	radius = initialRadius;
 }
 
+//  =========================================================================================
 void Disc2::StretchToIncludePoint(float x, float y)
 {
 	Vector2 includedVector = Vector2(x, y);
@@ -31,6 +36,7 @@ void Disc2::StretchToIncludePoint(float x, float y)
 
 }
 
+//  =========================================================================================
 void Disc2::StretchToIncludePoint(const Vector2& point) //expand radius if point outside
 {
 	float distance = GetDistance(point, center);
@@ -41,28 +47,33 @@ void Disc2::StretchToIncludePoint(const Vector2& point) //expand radius if point
 	}
 }
 
+//  =========================================================================================
 void Disc2::AddPaddingToRaidus(float paddingRadius)
 {
 	radius += paddingRadius;
 }
 
+//  =========================================================================================
 void Disc2::Translate(const Vector2& translation) //move the center
 {
 	center.x += translation.x;
 	center.y += translation.y;
 }
 
+//  =========================================================================================
 void Disc2::Translate(float translationX, float translationY) //move the center
 {
 	center.x += translationX;
 	center.y += translationY;
 }
 
+//  =========================================================================================
 void Disc2::AddPaddingToRadius( float paddingRadius )
 {
 	radius += paddingRadius;
 }
 
+//  =========================================================================================
 bool Disc2::IsPointInside(float x, float y) const //is (x,y) within disc's interior?
 {
 	bool isPointInside = false;
@@ -77,21 +88,23 @@ bool Disc2::IsPointInside(float x, float y) const //is (x,y) within disc's inter
 
 	return isPointInside;
 }
+
+//  =========================================================================================
 bool Disc2::IsPointInside(const Vector2& point) const //is "point" within disc's interior?
 {
 	bool isPointInside = false;
 
-	float distance = GetDistance(point, center);
+	float distance = GetDistanceSquared(point, center);
 
-	if(radius > distance)
+	if((radius * radius) > distance)
 	{
 		isPointInside = true;
 	}
 
 	return isPointInside;
-
 }
 
+//  =========================================================================================
 void Disc2::operator+=(const Vector2& translation) //move
 {
 	center.x += translation.x;
@@ -99,12 +112,14 @@ void Disc2::operator+=(const Vector2& translation) //move
 
 }
 
+//  =========================================================================================
 void Disc2::operator-=(const Vector2& antiTranslation)
 {
 	center.x -= antiTranslation.x;
 	center.y -=  antiTranslation.y;
 }
 
+//  =========================================================================================
 Disc2 Disc2::operator+(const Vector2& translation) const
 {
 	Disc2 tempDisc = Disc2(center.x, center.y, radius);
@@ -115,6 +130,7 @@ Disc2 Disc2::operator+(const Vector2& translation) const
 	return tempDisc;
 }
 
+//  =========================================================================================
 Disc2 Disc2::operator-(const Vector2& antiTranslation) const
 {
 	Disc2 tempDisc = Disc2(center.x, center.y, radius);
@@ -126,13 +142,14 @@ Disc2 Disc2::operator-(const Vector2& antiTranslation) const
 
 }
 
+//  =========================================================================================
 void Disc2::operator=( const Disc2& copyFrom )
 {
 	center = copyFrom.center;
 	radius = copyFrom.radius;
 }
 
-
+//  =========================================================================================
 bool DoDiscsOverlap(const Disc2& a, const Disc2& b)
 {
 	bool doesOverlap = false;
@@ -145,6 +162,7 @@ bool DoDiscsOverlap(const Disc2& a, const Disc2& b)
 	return doesOverlap;
 }
 
+//  =========================================================================================
 bool DoDiscsOverlap(const Vector2& aCenter, float aRadius, const Vector2& bCenter, float bRadius)
 {
 	bool doesOverlap = false;
@@ -158,6 +176,7 @@ bool DoDiscsOverlap(const Vector2& aCenter, float aRadius, const Vector2& bCente
 
 }
 
+//  =========================================================================================
 bool DoesDiscOverlapWithAABB2(const Disc2& disc, const AABB2& box)
 {
 	bool doesOverlap = false;
@@ -174,6 +193,7 @@ bool DoesDiscOverlapWithAABB2(const Disc2& disc, const AABB2& box)
 	return doesOverlap;
 }
 
+//  =========================================================================================
 const Disc2 Interpolate(const Disc2& start, const Disc2& end, float fractionTowardEnd)
 {
 	Vector2 lerpedCenter = Vector2(Interpolate(start.center.x, end.center.x, fractionTowardEnd), Interpolate(start.center.y, end.center.y, fractionTowardEnd));
