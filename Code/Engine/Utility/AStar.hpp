@@ -42,7 +42,7 @@ static int CalculateHeuristicValue(const IntVector2& cellPosition, const IntVect
 }
 
 //  =========================================================================================
-static void GetPath(std::vector<Vector2>& outPositions, Grid<SearchCell>& cellList, const IntVector2& cellListDimensions, const IntVector2& startPosition, const IntVector2& destinationPosition, Map* currentMap)
+static void GetPath(std::vector<Vector2>& outPositions, Grid<SearchCell>& cellList, const IntVector2& cellListDimensions, const IntVector2& startPosition, const IntVector2& destinationPosition)
 {
 	//we have a path from the start to the destination. Now we just need to extract it.
 	int currentRow = destinationPosition.x;
@@ -56,7 +56,7 @@ static void GetPath(std::vector<Vector2>& outPositions, Grid<SearchCell>& cellLi
 	{
 		IntVector2 coordinate = IntVector2((float)currentRow, (float)currentColumn);
 
-		outPositions.push_back(Vector2(0.5f, 0.5f) + currentMap->GetWorldPositionOfMapCoordinate(coordinate));
+		outPositions.push_back(Vector2(0.5f, 0.5f) + Vector2(coordinate));
 		int tempRow = cellList.GetValueAtCoordinate(currentRow, currentColumn).parentCoordinateX;
 		int tempColumn = cellList.GetValueAtCoordinate(currentRow, currentColumn).parentCoordinateY;
 	
@@ -153,7 +153,7 @@ static bool AStarSearchOnGrid(std::vector<Vector2>& outPositions, const IntVecto
 					foundCell->parentCoordinateY = currentCoordinate.y;
 					isDestinationFound = true;
 					
-					GetPath(outPositions, cellList, cellList.m_dimensions, startCoordinate, destinationCoordinate, currentMap);
+					GetPath(outPositions, cellList, cellList.m_dimensions, startCoordinate, destinationCoordinate);
 
 					foundCell = nullptr;
 					return isDestinationFound;
@@ -194,7 +194,7 @@ static bool AStarSearchOnGrid(std::vector<Vector2>& outPositions, const IntVecto
 					foundCell->parentCoordinateY = currentCoordinate.y;
 					isDestinationFound = true;					
 
-					GetPath(outPositions, cellList, cellList.m_dimensions, startCoordinate, destinationCoordinate, currentMap);
+					GetPath(outPositions, cellList, cellList.m_dimensions, startCoordinate, destinationCoordinate);
 
 					foundCell = nullptr;
 					return isDestinationFound;
@@ -233,7 +233,7 @@ static bool AStarSearchOnGrid(std::vector<Vector2>& outPositions, const IntVecto
 					foundCell->parentCoordinateY = currentCoordinate.y;
 					isDestinationFound = true;					
 
-					GetPath(outPositions, cellList, cellList.m_dimensions, startCoordinate, destinationCoordinate, currentMap);
+					GetPath(outPositions, cellList, cellList.m_dimensions, startCoordinate, destinationCoordinate);
 
 					foundCell = nullptr;
 					return isDestinationFound;
@@ -272,7 +272,7 @@ static bool AStarSearchOnGrid(std::vector<Vector2>& outPositions, const IntVecto
 					foundCell->parentCoordinateY = currentCoordinate.y;
 					isDestinationFound = true;				
 
-					GetPath(outPositions, cellList, cellList.m_dimensions, startCoordinate, destinationCoordinate, currentMap);
+					GetPath(outPositions, cellList, cellList.m_dimensions, startCoordinate, destinationCoordinate);
 
 					foundCell = nullptr;
 					return isDestinationFound;
