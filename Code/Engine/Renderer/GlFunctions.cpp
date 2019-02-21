@@ -105,6 +105,7 @@ PFNGLBLENDFUNCSEPARATEPROC glBlendFuncSeparate = nullptr;
 PFNGLDELETETEXTURESPROC glDeleteTextures = nullptr;
 PFNGLGENERATEMIPMAPPROC glGenerateMipmap = nullptr;
 PFNGLTEXSUBIMAGE2DPROC glTexSubImage2D = nullptr;
+PFNGLLINEWIDTHPROC glLineWidth = nullptr;
 
 void BindNewWGLFunctions()
 {
@@ -192,6 +193,7 @@ void BindGLFunctions()
 	GL_BIND_FUNCTION(glTexStorage2D);
 	GL_BIND_FUNCTION(glTexSubImage2D);
 	GL_BIND_FUNCTION(glViewport);
+	GL_BIND_FUNCTION(glLineWidth);
 }
 
 bool GLCheckError( char const* file, int line )

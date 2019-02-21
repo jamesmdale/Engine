@@ -86,6 +86,7 @@ extern PFNGLPIXELSTOREIPROC glPixelStorei;
 extern PFNGLTEXSUBIMAGE2DPROC glTexSubImage2D;
 extern PFNGLGENERATEMIPMAPPROC glGenerateMipmap;
 extern PFNGLVIEWPORTPROC glViewport;
+extern PFNGLLINEWIDTHPROC glLineWidth;
 
 //bind functions
 extern void BindNewWGLFunctions();
