@@ -36,6 +36,7 @@
     <ClCompile Include="Net\PacketTracker.cpp" />
     <ClCompile Include="Math\RawNoise.cpp" />
     <ClCompile Include="Math\SmoothNoise.cpp" />
+    <ClCompile Include="Math\RNG.cpp" />
     <ClCompile Include="Time\SimpleTimer.cpp" />
     <ClCompile Include="Utility\Grid.cpp" />
     <ClCompile Include="Utility\AStar.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Net\PacketTracker.hpp" />
     <ClInclude Include="Math\RawNoise.hpp" />
     <ClInclude Include="Math\SmoothNoise.hpp" />
+    <ClInclude Include="Math\RNG.hpp" />
     <ClInclude Include="Time\SimpleTimer.hpp" />
     <ClInclude Include="Utility\Grid.hpp" />
     <ClInclude Include="Utility\AStar.hpp" />

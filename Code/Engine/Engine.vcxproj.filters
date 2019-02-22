@@ -349,6 +349,9 @@
     <ClCompile Include="Math\RawNoise.cpp">
       <Filter>General</Filter>
     </ClCompile>
+    <ClCompile Include="Math\RNG.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Vector2.hpp">
@@ -491,6 +494,7 @@
     <ClInclude Include="Time\SimpleTimer.hpp" />
     <ClInclude Include="Math\RawNoise.hpp" />
     <ClInclude Include="Math\SmoothNoise.hpp" />
+    <ClInclude Include="Math\RNG.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="ThirdParty\fmod\fmod_vc.lib" />

@@ -53,6 +53,7 @@ public:
 								   // second: "Hello \"world\""
 								   // third+: ""
 	std::string GetRemainingContentAsString();
+	std::string GetContentAsString();
 
 	//add more helpers as necessary
 	int GetNextInt();

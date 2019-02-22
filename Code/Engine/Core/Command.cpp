@@ -208,6 +208,19 @@ std::string Command::GetRemainingContentAsString()
 }
 
 //  =========================================================================================
+std::string Command::GetContentAsString()
+{
+	std::string outString = "";
+
+	for (int contentIndex = 0; contentIndex < (int)m_commandTokens.size(); ++contentIndex)
+	{
+		outString.append(Stringf(" %s", m_commandTokens[m_tokenIndex].c_str()));
+	}
+
+	return outString;	
+}
+
+//  =========================================================================================
 int Command::GetNextInt()
 {
 	return ConvertStringToInt(GetNextString());
