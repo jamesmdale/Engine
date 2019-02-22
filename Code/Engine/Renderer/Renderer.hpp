@@ -160,7 +160,7 @@ public:
 	void BindMeshToProgram(ShaderProgram* program, Mesh* mesh);	
 
 	//GL Functions -------------------------------------------------------------------------------------------------------------------------
-	void LineWidth(float lineWidth);
+	void SetLineWidth(float lineWidth);
 	void Enable();
 	void EnableDepth(DepthComparisonType compareType, bool shouldWrite);
 	void ClearColor(const Rgba& color) const;

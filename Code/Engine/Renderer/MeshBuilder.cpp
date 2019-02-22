@@ -71,7 +71,7 @@ void MeshBuilder::SetTangent(const Vector4& tangent)
 int MeshBuilder::PushVertex(Vector3 position)
 {
 	m_stamp.position = position;
-	m_vertices.push_back(m_stamp);
+	m_vertices.emplace_back(m_stamp);
 
 	return (int)m_vertices.size() - 1;
 }
@@ -79,7 +79,7 @@ int MeshBuilder::PushVertex(Vector3 position)
 //  =========================================================================================
 int MeshBuilder::PushIndex(int index)
 {
-	m_indices.push_back(index);
+	m_indices.emplace_back(index);
 	return (int)m_indices.size() - 1;
 }
 

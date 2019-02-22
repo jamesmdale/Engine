@@ -311,10 +311,9 @@ void Renderer::EndFrame()
 }
 
 //  =========================================================================================
-void Renderer::LineWidth(float lineWidth)
+void Renderer::SetLineWidth(float lineWidth)
 {
-	UNUSED(lineWidth);
-	UNIMPLEMENTED();//glLineWidth(lineWidth);
+	glLineWidth((GLfloat)lineWidth);
 }
 
 //  =========================================================================================

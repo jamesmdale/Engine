@@ -281,6 +281,12 @@ bool Vector3::CompareZero(float inclusiveMin, float inclusiveMax)
 	return isNearZero;
 }
 
+//  =========================================================================================
+IntVector3 Vector3::FloorAndCastToInt()
+{
+	return IntVector3((int)floorf(x), (int)floorf(y), (int)floorf(z));
+}
+
 TODO("DirectionAtDegrees")
 //Vector2 Vector2::MakeDirectionAtDegrees(float degrees)
 //{

@@ -45,6 +45,7 @@ public:
 	Vector3 GetNormalized() const;
 	void Normalize();
 	bool CompareZero(float inclusiveMin = -0.01f, float inclusiveMax = 0.01f);
+	IntVector3 FloorAndCastToInt();
 
 	//float GetOrientationDegrees() const;
 	//static Vector3 MakeDirectionAtDegrees(float degrees);
