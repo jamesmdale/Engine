@@ -306,6 +306,12 @@ void BytePacker::MoveReadHead(size_t numBytes)
 		m_readHead = numByteCount;
 }
 
+//  =========================================================================================
+bool BytePacker::IsFinishedReading()
+{
+	return m_readHead == m_writeHead ? true : false;
+}
+
 // =============================================================================
 uint16_t BytePacker::PeekBuffer(bool doesChangeToPlatformEndianness)
 {

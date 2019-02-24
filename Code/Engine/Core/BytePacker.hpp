@@ -53,6 +53,7 @@ public:
 	void ResetRead();
 	void MoveWriteHead(size_t numBytes);
 	void MoveReadHead(size_t numBytes);
+	bool IsFinishedReading();
 
 	uint16_t BytePacker::PeekBuffer(bool doesChangeToPlatformEndianness);
 
