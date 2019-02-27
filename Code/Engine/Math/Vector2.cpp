@@ -48,6 +48,7 @@ const Vector2 Vector2::operator-( const Vector2& vecToSubtract ) const
 	return Vector2( x - vecToSubtract.x, y - vecToSubtract.y ); // #MP1Fixme
 }
 
+//  ----------------------------------------------
 const Vector2 Vector2::operator*(const Vector2& vecToMultiply) const
 {
 	return Vector2(x * vecToMultiply.x, y * vecToMultiply.y);
