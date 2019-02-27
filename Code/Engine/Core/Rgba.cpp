@@ -29,6 +29,7 @@ const Rgba Rgba::LIGHT_BLUE_TRANSPARENT = Rgba(124, 124, 248, 200);
 const Rgba Rgba::LIGHT_GREEN_TRANSPARENT = Rgba(124, 248, 124, 200);
 const Rgba Rgba::LIGHT_WHITE_TRANSPARENT = Rgba(255, 255, 255, 50);
 const Rgba Rgba::LIGHT_PINK_TRANSPARENT = Rgba (255, 0, 255, 100);
+const Rgba Rgba::LIGHT_YELLOW_TRANSPARENT = Rgba(241, 244, 66, 100);
 
 
 const Rgba Rgba::NORMAL_MAP_FLAT = Rgba(127, 127, 255, 255);
