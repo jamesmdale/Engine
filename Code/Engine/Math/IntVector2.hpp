@@ -39,6 +39,7 @@ public: // NOTE: this is one of the few cases where we break both the "m_" namin
 	static const IntVector2 RIGHT;
 	static const IntVector2 ZERO;
 	static const IntVector2 ONE;
+	static const IntVector2 NEGATIVE_ONE;
 };
 int GetDistance(const IntVector2& start, const IntVector2& end);
 int GetManhattanDistance(const IntVector2 & start, const IntVector2 & end);

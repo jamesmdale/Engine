@@ -65,9 +65,7 @@ public:
 	static const Rgba LIGHT_RED_TRANSPARENT;
 	static const Rgba LIGHT_ORANGE_TRANSPARENT;
 	static const Rgba LIGHT_YELLOW_TRANSPARENT;
-
 	static const Rgba NORMAL_MAP_FLAT;
-
 };
 
 
