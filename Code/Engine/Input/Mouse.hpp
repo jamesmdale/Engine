@@ -32,6 +32,8 @@ public:
 public:
 	bool m_doubleClickLeft = false;
 	bool m_doubleClickRight = false;
+	bool m_mouseWheelUp = false;
+	bool m_mouseWheelDown = false;
 	//float m_frameWheelDelta = 0.f;
 	Vector2 m_mousePositionLastFrame;
 	Vector2 m_mousePositionThisFrame;

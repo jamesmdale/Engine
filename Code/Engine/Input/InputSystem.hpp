@@ -21,6 +21,8 @@ public:
 
 	bool GetMouseDoubleClickLeft();
 	bool GetMouseDoubleClickRight();
+	bool GetMouseWheelDown();
+	bool GetMouseWheelUp();
 	bool IsKeyPressed(unsigned char keyCode) const;	
 	bool WasKeyJustPressed(unsigned char keycode) const;
 	bool WasKeyJustReleased(unsigned char keyCode) const;

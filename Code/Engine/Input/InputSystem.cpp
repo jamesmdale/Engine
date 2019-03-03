@@ -213,6 +213,8 @@ void InputSystem::UpdateMouse()
 
 	InputSystem::GetInstance()->GetMouse()->m_doubleClickLeft = false;
 	InputSystem::GetInstance()->GetMouse()->m_doubleClickRight = false;
+	InputSystem::GetInstance()->GetMouse()->m_mouseWheelUp = false;
+	InputSystem::GetInstance()->GetMouse()->m_mouseWheelDown = false;
 
 	InputSystem::GetInstance()->GetMouse()->UpdateMousePosition();
 }
@@ -298,6 +300,16 @@ bool InputSystem::GetMouseDoubleClickLeft()
 bool InputSystem::GetMouseDoubleClickRight()
 {
 	return GetMouse()->m_doubleClickRight;
+}
+
+bool InputSystem::GetMouseWheelDown()
+{
+	return GetMouse()->m_mouseWheelDown;
+}
+
+bool InputSystem::GetMouseWheelUp()
+{
+	return GetMouse()->m_mouseWheelUp;
 }
 
 //-----------------------------------------------------------------------------------------------
