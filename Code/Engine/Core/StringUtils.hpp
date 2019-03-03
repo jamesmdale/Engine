@@ -12,6 +12,7 @@ const std::string Stringf( const int maxLength, const char* format, ... );
 const std::vector<std::string> SplitStringOnCharacter(const std::string inputString, const char splitChar);
 std::string SplitStringOnFirstWord(const std::string& inputString);
 size_t GetStringSize(const std::string& inputString);
+int CountNumWordsInString(const char* inString);
 
 //string checks
 bool IsStringNullOrEmpty(const char* inputString);
