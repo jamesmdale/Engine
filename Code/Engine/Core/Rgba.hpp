@@ -32,7 +32,7 @@ public:
 	//conversions
 	static Vector4 ConvertToVector4(const Rgba& color);
 	static Vector3 ConvertToVector3(const Rgba& color);
-	void ScaleRGB(float rgbScale); //scales (and clamps) rgb components but not A
+	void ScaleRGBByPercentage(float percentage); //scales (and clamps) rgb components but not A
 	void ScaleAlpha(float alphaScale); //scales and clamps Alpha, RGB is untouched
 	void SetFromText(const char* text);
 public:

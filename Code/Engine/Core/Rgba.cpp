@@ -34,6 +34,7 @@ const Rgba Rgba::LIGHT_YELLOW_TRANSPARENT = Rgba(241, 244, 66, 100);
 
 const Rgba Rgba::NORMAL_MAP_FLAT = Rgba(127, 127, 255, 255);
 
+//  =========================================================================================
 Rgba::Rgba()//default constructs to opaque white (255, 255, 255, 255)
 {
 	r = 255;
@@ -41,6 +42,8 @@ Rgba::Rgba()//default constructs to opaque white (255, 255, 255, 255)
 	b = 255;
 	a = 255;
 }
+
+//  =========================================================================================
 Rgba::Rgba(unsigned char redByte, unsigned char greenByte, unsigned char blueByte, unsigned char alphaByte)
 {
 	r = redByte;
@@ -49,6 +52,7 @@ Rgba::Rgba(unsigned char redByte, unsigned char greenByte, unsigned char blueByt
 	a = alphaByte;
 }
 
+//  =========================================================================================
 Rgba::Rgba(int redByte, int greenByte, int blueByte, int alphaByte)
 {
 	r = (unsigned char)redByte;
@@ -57,16 +61,19 @@ Rgba::Rgba(int redByte, int greenByte, int blueByte, int alphaByte)
 	a = (unsigned char)alphaByte;
 }
 
+//  =========================================================================================
 Rgba::Rgba(Vector4 color)
 {
 	SetAsFloats(color.x, color.y, color.z, color.w);
 }
 
+//  =========================================================================================
 Rgba::Rgba(float normalizedRed, float normalizedGreen, float normalizedBlue, float normalizedAlpha)
 {
 	SetAsFloats(normalizedRed, normalizedGreen, normalizedBlue, normalizedAlpha);
 }
 
+//  =========================================================================================
 void Rgba::SetAsBytes(unsigned char redByte, unsigned char greenByte, unsigned char blueByte, unsigned char alphaByte)
 {
 	r = redByte;
@@ -75,6 +82,7 @@ void Rgba::SetAsBytes(unsigned char redByte, unsigned char greenByte, unsigned c
 	a = alphaByte;
 }
 
+//  =========================================================================================
 void Rgba::SetAsFloats(float normalizedRed, float normalizedGreen, float normalizedBlue, float normalizedAlpha)
 {
 	r = (char)(normalizedRed * 255);
@@ -83,26 +91,31 @@ void Rgba::SetAsFloats(float normalizedRed, float normalizedGreen, float normali
 	a = (char)(normalizedAlpha * 255);
 }
 
+//  =========================================================================================
 void Rgba::SetRedAsFloat(float normalizedRed)
 {
 	r = (char)(normalizedRed * 255);
 }
 
+//  =========================================================================================
 void Rgba::SetGreenAsFloat(float normalizedGreen)
 {
 	g = (char)(normalizedGreen * 255);
 }
 
+//  =========================================================================================
 void Rgba::SetBlueAsFloat(float normalizedBlue)
 {
 	b = (char)(normalizedBlue * 255);
 }
 
+//  =========================================================================================
 void Rgba::SetAlphaAsFloat(float normalizedAlpha)
 {
 	a = (char)(normalizedAlpha * 255);
 }
 
+//  =========================================================================================
 float Rgba::GetRedAsFloat()
 {
 	float divisor = 1.f / 255.f;
@@ -113,6 +126,7 @@ float Rgba::GetRedAsFloat()
 	return redNormalized;
 }
 
+//  =========================================================================================
 float Rgba::GetGreenAsFloat()
 {
 	float divisor = 1.f / 255.f;
@@ -123,6 +137,7 @@ float Rgba::GetGreenAsFloat()
 	return greenNormalized;
 }
 
+//  =========================================================================================
 float Rgba::GetBlueAsFloat()
 {
 	float divisor = 1.f / 255.f;
@@ -133,6 +148,7 @@ float Rgba::GetBlueAsFloat()
 	return blueNormalized;
 }
 
+//  =========================================================================================
 float Rgba::GetAlphaAsFloat()
 {
 	float divisor = 1.f / 255.f;
@@ -143,6 +159,7 @@ float Rgba::GetAlphaAsFloat()
 	return alphaNormalized;
 }
 
+//  =========================================================================================
 void Rgba::GetAsFloats(float& out_normalizedRed, float& out_normalizedGreen, float& out_normalizedBlue, float& out_normalizedAlpha) const
 {
 	float divisor = 1.f/255.f;
@@ -157,6 +174,7 @@ void Rgba::GetAsFloats(float& out_normalizedRed, float& out_normalizedGreen, flo
 	out_normalizedAlpha = ClampFloatZeroToOne(out_normalizedAlpha);
 }
 
+//  =========================================================================================
 Vector4 Rgba::ConvertToVector4(const Rgba& color)
 {
 	float divisor = 1.f/255.f;
@@ -175,6 +193,7 @@ Vector4 Rgba::ConvertToVector4(const Rgba& color)
 	return outVector;
 }
 
+//  =========================================================================================
 Vector3 Rgba::ConvertToVector3(const Rgba& color)
 {
 	float divisor = 1.f/255.f;
@@ -191,23 +210,21 @@ Vector3 Rgba::ConvertToVector3(const Rgba& color)
 	return outVector;
 }
 
-
-
-
-
-void Rgba::ScaleRGB(float rgbScale) //scales (and clamps) rgb components but not A
+//  =========================================================================================
+void Rgba::ScaleRGBByPercentage(float percentage) //scales (and clamps) rgb components but not A
 {
-	r *= (unsigned char)rgbScale;
-	g *= (unsigned char)rgbScale;
-	b *= (unsigned char)rgbScale;
-	a *= (unsigned char)rgbScale;
+	if(percentage < 0.f || percentage > 1.f)
+		return;
 
-	r = (unsigned char)ClampFloat(r, 0.f, 255.f);
-	g = (unsigned char)ClampFloat(r, 0.f, 255.f);
-	b = (unsigned char)ClampFloat(r, 0.f, 255.f);
-	a = (unsigned char)ClampFloat(r, 0.f, 255.f);
+	Vector4 colorAsFloats = ConvertToVector4(*this);
+	colorAsFloats.x *= percentage;
+	colorAsFloats.y *= percentage;
+	colorAsFloats.z *= percentage;
+	
+	SetAsFloats(colorAsFloats.x, colorAsFloats.y, colorAsFloats.z, colorAsFloats.w);
 }
 
+//  =========================================================================================
 void Rgba::ScaleAlpha(float alphaScale) //scales and clamps Alpha, RGB is untouched
 {
 	a *= (unsigned char)alphaScale;
@@ -215,6 +232,7 @@ void Rgba::ScaleAlpha(float alphaScale) //scales and clamps Alpha, RGB is untouc
 	a = (unsigned char)ClampFloat(r, 0.f, 255.f);
 }
 
+//  =========================================================================================
 void Rgba::SetFromText(const char* text)
 {
 	std::string str(text);	
@@ -249,6 +267,7 @@ void Rgba::SetFromText(const char* text)
 	return;	
 }
 
+//  =========================================================================================
 const Rgba Interpolate( Rgba& start, Rgba& end, float fractionTowardEnd)
 {
 	unsigned char lerpedR = (unsigned char)Interpolate(start.r, end.r, fractionTowardEnd);
@@ -259,6 +278,7 @@ const Rgba Interpolate( Rgba& start, Rgba& end, float fractionTowardEnd)
 	return Rgba(lerpedR, lerpedG, lerpedB, lerpedA);
 }
 
+//  =========================================================================================
 bool Rgba::operator==( const Rgba& compare ) const
 {
 	bool isEqual = false;
@@ -271,6 +291,7 @@ bool Rgba::operator==( const Rgba& compare ) const
 	return isEqual;
 }
 
+//  =========================================================================================
 bool Rgba::operator!=(const Rgba & compare) const
 {
 	bool isNotEqual = true;
