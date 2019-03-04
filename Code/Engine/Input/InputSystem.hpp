@@ -138,10 +138,10 @@ public:
 	static const unsigned char KEYBOARD_SCROLLLOCK;
 	static const unsigned char KEYBOARD_LEFT_SHIFT;
 	static const unsigned char KEYBOARD_LEFT_CONTROL;
-	static const unsigned char KEYBOARD_LEFT_MENU;
+	static const unsigned char KEYBOARD_LEFT_ALT;
 	static const unsigned char KEYBOARD_RIGHT_SHIFT;
 	static const unsigned char KEYBOARD_RIGHT_CONTROL;
-	static const unsigned char KEYBOARD_RIGHT_MENU;
+	static const unsigned char KEYBOARD_RIGHT_ALT;
 
 	static const unsigned short XBOX_DPAD_UP;
 	static const unsigned short XBOX_DPAD_LEFT;
