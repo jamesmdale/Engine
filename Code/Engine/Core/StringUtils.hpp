@@ -19,6 +19,7 @@ bool IsStringNullOrEmpty(const std::string& inputString);
 bool DoesStringContainCharacter(const std::string& inputString, const char character);
 bool CompareStringAlphabeticalLessThan(const std::string& stringOne, const std::string& stringTwo);
 bool StringCompareExact(const std::string& stringOne, const std::string& stringTwo);
+bool AreStringsEqual(const std::string& stringOne, const std::string& stringTwo);
 
 //removal
 void RemoveEmptyStrings(std::vector<std::string>& outStrings);
@@ -34,6 +35,8 @@ std::string ToString(uint val);
 std::string ToString(double val);
 
 //conversions from string
+uint16 ConvertStringToShort(const std::string & convertString);
+uint16 ConvertStringToUint16(const std::string & convertString);
 int ConvertStringToInt(const std::string& convertString);
 float ConvertStringToFloat(const std::string& convertString);
 Rgba ConvertStringToRGBA(const std::string& convertString);
