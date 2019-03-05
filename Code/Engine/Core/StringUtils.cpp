@@ -65,11 +65,52 @@ std::string SplitStringOnFirstWord(const std::string& inputString)
 	return returnString;
 }
 
+//  =========================================================================================
 size_t GetStringSize(const std::string & inputString)
 {
 	return inputString.size();
 }
 
+//  =========================================================================================
+int CountNumWordsInString(const char* inString)
+{
+	if(inString == nullptr)
+		return 0;  //could also assert here.
+
+	int numWords = 0;
+	int validCharactersInCurrentWord = 0;
+	int currentCharIndex = 0;
+
+	//while we aren't at the end of the string, continue processing..
+	while (inString[currentCharIndex] != '\0')
+	{
+		//if we find a space we are at the endof the word.
+		if (inString[currentCharIndex] == ' ')
+		{
+			if (validCharactersInCurrentWord != 0)
+			{
+				//update word count and reset the count for the current word
+				numWords++;
+				validCharactersInCurrentWord = 0;
+			}			
+		}
+		else
+		{
+			//we are still in the current word so increment count in word
+			validCharactersInCurrentWord++;
+		}
+
+		++currentCharIndex;
+	}
+
+	//handle last case where the final word isn't accounted for
+	if(validCharactersInCurrentWord != 0)
+		numWords++;
+
+	return numWords;
+}
+
+//  =========================================================================================
 bool IsStringNullOrEmpty(const char* inputString)
 {
 	std::string input = std::string(inputString);
@@ -111,6 +152,7 @@ bool CompareStringAlphabeticalLessThan(const std::string& stringOne, const std::
 	return false;
 }
 
+//  =========================================================================================
 bool StringCompareExact(const std::string& stringOne, const std::string& stringTwo)
 {
 	//first compare length (easiest out)

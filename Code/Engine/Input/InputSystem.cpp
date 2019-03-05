@@ -86,8 +86,8 @@ const unsigned char InputSystem::KEYBOARD_LEFT_SHIFT = VK_LSHIFT;
 const unsigned char InputSystem::KEYBOARD_RIGHT_SHIFT = VK_RSHIFT;
 const unsigned char InputSystem::KEYBOARD_LEFT_CONTROL = VK_LCONTROL;
 const unsigned char InputSystem::KEYBOARD_RIGHT_CONTROL = VK_RCONTROL;
-const unsigned char InputSystem::KEYBOARD_LEFT_MENU = VK_LMENU;
-const unsigned char InputSystem::KEYBOARD_RIGHT_MENU = VK_RMENU;
+const unsigned char InputSystem::KEYBOARD_LEFT_ALT = VK_LMENU;
+const unsigned char InputSystem::KEYBOARD_RIGHT_ALT = VK_RMENU;
 const unsigned char InputSystem::KEYBOARD_UP_ARROW = VK_UP;
 const unsigned char InputSystem::KEYBOARD_LEFT_ARROW = VK_LEFT;
 const unsigned char InputSystem::KEYBOARD_RIGHT_ARROW = VK_RIGHT;
@@ -213,6 +213,8 @@ void InputSystem::UpdateMouse()
 
 	InputSystem::GetInstance()->GetMouse()->m_doubleClickLeft = false;
 	InputSystem::GetInstance()->GetMouse()->m_doubleClickRight = false;
+	InputSystem::GetInstance()->GetMouse()->m_mouseWheelUp = false;
+	InputSystem::GetInstance()->GetMouse()->m_mouseWheelDown = false;
 
 	InputSystem::GetInstance()->GetMouse()->UpdateMousePosition();
 }
@@ -298,6 +300,16 @@ bool InputSystem::GetMouseDoubleClickLeft()
 bool InputSystem::GetMouseDoubleClickRight()
 {
 	return GetMouse()->m_doubleClickRight;
+}
+
+bool InputSystem::GetMouseWheelDown()
+{
+	return GetMouse()->m_mouseWheelDown;
+}
+
+bool InputSystem::GetMouseWheelUp()
+{
+	return GetMouse()->m_mouseWheelUp;
 }
 
 //-----------------------------------------------------------------------------------------------

@@ -11,7 +11,7 @@
 #include <vector>
 
 uint16 ParseXmlAttribute(const tinyxml2::XMLElement& element, const char* attributeName, uint16 defaultValue);
-uchar8 ParseXmlAttribute(const tinyxml2::XMLElement & element, const char * attributeName, uchar8 defaultValue);
+uint8 ParseXmlAttribute(const tinyxml2::XMLElement & element, const char * attributeName, uint8 defaultValue);
 int ParseXmlAttribute( const tinyxml2::XMLElement& element, const char* attributeName, int defaultValue );
 char ParseXmlAttribute( const tinyxml2::XMLElement& element, const char* attributeName, char defaultValue );
 bool ParseXmlAttribute( const tinyxml2::XMLElement& element, const char* attributeName, bool defaultValue );
