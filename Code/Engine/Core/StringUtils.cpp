@@ -169,6 +169,15 @@ bool StringCompareExact(const std::string& stringOne, const std::string& stringT
 	return true;
 }
 
+//  =========================================================================================
+bool AreStringsEqual(const std::string& stringOne, const std::string& stringTwo)
+{
+	if(stringOne.compare(stringTwo) == 0)
+		return true;
+
+	return false;
+}
+
 //  =============================================================================
 void RemoveEmptyStrings(std::vector<std::string>& outStrings)
 {
@@ -248,6 +257,30 @@ std::string ToString(uint val)
 std::string ToString(double val)
 {
 	return Stringf("%f", val);
+}
+
+//  =========================================================================================
+uint16 ConvertStringToShort(const std::string& convertString)
+{
+	return ConvertStringToUint16(convertString);
+}
+
+//  =============================================================================
+uint16 ConvertStringToUint16(const std::string& convertString)
+{
+	if (convertString != "")
+	{
+		int returnVal = stoi(convertString);	
+
+		//convirm return val is valud uin16
+
+		if(returnVal < 0 || returnVal > UINT16_MAX)
+			return UINT16_MAX;
+
+		return returnVal;		
+	}	
+
+	return UINT16_MAX;
 }
 
 //  =============================================================================

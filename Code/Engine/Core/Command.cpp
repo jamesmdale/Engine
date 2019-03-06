@@ -1,9 +1,9 @@
-#include "Engine\Core\Command.hpp"
-#include <utility>
 #include "Game\TheApp.hpp"
+#include "Engine\Core\Command.hpp"
 #include "Engine\Core\StringUtils.hpp"
 #include "Engine\Core\DevConsole.hpp"
 #include "Engine\Core\Rgba.hpp"
+#include <utility>
 
 std::map<std::string, CommandRegistration> s_registeredDefinitions;
 
@@ -58,6 +58,7 @@ bool CommandRun(Command& cmd)
 
 	return isValidCommand;
 }
+
 
 //  =========================================================================================
 //currently supported characters for special parsing is \" and parenthesis (,).
@@ -173,6 +174,28 @@ void Command::AppendString(const char* str)
 }
 
 //  =========================================================================================
+void Command::AppendInt(const int val)
+{
+	m_commandString = Stringf("%s %i", m_commandString.c_str(), val);
+}
+
+//  =========================================================================================
+void Command::AppendFloat(const float val)
+{
+	m_commandString = Stringf("%s %f", m_commandString.c_str(), val);
+}
+
+//  =========================================================================================
+void Command::AppendBool(const bool val)
+{
+	std::string booleanAsString = "";
+
+	val ? booleanAsString = "1" : booleanAsString = '0';
+
+	m_commandString = Stringf("%s %s", m_commandString.c_str(), booleanAsString);
+}
+
+//  =========================================================================================
 const char* Command::GetName()
 {
 	return m_commandTokens[0].c_str(); //the fist should always be the name of the command.
@@ -208,13 +231,26 @@ std::string Command::GetRemainingContentAsString()
 }
 
 //  =========================================================================================
-std::string Command::GetContentAsString()
+std::string Command::GetAllCommandContentAsString()
 {
 	std::string outString = "";
 
 	for (int contentIndex = 0; contentIndex < (int)m_commandTokens.size(); ++contentIndex)
 	{
-		outString.append(Stringf(" %s", m_commandTokens[m_tokenIndex].c_str()));
+		outString.append(Stringf(" %s", m_commandTokens[contentIndex].c_str()));
+	}
+
+	return outString;	
+}
+
+//  =========================================================================================
+std::string Command::GetNonIdContentAsString()
+{
+	std::string outString = "";
+
+	for (int contentIndex = 1; contentIndex < (int)m_commandTokens.size(); ++contentIndex)
+	{
+		outString.append(Stringf(" %s", m_commandTokens[contentIndex].c_str()));
 	}
 
 	return outString;	

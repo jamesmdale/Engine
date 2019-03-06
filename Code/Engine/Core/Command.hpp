@@ -53,7 +53,8 @@ public:
 								   // second: "Hello \"world\""
 								   // third+: ""
 	std::string GetRemainingContentAsString();
-	std::string GetContentAsString();
+	std::string GetAllCommandContentAsString();
+	std::string GetNonIdContentAsString();
 
 	//add more helpers as necessary
 	int GetNextInt();
@@ -70,6 +71,9 @@ public:
 	std::string ParseCommandStringForValidFormatting();
 
 	void AppendString(const char* str);
+	void AppendInt(const int val);
+	void AppendFloat(const float val);
+	void AppendBool(const bool val);
 };
 
 void RegisterCommand( char const *name, CommandRegistration definition); 
