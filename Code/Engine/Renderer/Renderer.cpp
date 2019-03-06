@@ -329,7 +329,8 @@ void Renderer::Enable()
 //  =========================================================================================
 void Renderer::ClearColor(const Rgba& color) const
 {
-	glClearColor( color.r, color.g, color.b, color.a);
+	Vector4 colorAsFloats = Rgba::ConvertToVector4(color);
+	glClearColor( colorAsFloats.x, colorAsFloats.y, colorAsFloats.z, colorAsFloats.w);
 	GL_CHECK_ERROR();
 
 	glClear(GL_COLOR_BUFFER_BIT);	
