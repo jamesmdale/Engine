@@ -3,11 +3,13 @@
 #include "Engine\Renderer\ShaderProgram.hpp"
 #include "Engine\Core\StringUtils.hpp"
 
+//  =========================================================================================
 Material::Material()
 {
 
 }
 
+//  =========================================================================================
 Material::~Material()
 {
 	TODO("Delete instanced shaders later");
@@ -15,6 +17,7 @@ Material::~Material()
 	//m_shader = nullptr;
 }
 
+//  =========================================================================================
 Material::Material(const Material* copyMaterial)
 {
 	m_isInstance = copyMaterial->m_isInstance;
@@ -53,6 +56,7 @@ Material::Material(const Material* copyMaterial)
 	}
 }
 
+//  =========================================================================================
 Material::Material(Shader* shader)
 {
 	m_shader = shader;
@@ -63,6 +67,7 @@ Material::Material(Shader* shader)
 	}
 }
 
+//  =========================================================================================
 void Material::LoadBoundShaderPropertyDefaults()
 {
 	for (Binding binding : m_shader->m_bindings)
@@ -71,6 +76,7 @@ void Material::LoadBoundShaderPropertyDefaults()
 	}
 }
 
+//  =========================================================================================
 void Material::SetTexture(int index, Texture* texture)
 {
 	TODO("Index might be bad so we have to handle that condition. Sure this is good?");
@@ -83,6 +89,7 @@ void Material::SetTexture(int index, Texture* texture)
 	m_textures.push_back(texture);
 }
 
+//  =========================================================================================
 void Material::SetSampler(int index, Sampler* sampler)
 {
 	TODO("Index might be bad so we have to handle that condition. Sure this is good?");
@@ -95,6 +102,7 @@ void Material::SetSampler(int index, Sampler* sampler)
 	m_samplers.push_back(sampler); 
 }
 
+//  =========================================================================================
 void Material::SetShader(Shader* shader)
 {
 	m_shader = shader;
@@ -104,36 +112,43 @@ void Material::SetShader(Shader* shader)
 //-----------------------------------------------------------------------------------------------------------------------------
 //Getters
 
+//  =========================================================================================
 Texture * Material::GetTexture(const int index)
 {
 	return m_textures[index];
 }
 
+//  =========================================================================================
 Sampler * Material::GetSampler(const int index)
 {
 	return m_samplers[index];
 }
 
+//  =========================================================================================
 Shader* Material::GetShader()
 {
 	return m_shader;
 }
 
+//  =========================================================================================
 int Material::GetNumTextures()
 {
 	return (int)m_textures.size();
 }
 
+//  =========================================================================================
 int Material::GetNumSamplers()
 {
 	return (int)m_samplers.size();
 }
 
+//  =========================================================================================
 int Material::GetNumProperties()
 {
 	return (int)m_properties.size();
 }
 
+//  =========================================================================================
 int Material::GetShaderProgramHandle()
 {
 	int handleId = -1;
@@ -145,16 +160,19 @@ int Material::GetShaderProgramHandle()
 	return handleId;
 }
 
+//  =========================================================================================
 int Material::GetSortLayerOrder()
 {
 	return m_shader->GetSortingLayer();
 }
 
+//  =========================================================================================
 RenderQueueType Material::GetRenderQueueType()
 {
 	return m_shader->GetRenderQueueType();
 }
 
+//  =========================================================================================
 bool Material::GetDoesUseLighting()
 {
 	return m_shader->m_doesUseLighting;
@@ -163,6 +181,7 @@ bool Material::GetDoesUseLighting()
 //-----------------------------------------------------------------------------------------------------------------------------
 //Property setters
 
+//  =========================================================================================
 void Material::SetProperty(const std::string& name, float value)
 {
 	MaterialPropertyFloat* prop = (MaterialPropertyFloat*)GetExistingPropertyOfSameTypeOrClear(name, FLOAT_MATERIAL_PROPERTY);
@@ -177,7 +196,8 @@ void Material::SetProperty(const std::string& name, float value)
 	prop->SetData((void*)&value);	
 }
 
-void Material::SetProperty(const std::string & name, const Vector4& value)
+//  =========================================================================================
+void Material::SetProperty(const std::string& name, const Vector4& value)
 {
 	MaterialPropertyVector4* prop = (MaterialPropertyVector4*)GetExistingPropertyOfSameTypeOrClear(name, VECTOR4_MATERIAL_PROPERTY);
 
@@ -191,7 +211,8 @@ void Material::SetProperty(const std::string & name, const Vector4& value)
 	prop->SetData((void*)&value);	
 }
 
-void Material::SetProperty(const std::string & name, const Vector3& value)
+//  =========================================================================================
+void Material::SetProperty(const std::string& name, const Vector3& value)
 {
 	MaterialPropertyVector3* prop = (MaterialPropertyVector3*)GetExistingPropertyOfSameTypeOrClear(name, VECTOR3_MATERIAL_PROPERTY);
 
@@ -205,7 +226,8 @@ void Material::SetProperty(const std::string & name, const Vector3& value)
 	prop->SetData((void*)&value);	
 }
 
-void Material::SetProperty(const std::string & name, const Vector2& value)
+//  =========================================================================================
+void Material::SetProperty(const std::string& name, const Vector2& value)
 {
 	MaterialPropertyVector2* prop = (MaterialPropertyVector2*)GetExistingPropertyOfSameTypeOrClear(name, VECTOR2_MATERIAL_PROPERTY);
 
@@ -219,7 +241,8 @@ void Material::SetProperty(const std::string & name, const Vector2& value)
 	prop->SetData((void*)&value);		
 }
 
-void Material::SetProperty(const std::string & name, const Rgba& value)
+//  =========================================================================================
+void Material::SetProperty(const std::string& name, const Rgba& value)
 {
 	MaterialPropertyRGBA* prop = (MaterialPropertyRGBA*)GetExistingPropertyOfSameTypeOrClear(name, RGBA_MATERIAL_PROPERTY);
 
@@ -233,6 +256,7 @@ void Material::SetProperty(const std::string & name, const Rgba& value)
 	prop->SetData((void*)&value);	
 }
 
+//  =========================================================================================
 void Material::SetProperty(const std::string& name, const Matrix44& value)
 {
 	MaterialPropertyMatrix44* prop = (MaterialPropertyMatrix44*)GetExistingPropertyOfSameTypeOrClear(name, MATRIX44_MATERIAL_PROPERTY);
@@ -250,6 +274,7 @@ void Material::SetProperty(const std::string& name, const Matrix44& value)
 //-----------------------------------------------------------------------------------------------------------------------------
 
 //m_properties helpers
+//  =========================================================================================
 MaterialProperty* Material::GetExistingPropertyOfSameTypeOrClear(const std::string& name, const MaterialPropertyDataType& type)
 {
 	MaterialProperty* prop = nullptr;
@@ -274,6 +299,7 @@ MaterialProperty* Material::GetExistingPropertyOfSameTypeOrClear(const std::stri
 	return prop;
 }
 
+//  =========================================================================================
 void Material::RemoveProperty(const std::string & name)
 {
 	for(int propIndex = 0; propIndex < (int)m_properties.size(); propIndex++)
@@ -286,11 +312,13 @@ void Material::RemoveProperty(const std::string & name)
 	}
 }
 
+//  =========================================================================================
 void Material::RemoveProperty(const int index)
 {
 	m_properties.erase(m_properties.begin() + index);
 }
 
+//  =========================================================================================
 void Material::AddShaderBindingToPropertyList(const Binding& binding)
 {
 	TODO("Add more bindings as necessary");
@@ -351,6 +379,7 @@ void Material::AddShaderBindingToPropertyList(const Binding& binding)
 	}*/
 }
 
+//  =========================================================================================
 Material* Material::Clone(Material* materialToClone)
 {
 	if(materialToClone == nullptr)
