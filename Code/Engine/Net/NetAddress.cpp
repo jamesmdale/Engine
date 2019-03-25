@@ -110,6 +110,18 @@ std::string NetAddress::ToString() const
 }
 
 //  =============================================================================
+std::string NetAddress::ToStringNoPort() const
+{
+	uint8* array = (uint8*)&m_Ipv4Address;
+
+	return Stringf("%u.%u.%u.%u",
+		array[0],
+		array[1],
+		array[2],
+		array[3]);
+}
+
+//  =============================================================================
 void NetAddress::GetMyHostAddress(sockaddr* outAddress, int* outAddrlen, const char* service)
 {   // first, get the name of my machine
 	char myName[256]; 

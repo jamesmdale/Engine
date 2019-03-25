@@ -69,6 +69,7 @@ extern bool g_isServiceRunning;
 
 std::string GetLocalIP();
 std::string GetLocalIP(int port);
+std::string GetLocalIPNoPort();
 
 bool GetLocalIP(NetAddress* outAddress, int port);
 

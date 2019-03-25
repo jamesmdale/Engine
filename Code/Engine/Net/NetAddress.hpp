@@ -21,6 +21,7 @@ public:
 	bool FromSockAddr(const sockaddr* sa);
 
 	std::string ToString() const;
+	std::string ToStringNoPort() const;
 
 public:
 	uint m_Ipv4Address;

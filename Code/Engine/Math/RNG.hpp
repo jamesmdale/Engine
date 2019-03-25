@@ -12,6 +12,9 @@ public:
 	void SetPosition(const int position){ m_position = position; }
 	void ResetPosition(){ m_position = 0; }
 
+	inline int GetPosition() { return m_position; }
+	inline uint GetSeed() { return m_seed; };
+
 	uint GetRandomUint();
 	float GetRandomZeroToOne();
 	float GetRandomNegativeOneToOne();

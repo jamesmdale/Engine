@@ -547,6 +547,27 @@ std::string GetLocalIP(int port)
 }
 
 //  =============================================================================
+std::string GetLocalIPNoPort()
+{
+	int port = REMOTE_SERVICE_DEFAULT_PORT;
+
+	if (g_host != nullptr)
+		port = g_host->m_address.m_port;
+
+	NetAddress netAddr;
+
+	sockaddr addr;
+	int addrLength = 0;
+	std::string portString = std::to_string(port);
+
+	netAddr.GetMyHostAddress(&addr, &addrLength, portString.c_str());
+
+	netAddr.FromSockAddr(&addr);
+
+	return netAddr.ToStringNoPort();
+}
+
+//  =============================================================================
 bool GetLocalIP(NetAddress* outAddress, int port)
 {
 	sockaddr addr;
