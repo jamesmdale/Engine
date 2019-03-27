@@ -1,19 +1,19 @@
-#include "Engine\File\CSVWriter.hpp"
+#include "Engine\File\CSVEditor.hpp"
 #include "Engine\Core\StringUtils.hpp"
 #include "Engine\File\File.hpp"
 
 //  =============================================================================
-CSVWriter::CSVWriter()
+CSVEditor::CSVEditor()
 {
 }
 
 //  =============================================================================
-CSVWriter::~CSVWriter()
+CSVEditor::~CSVEditor()
 {
 }
 
 //  =============================================================================
-void CSVWriter::AddCell(const std::string& cellContent, bool doesWriteNewline)
+void CSVEditor::AddCell(const std::string& cellContent, bool doesWriteNewline)
 {
 	if (IsStringNullOrEmpty(cellContent))
 	{
@@ -36,19 +36,19 @@ void CSVWriter::AddCell(const std::string& cellContent, bool doesWriteNewline)
 }
 
 //  =============================================================================
-void CSVWriter::AddNewLine()
+void CSVEditor::AddNewLine()
 {
 	m_content.push_back("\n");
 }
 
 //  =============================================================================
-void CSVWriter::AppendNewLine()
+void CSVEditor::AppendNewLine()
 {
 	m_content[m_content.size() - 1].append("\n");
 }
 
 //  =============================================================================
-bool CSVWriter::WriteToFile(const std::string& filePath)
+bool CSVEditor::WriteToFile(const std::string& filePath)
 {
 	//create a final newline to end writing
 	std::ofstream writer(filePath.c_str());
@@ -73,8 +73,28 @@ bool CSVWriter::WriteToFile(const std::string& filePath)
 	return true;
 }
 
+//  =========================================================================================
+bool CSVEditor::ReadFromFile(const std::string& filePath)
+{
+	//create a final newline to end writing
+	std::ifstream reader(filePath.c_str());
+	std::string line;
+
+	if (!reader.is_open())
+		return false;
+
+	while (getline(reader, line))
+	{
+		m_content.push_back(line);
+	}
+
+	reader.close();
+
+	return true;
+}
+
 //  =============================================================================
-void CSVWriter::ClearContent()
+void CSVEditor::ClearContent()
 {
 	m_content.clear();
 }

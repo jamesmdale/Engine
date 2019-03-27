@@ -289,9 +289,6 @@
     <ClCompile Include="Net\TCPSocket.cpp">
       <Filter>General</Filter>
     </ClCompile>
-    <ClCompile Include="File\CSVWriter.cpp">
-      <Filter>General</Filter>
-    </ClCompile>
     <ClCompile Include="Core\BytePacker.cpp">
       <Filter>General</Filter>
     </ClCompile>
@@ -350,6 +347,9 @@
       <Filter>General</Filter>
     </ClCompile>
     <ClCompile Include="Math\RNG.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="File\CSVEditor.cpp">
       <Filter>General</Filter>
     </ClCompile>
   </ItemGroup>
@@ -472,7 +472,6 @@
     <ClInclude Include="Net\TCPSocket.hpp" />
     <ClInclude Include="Core\Header.h" />
     <ClInclude Include="Core\WindowsCommon.hpp" />
-    <ClInclude Include="File\CSVWriter.hpp" />
     <ClInclude Include="Core\EndianHelper.hpp" />
     <ClInclude Include="Core\BytePacker.hpp" />
     <ClInclude Include="Core\BitHelper.hpp" />
@@ -495,6 +494,7 @@
     <ClInclude Include="Math\RawNoise.hpp" />
     <ClInclude Include="Math\SmoothNoise.hpp" />
     <ClInclude Include="Math\RNG.hpp" />
+    <ClInclude Include="File\CSVEditor.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="ThirdParty\fmod\fmod_vc.lib" />

@@ -51,7 +51,7 @@
     <ClCompile Include="Core\BytePacker.cpp" />
     <ClCompile Include="Core\EndianHelper.cpp" />
     <ClCompile Include="Core\LogSystem.cpp" />
-    <ClCompile Include="File\CSVWriter.cpp" />
+    <ClCompile Include="File\CSVEditor.cpp" />
     <ClCompile Include="Math\AABB3.cpp" />
     <ClCompile Include="Audio\AudioSystem.cpp" />
     <ClCompile Include="Camera\Camera.cpp" />
@@ -172,7 +172,7 @@
     <ClInclude Include="Core\Header.h" />
     <ClInclude Include="Core\LogSystem.hpp" />
     <ClInclude Include="Core\WindowsCommon.hpp" />
-    <ClInclude Include="File\CSVWriter.hpp" />
+    <ClInclude Include="File\CSVEditor.hpp" />
     <ClInclude Include="Net\NetAddress.hpp" />
     <ClInclude Include="Net\Net.hpp" />
     <ClInclude Include="Net\TCPSocket.hpp" />

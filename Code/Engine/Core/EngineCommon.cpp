@@ -91,6 +91,8 @@ void EngineShutdown()
 }
 
 // Get current date/time, format is MM-DD-YYYY_HOUR.MIN.SEC
+
+//  =============================================================================
 const std::string GetCurrentDateTime() 
 {
 	struct tm newTime;
@@ -98,7 +100,7 @@ const std::string GetCurrentDateTime()
 	localtime_s(&newTime, &now);
 
 	std::string formattedDateTimeString = Stringf("%i-%i-%i_%i.%i.%i",
-		newTime.tm_mon,
+		newTime.tm_mon + 1,
 		newTime.tm_mday,
 		newTime.tm_year,
 		newTime.tm_hour,
