@@ -14,10 +14,8 @@ public:
 
 	bool WriteToFile(const std::string& filePath);
 	bool ReadFromFile(const std::string& filePath);
-
-protected:
 	void ClearContent();
 
-private:
+public:
 	std::vector<std::string> m_content;
 };

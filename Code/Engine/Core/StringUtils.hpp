@@ -14,6 +14,9 @@ std::string SplitStringOnFirstWord(const std::string& inputString);
 size_t GetStringSize(const std::string& inputString);
 int CountNumWordsInString(const char* inString);
 
+std::string GetRemainingStringFromFoundString(const std::string& searchString, const std::string& keyString);
+std::string GetPrecedingStringFromFoundString(const std::string& searchString, const std::string& keyString);
+
 //string checks
 bool IsStringNullOrEmpty(const char* inputString);
 bool IsStringNullOrEmpty(const std::string& inputString);

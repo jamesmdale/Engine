@@ -111,6 +111,38 @@ int CountNumWordsInString(const char* inString)
 }
 
 //  =========================================================================================
+std::string GetRemainingStringFromFoundString(const std::string& searchString, const std::string& keyString)
+{
+	//start at the front of the string and search for the matching string. If full match found, return everything after as new string
+	std::string outputString = "";
+	size_t foundPosition = searchString.find(keyString);
+
+	if (foundPosition != std::string::npos)
+	{
+		//we found the string get everything after the end of the string as the new string
+		outputString = searchString.substr(foundPosition + keyString.length(), searchString.length() - 1);
+	}
+
+	return outputString;
+}
+
+//  =========================================================================================
+std::string GetPrecedingStringFromFoundString(const std::string& searchString, const std::string& keyString)
+{
+	//start at the front of the string and search for the matching string. If full match found, return everything before it as new string
+	std::string outputString = "";
+	size_t foundPosition = searchString.find(keyString);
+
+	if (foundPosition != std::string::npos)
+	{
+		//we found the string. Get everything before as new string
+		outputString = searchString.substr(0, foundPosition);
+	}
+
+	return outputString;
+}
+
+//  =========================================================================================
 bool IsStringNullOrEmpty(const char* inputString)
 {
 	std::string input = std::string(inputString);

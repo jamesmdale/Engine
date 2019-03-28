@@ -32,10 +32,38 @@ void ReadSubFolderNamesForPath(const std::string& path, std::vector<std::string>
 }
 
 //  =========================================================================================
-void ReadContainedFileNamesForPath(const std::string& path, std::vector<std::string>& outFiles)
+bool GetFileNameFromPath(const std::string& path, std::string& outFileName)
 {
-	//for (std::experimental::filesystem::directory_entry entry : std::experimental::filesystem::directory_iterator(path.c_str()))
-	//{
-	//	outFolders.push_back(entry.path().string());
-	//}
+	std::experimental::filesystem::path fileSystemPath = path.c_str();
+
+	if (!fileSystemPath.has_extension())
+		return false; //not a file
+
+	outFileName = fileSystemPath.filename().string();
+	return true;
 }
+
+//  =========================================================================================
+bool GetFileNameFromPathNoExtension(const std::string& path, std::string& outFileName)
+{
+	std::experimental::filesystem::path fileSystemPath = path.c_str();
+
+	if (!fileSystemPath.has_extension())
+		return false; //not a file
+
+	fileSystemPath.replace_extension("");
+	outFileName = fileSystemPath.filename().string();
+	return true;
+}
+
+//  =========================================================================================
+void ReadContainedFilePathsForPath(const std::string& path, std::vector<std::string>& outFiles)
+{
+	for (std::experimental::filesystem::directory_entry entry : std::experimental::filesystem::directory_iterator(path.c_str()))
+	{
+		//directories won't have extensions
+		if(entry.path().has_extension())
+			outFiles.push_back(entry.path().string());
+	}
+}
+
