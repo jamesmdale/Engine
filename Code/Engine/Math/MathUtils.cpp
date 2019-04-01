@@ -12,16 +12,6 @@ constexpr float EPSILON = static_cast<float>(0.001);
 constexpr float UINFINITY = INFINITY;
 
 //  =========================================================================================
-float ConvertDegreesToRadians(float degrees)
-{
-	float radians;
-
-	radians = degrees * (PI/180);
-
-	return (float)radians;
-}
-
-//  =========================================================================================
 int GetRandomIntLessThan(int maxNotInclusive)
 {
 	if(maxNotInclusive == 0)
@@ -165,6 +155,16 @@ int GetMinInt(int a, int b)
 int RotateRegularPolygon(float currentDegrees, float rotationDegrees)
 {
 	return (int)(currentDegrees + rotationDegrees);
+}
+
+//  =========================================================================================
+float ConvertDegreesToRadians(float degrees)
+{
+	float radians;
+
+	radians = degrees * (PI / 180);
+
+	return (float)radians;
 }
 
 //  =========================================================================================

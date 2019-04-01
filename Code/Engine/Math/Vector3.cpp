@@ -17,6 +17,7 @@ const Vector3 Vector3::DEFAULT_LIGHT_ATTENUATION = Vector3(0, 1.f, 0.75f);
 
 const Vector3 Vector3::GRAVITY_FORCE = Vector3(0.f, -9.8f, 0.f);
 
+//  =========================================================================================
 Vector3::Vector3()
 {
 	x = 0.f;
@@ -24,7 +25,7 @@ Vector3::Vector3()
 	z = 0.f;
 }
 
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 Vector3::Vector3( const Vector3& copy )	
 {
 	x = copy.x;
@@ -32,8 +33,7 @@ Vector3::Vector3( const Vector3& copy )
 	z = copy.z;
 }
 
-
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 Vector3::Vector3( float initialX, float initialY, float initialZ )
 {
 	x = initialX;
@@ -41,6 +41,7 @@ Vector3::Vector3( float initialX, float initialY, float initialZ )
 	z = initialZ;
 }
 
+//  =========================================================================================
 Vector3::Vector3(const float& uniformSize)
 {
 	x = uniformSize;
@@ -48,6 +49,7 @@ Vector3::Vector3(const float& uniformSize)
 	z = uniformSize;
 }
 
+//  =========================================================================================
 Vector3::Vector3(const IntVector3& vector)
 {
 	x = (float) vector.x;
@@ -55,6 +57,7 @@ Vector3::Vector3(const IntVector3& vector)
 	z = (float) vector.z;
 }
 
+//  =========================================================================================
 Vector3::Vector3(const Vector4& vector)
 {
 	x = vector.x;
@@ -62,6 +65,7 @@ Vector3::Vector3(const Vector4& vector)
 	z = vector.z;
 }
 
+//  =========================================================================================
 Vector3::Vector3(const Vector2& vector)
 {
 	x = vector.x;
@@ -69,6 +73,7 @@ Vector3::Vector3(const Vector2& vector)
 	z = 0.f;
 }
 
+//  =========================================================================================
 Vector3::Vector3(const IntVector2& vector)
 {
 	x = (float) vector.x;
@@ -76,40 +81,37 @@ Vector3::Vector3(const IntVector2& vector)
 	z = 0.f;
 }
 
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 const Vector3 Vector3::operator + ( const Vector3& vecToAdd ) const
 {
 	return Vector3( x + vecToAdd.x, y + vecToAdd.y, z + vecToAdd.z); // #MP1Fixme
 }
 
-
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 const Vector3 Vector3::operator-( const Vector3& vecToSubtract ) const
 {
 	return Vector3( x - vecToSubtract.x, y - vecToSubtract.y, z - vecToSubtract.z); // #MP1Fixme
 }
 
-
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 const Vector3 Vector3::operator*( float uniformScale ) const
 {
 	return Vector3( x * uniformScale, y * uniformScale, z * uniformScale ); // #MP1Fixme
 }
 
+//  =========================================================================================
 const Vector3 Vector3::operator*(const Vector3& uniformScale) const
 {
 	return Vector3(x * uniformScale.x, y * uniformScale.y, z * uniformScale.z);
 }
 
-
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 const Vector3 Vector3::operator/( float inverseScale ) const
 {
 	return Vector3( x/inverseScale, y/inverseScale, z/inverseScale ); // #MP1Fixme
 }
 
-
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 void Vector3::operator+=( const Vector3& vecToAdd )
 {
 	x = x + vecToAdd.x; 
@@ -117,8 +119,7 @@ void Vector3::operator+=( const Vector3& vecToAdd )
 	z = z + vecToAdd.z;
 }
 
-
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 void Vector3::operator-=( const Vector3& vecToSubtract )
 {
 	x = x - vecToSubtract.x; 
@@ -126,8 +127,7 @@ void Vector3::operator-=( const Vector3& vecToSubtract )
 	z = z - vecToSubtract.z;
 }
 
-
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 void Vector3::operator*=( const float uniformScale )
 {
 	x = x * uniformScale;
@@ -135,6 +135,7 @@ void Vector3::operator*=( const float uniformScale )
 	z = z * uniformScale;
 }
 
+//  =========================================================================================
 void Vector3::operator*=( const Vector3& uniformScale )
 {
 	x = x * uniformScale.x;
@@ -142,8 +143,7 @@ void Vector3::operator*=( const Vector3& uniformScale )
 	z = z * uniformScale.z;
 }
 
-
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 void Vector3::operator/=( const float uniformDivisor )
 {
 	x = x / uniformDivisor; 
@@ -151,8 +151,7 @@ void Vector3::operator/=( const float uniformDivisor )
 	z = z / uniformDivisor; 
 }
 
-
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 void Vector3::operator=( const Vector3& copyFrom )
 {
 	x = copyFrom.x; 
@@ -160,11 +159,7 @@ void Vector3::operator=( const Vector3& copyFrom )
 	z = copyFrom.z;
 }
 
-
-//-----------------------------------------------------------------------------------------------
-
-
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 bool Vector3::operator==( const Vector3& compare ) const
 {
 	bool isEqual = false;
@@ -175,7 +170,7 @@ bool Vector3::operator==( const Vector3& compare ) const
 	return isEqual;
 }
 
-//-----------------------------------------------------------------------------------------------
+//  =========================================================================================
 bool Vector3::operator!=( const Vector3& compare ) const
 {
 	bool isNotEqual = true;
@@ -186,11 +181,13 @@ bool Vector3::operator!=( const Vector3& compare ) const
 	return isNotEqual;
 }
 
+//  =========================================================================================
 Vector3 operator*( float uniformScale, const Vector3& vecToScale )
 {
 	return Vector3( vecToScale.x * uniformScale, vecToScale.y * uniformScale, vecToScale.z * uniformScale);
 }
 
+//  =========================================================================================
 void Vector3::SetFromText(const char* text)
 {
 	std::string str(text);	
@@ -216,21 +213,25 @@ void Vector3::SetFromText(const char* text)
 	return;	
 }
 
+//  =========================================================================================
 float Vector3::GetLength() const
 {
 	return sqrtf((x*x) + (y*y) + (z*z));
 }
 
+//  =========================================================================================
 float Vector3::Dot(const Vector3 & dotVector)
 {
 	return DotProduct(*this, dotVector);
 }
 
+//  =========================================================================================
 float Vector3::GetLengthSquared() const
 {
 	return ((x*x)+(y*y)+(z*z));
 }
 
+//  =========================================================================================
 float Vector3::NormalizeAndGetLength()
 {
 	float vectorLength = this->GetLength(); //probably should be fixed or renamed to GetLengthAndNormalize
@@ -245,6 +246,7 @@ float Vector3::NormalizeAndGetLength()
 	return vectorLength;
 }
 
+//  =========================================================================================
 Vector3 Vector3::GetNormalized() const
 {
 	float vectorLength = this->GetLength();
@@ -256,6 +258,7 @@ Vector3 Vector3::GetNormalized() const
 		return Vector3(0, 0, 0);
 }
 
+//  =========================================================================================
 void Vector3::Normalize()
 {
 	float vectorLength = this->GetLength(); //probably should be fixed or renamed to GetLengthAndNormalize
@@ -268,7 +271,7 @@ void Vector3::Normalize()
 	}
 }
 
-//default is -0.01 - 0.01
+//  =========================================================================================
 bool Vector3::CompareZero(float inclusiveMin, float inclusiveMax)
 {
 	bool isNearZero = false;
@@ -322,6 +325,7 @@ TODO("SETFROMTEXT")
 //	return;	
 //}
 
+//  =========================================================================================
 float GetDistance(const Vector3& a, const Vector3& b)
 {
 	float dx = a.x - b.x;
@@ -331,12 +335,14 @@ float GetDistance(const Vector3& a, const Vector3& b)
 	return returnFloat;
 }
 
+//  =========================================================================================
 float GetRadius(const Vector3& a)
 {
 	float radius = sqrtf((a.x * a.x) + (a.y * a.y) + (a.z * a.z));
 	return radius;
 }
 
+//  =========================================================================================
 float GetDistanceSquared(const Vector3& a, const Vector3& b)
 {
 	float dx = a.x - b.x;
@@ -346,6 +352,7 @@ float GetDistanceSquared(const Vector3& a, const Vector3& b)
 	return ((dx * dx) + (dy * dy) + (dz * dz));
 }
 
+//  =========================================================================================
 Vector3 GetMin(const Vector3 & a, const Vector3 & b)
 {
 	return Vector3(GetMinFloat(a.x, b.x),
@@ -353,12 +360,15 @@ Vector3 GetMin(const Vector3 & a, const Vector3 & b)
 		GetMinFloat(a.z, b.z));
 }
 
+//  =========================================================================================
 int MoveRegularPolygonX(float centerX, Vector3 movementVector)
 {
 	centerX += movementVector.x;
 
 	return (int)centerX;
 }
+
+//  =========================================================================================
 int MoveRegularPolygonY(float centerY, Vector3 movementVector)
 {
 	centerY += movementVector.y;
@@ -366,23 +376,26 @@ int MoveRegularPolygonY(float centerY, Vector3 movementVector)
 	return (int)centerY;
 }
 
+//  =========================================================================================
 Vector3 AbsoluteValue(const Vector3& initialValue)
 {
 	return Vector3(AbsoluteValue(initialValue.x), AbsoluteValue(initialValue.y), AbsoluteValue(initialValue.z));
 }
 
-
+//  =========================================================================================
 Vector3 GetMidpoint(const Vector3& a, const Vector3& b)
 {
 	return Vector3((a.x + b.x) * 0.5f, (a.y + b.y) * 0.5f, (a.z + b.z) * 0.5f);
 }
 
+//  =========================================================================================
 const Vector3 Interpolate(const Vector3& start, const Vector3& end, float fractionTowardEnd)
 {
 	return Vector3(Interpolate(start.x, end.x, fractionTowardEnd), Interpolate(start.y, end.y, fractionTowardEnd), Interpolate(start.z, end.z, fractionTowardEnd));
 }
 
-const Vector3 SphericalInterpolate(const Vector3 & start, const Vector3 & end, float fractionTowardEnd)
+//  =========================================================================================
+const Vector3 SphericalInterpolate(const Vector3& start, const Vector3& end, float fractionTowardEnd)
 {
 	float startLength = start.GetLength();
 	float endLength = end.GetLength();
@@ -393,6 +406,7 @@ const Vector3 SphericalInterpolate(const Vector3 & start, const Vector3 & end, f
 	return length * unit;
 }
 
+//  =========================================================================================
 const Vector3 SphericalInterpolateUnit(const Vector3 & start, const Vector3 & end, float fractionTowardEnd)
 {
 	float cosAngle = ClampFloat(DotProduct(start, end), -1.0f, 1.0f);

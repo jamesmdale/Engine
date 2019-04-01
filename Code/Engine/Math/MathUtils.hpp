@@ -72,7 +72,7 @@ float GetAngularDisplacement( float startDegrees, float endDegrees );
 float DotProduct(const Vector2& a, const Vector2& b);
 float DotProduct(const Vector3& a, const Vector3& b);
 float DotProduct(const Vector4& a, const Vector4& b);
-Vector3 CrossProduct(const Vector3 & a, const Vector3 & b);
+Vector3 CrossProduct(const Vector3& a, const Vector3& b);
 
 //bit functions
 bool AreBitsSet( unsigned char bitFlags8, unsigned char flagsToCheck );
