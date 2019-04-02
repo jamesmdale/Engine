@@ -61,7 +61,7 @@ void ReadContainedFilePathsForPath(const std::string& path, std::vector<std::str
 {
 	for (std::experimental::filesystem::directory_entry entry : std::experimental::filesystem::directory_iterator(path.c_str()))
 	{
-		//directories won't have extensions
+		//directories won't have extensions and aren't included
 		if(entry.path().has_extension())
 			outFiles.push_back(entry.path().string());
 	}
