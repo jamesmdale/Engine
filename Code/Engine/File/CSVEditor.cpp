@@ -15,6 +15,10 @@ CSVEditor::~CSVEditor()
 //  =============================================================================
 void CSVEditor::AddCell(const std::string& cellContent, bool doesWriteNewline)
 {
+	//if our csv is longer than the given max simulation data csv size entries, return;
+	if ((int)m_content.size() >= MAX_SIMULATION_DATA_CSV_SIZE)
+		return;
+
 	if (IsStringNullOrEmpty(cellContent))
 	{
 		m_content.push_back("");

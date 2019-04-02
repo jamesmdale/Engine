@@ -28,7 +28,6 @@ constexpr char* LOGGER_DATA_FILE = "Data/Log/log.txt";
 
 //Net Globals =============================================================================
 constexpr float NET_RELIABLE_RESEND_RATE_PER_SECOND = 0.001f;
-
 constexpr char* DEFAULT_SERVICE_PORT = "12345";
 
 #define MAX_NET_DEFINITION_REGISTRATIONS (UINT8_MAX)
@@ -62,6 +61,9 @@ const int MAX_MAX_CONSOLE_SIZE = 100;
 
 
 #define UNIMPLEMENTED()  TODO( "IMPLEMENT: " QUOTE(__FILE__) " (" QUOTE(__LINE__) ")" );// ASSERT_RECOVERABLE(0, "") 
+
+#define FLOAT_MIN (FLT_MIN)
+#define FLOAT_MAX (FLT_MAX)
 
 //#define PROFILER_ENABLED
 

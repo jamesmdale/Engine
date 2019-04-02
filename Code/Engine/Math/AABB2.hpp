@@ -23,6 +23,7 @@ public:
 	bool IsPointInside(float x, float y) const; //is (x,y) within disc's interior?
 	bool IsPointInside(const Vector2& point) const; //is "point" within disc's interior?
 	
+	Vector2 GetTopLeftPosition() const;
 	Vector2 GetDimensions() const; //return a vector2 of (width, height)
 	Vector2 GetCenter() const; //return center position of the box
 	void SetFromText(const char* text);

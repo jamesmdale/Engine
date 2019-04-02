@@ -1,7 +1,7 @@
-#include "Engine/Core/StringUtils.hpp"
+#include "Engine\Core\StringUtils.hpp"
+#include "Engine\Core\EngineCommon.hpp"
 #include <stdarg.h>
 #include <sstream>
-#include "Engine\Core\EngineCommon.hpp"
 #include <string.h>
 
 //  =============================================================================
@@ -330,13 +330,17 @@ int ConvertStringToInt(const std::string& convertString)
 //  =============================================================================
 float ConvertStringToFloat(const std::string& convertString)
 {
-	float returnVal = stof(convertString);
-	if(returnVal != NULL)
+	float returnVal = FLOAT_MAX;
+	try 
 	{
-		return returnVal;
+		returnVal = stof(convertString);
+	}	
+	catch (const std::out_of_range& oor) 
+	{
+		returnVal = FLOAT_MAX;
 	}
 
-	return NULL;
+	return returnVal;
 }
 
 //  =============================================================================

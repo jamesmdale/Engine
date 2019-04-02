@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 
+constexpr int MAX_SIMULATION_DATA_CSV_SIZE = 10'000'000;
+
 class CSVEditor
 {
 public:
