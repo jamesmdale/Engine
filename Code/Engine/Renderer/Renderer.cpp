@@ -417,6 +417,16 @@ void Renderer::DrawLineWithColor(const Vector3& startingPoint, const Vector3& en
 }
 
 //  =========================================================================================
+void Renderer::DrawLineWithColor(const Vector2& startingPoint, const Vector2& endPoint, const Rgba& color)
+{
+	VertexPCU vertex[2];
+	vertex[0] = VertexPCU(Vector3(startingPoint.x, startingPoint.y, 0.f), color, Vector2(0, 0));
+	vertex[1] = VertexPCU(Vector3(endPoint.x, endPoint.y, 0.f), color, Vector2(0, 0));
+
+	DrawMeshImmediate(&vertex[0], 2, LINES_DRAW_PRIMITIVE);
+}
+
+//  =========================================================================================
 void Renderer::DrawDottedDisc2WithColor(const Disc2& disc, const Rgba& color, const float& numSides)
 {
 	UNIMPLEMENTED();

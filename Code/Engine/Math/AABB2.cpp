@@ -186,6 +186,24 @@ Vector2 AABB2::GetTopLeftPosition() const
 }
 
 //  =========================================================================================
+Vector2 AABB2::GetBottomLeftPosition() const
+{
+	return mins;
+}
+
+//  =========================================================================================
+Vector2 AABB2::GetTopRightPosition() const
+{
+	return maxs;
+}
+
+//  =========================================================================================
+Vector2 AABB2::GetBottomRightPosition() const
+{
+	return Vector2(maxs.x, mins.y);
+}
+
+//  =========================================================================================
 Vector2 AABB2::GetDimensions() const //return a vector2 of (width, height)
 {
 	float width = maxs.x - mins.x;

@@ -130,6 +130,7 @@ public:
 	void DrawLine(const Vector2& startingPoint, const Vector2& endPoint);
 	void DrawLine(const Vector3 & startingPoint, const Vector3 & endPoint);
 	void DrawLineWithColor(const Vector3& startingPoint, const Vector3& endPoint, const Rgba& color);
+	void DrawLineWithColor(const Vector2 & startingPoint, const Vector2 & endPoint, const Rgba & color);
 	//void DrawLineWithColorFeathered(const Vector2& startingPoint, const Vector2& endPoint, const Rgba& startColor, const Rgba& endColor) const;
 
 	//triangle --------------------------------------------------------------------------------------------------------------------
