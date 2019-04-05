@@ -352,6 +352,9 @@
     <ClCompile Include="File\CSVEditor.cpp">
       <Filter>General</Filter>
     </ClCompile>
+    <ClCompile Include="Math\Sphere.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Vector2.hpp">
@@ -495,6 +498,7 @@
     <ClInclude Include="Math\SmoothNoise.hpp" />
     <ClInclude Include="Math\RNG.hpp" />
     <ClInclude Include="File\CSVEditor.hpp" />
+    <ClInclude Include="Math\Sphere.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="ThirdParty\fmod\fmod_vc.lib" />

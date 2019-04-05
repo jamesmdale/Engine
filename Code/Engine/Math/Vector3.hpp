@@ -65,8 +65,10 @@ public: // NOTE: this is one of the few cases where we break both the "m_" namin
 	static const Vector3 GRAVITY_FORCE; //-9.8f
 };
 
+float GetLength(const Vector3& a, const Vector3& b);
 float GetDistance(const Vector3& a, const Vector3& b);
 float GetRadius(const Vector3& a);
+float GetLength(const Vector3 & a);
 Vector3 GetMidpoint(const Vector3& a, const Vector3& b);
 float GetDistanceSquared(const Vector3& a, const Vector3& b);
 Vector3 GetMin(const Vector3& a, const Vector3& b);

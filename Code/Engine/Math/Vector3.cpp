@@ -326,17 +326,31 @@ TODO("SETFROMTEXT")
 //}
 
 //  =========================================================================================
+float GetLength(const Vector3& a, const Vector3& b)
+{
+	return GetDistance(a, b);
+}
+
+//  =========================================================================================
 float GetDistance(const Vector3& a, const Vector3& b)
 {
 	float dx = a.x - b.x;
 	float dy = a.y - b.y;
 	float dz = a.z - b.z;
+
 	float returnFloat = sqrtf((dx * dx) + (dy * dy) + (dz * dz));
 	return returnFloat;
 }
 
 //  =========================================================================================
 float GetRadius(const Vector3& a)
+{
+	float radius = sqrtf((a.x * a.x) + (a.y * a.y) + (a.z * a.z));
+	return radius;
+}
+
+//  =========================================================================================
+float GetLength(const Vector3& a)
 {
 	float radius = sqrtf((a.x * a.x) + (a.y * a.y) + (a.z * a.z));
 	return radius;

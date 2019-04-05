@@ -36,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="File\FileHelpers.cpp" />
+    <ClCompile Include="Math\Sphere.cpp" />
     <ClCompile Include="Net\NetMessageChannel.cpp" />
     <ClCompile Include="Net\NetConnection.cpp" />
     <ClCompile Include="Net\NetMessage.cpp" />
@@ -152,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="File\FIleHelpers.hpp" />
+    <ClInclude Include="Math\Sphere.hpp" />
     <ClInclude Include="Net\NetMessageChannel.hpp" />
     <ClInclude Include="Net\NetConnection.hpp" />
     <ClInclude Include="Net\NetMessage.hpp" />
