@@ -11,6 +11,7 @@ public:
 	explicit AABB3(const Vector3& mins, const Vector3& maxs);
 	explicit AABB3(const Vector3& center, float radiusX, float radiusY, float radiusZ);
 
+	void SetCenter(const Vector3& center);
 	void StretchToIncludePoint(float x, float y, float z);  //expand radius if (x,y) is outside
 	void StretchToIncludePoint(const Vector3& point); //expand radius if point outside
 	void AddPaddingToSides(float paddingRadiusX, float paddingRadiusY, float paddingRadiusZ);

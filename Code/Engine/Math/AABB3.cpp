@@ -29,6 +29,20 @@ AABB3::AABB3(const Vector3& center, float radiusX, float radiusY, float radiusZ)
 	maxs.z = center.z + radiusZ;
 }
 
+//  =========================================================================================
+void AABB3::SetCenter(const Vector3& center)
+{
+	Vector3 dimensions = GetDimensions() / 2.f;
+
+	mins.x = center.x - dimensions.x;
+	mins.y = center.y - dimensions.y;
+	mins.z = center.z - dimensions.z;
+
+	maxs.x = center.x + dimensions.x;
+	maxs.y = center.y + dimensions.y;
+	maxs.z = center.z + dimensions.z;
+}
+
 void AABB3::StretchToIncludePoint(float x, float y, float z)  //expand radius if (x,y) is outside
 {
 	//x

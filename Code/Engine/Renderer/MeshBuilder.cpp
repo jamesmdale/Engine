@@ -191,7 +191,6 @@ void MeshBuilder::CreatePoint2D(const Vector2& center, const Rgba& tint, float s
 	SetColor(tint);
 	SetUV(Vector2(0.f,0.f));
 	PushVertex(Vector3(center + (Vector2::RIGHT * scale)));
-
 }
 
 //  =========================================================================================
@@ -377,11 +376,9 @@ void MeshBuilder::CreateCube(const Vector3& center, const Vector3& dimensions, c
 	SetUV(Vector2(0.f,1.f));
 	SetNormal(Vector3(0.f, -1.f, 0.f));
 	SetTangent(Vector4(-1.f, 0.f, 0.f, 1.f));
-	PushVertex(Vector3(center.x - xVal, center.y - yVal, center.z - zVal));
-	
+	PushVertex(Vector3(center.x - xVal, center.y - yVal, center.z - zVal));	
 
 	AddQuadIndices(vertSize + 20, vertSize + 21, vertSize + 22, vertSize + 23);
-
 }
 
 //  =========================================================================================
