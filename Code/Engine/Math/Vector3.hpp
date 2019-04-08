@@ -76,6 +76,8 @@ int MoveRegularPolygonX(float centerX, Vector3 movementVector);
 int MoveRegularPolygonY(float centerY, Vector3 movementVector);
 Vector3 AbsoluteValue(const Vector3& initialValue);
 
+Vector3 GetProjectedVector(const Vector3& vectorToProject, const Vector3& projectOntoNormalized);
+
 //const Vector3 GetProjectedVector(const Vector3& vectorToProject, const Vector3& projectOnto);
 //const Vector3 GetTransformedIntoBasis (const Vector3& originalVector, const Vector3& newBasisI, const Vector3& newBasisJ);
 //const Vector3 GetTransformedOutOfBasis( const Vector3& vectorInBasis, const Vector3& oldBasisI, const Vector3& oldBasisJ );

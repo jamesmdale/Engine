@@ -397,6 +397,13 @@ Vector3 AbsoluteValue(const Vector3& initialValue)
 }
 
 //  =========================================================================================
+Vector3 GetProjectedVector(const Vector3& vectorToProject, const Vector3& projectOntoNormalized)
+{
+	float dot = DotProduct(vectorToProject, projectOntoNormalized);
+	return projectOntoNormalized * dot;
+}
+
+//  =========================================================================================
 Vector3 GetMidpoint(const Vector3& a, const Vector3& b)
 {
 	return Vector3((a.x + b.x) * 0.5f, (a.y + b.y) * 0.5f, (a.z + b.z) * 0.5f);

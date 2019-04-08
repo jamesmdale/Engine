@@ -6,18 +6,21 @@
 
 const AABB3 AABB3::ZERO_TO_ONE = AABB3(Vector3(0.f, 0.f, 0.f), Vector3(1.f, 1.f, 1.f));
 
+//  =========================================================================================
 AABB3::AABB3( const AABB3& copy )	
 {
 	mins = copy.mins;
 	maxs = copy.maxs;
 }
 
+//  =========================================================================================
 AABB3::AABB3(const Vector3& minsVector, const Vector3& maxsVector)
 {
 	mins = minsVector;
 	maxs = maxsVector;
 }
 
+//  =========================================================================================
 AABB3::AABB3(const Vector3& center, float radiusX, float radiusY, float radiusZ)
 {
 	mins.x = center.x - radiusX;
@@ -43,6 +46,7 @@ void AABB3::SetCenter(const Vector3& center)
 	maxs.z = center.z + dimensions.z;
 }
 
+//  =========================================================================================
 void AABB3::StretchToIncludePoint(float x, float y, float z)  //expand radius if (x,y) is outside
 {
 	//x
@@ -76,6 +80,8 @@ void AABB3::StretchToIncludePoint(float x, float y, float z)  //expand radius if
 		mins.z = z;
 	}
 }
+
+//  =========================================================================================
 void AABB3::StretchToIncludePoint(const Vector3& point) //expand radius if point outside
 {
 	//x
@@ -108,6 +114,8 @@ void AABB3::StretchToIncludePoint(const Vector3& point) //expand radius if point
 		mins.z = point.z;
 	}
 }
+
+//  =========================================================================================
 void AABB3::AddPaddingToSides(float paddingRadiusX, float paddingRadiusY, float paddingRadiusZ)
 {
 	mins.x -= paddingRadiusX;	
@@ -118,6 +126,8 @@ void AABB3::AddPaddingToSides(float paddingRadiusX, float paddingRadiusY, float 
 	maxs.y += paddingRadiusY;
 	maxs.z += paddingRadiusZ;
 }
+
+//  =========================================================================================
 void AABB3:: Translate(const Vector3& translation) //move the center
 {
 	mins.x += translation.x;
@@ -128,6 +138,8 @@ void AABB3:: Translate(const Vector3& translation) //move the center
 	maxs.y += translation.y;
 	maxs.z += translation.z;
 }
+
+//  =========================================================================================
 void AABB3::Translate(float translationX, float translationY, float translationZ) //move the center
 {
 	mins.x += translationX;
@@ -138,6 +150,8 @@ void AABB3::Translate(float translationX, float translationY, float translationZ
 	maxs.y += translationY;
 	maxs.z += translationZ;
 }
+
+//  =========================================================================================
 void AABB3::AddPaddingToRadius( float paddingRadius )
 {
 	mins.x -= paddingRadius;	
@@ -149,6 +163,7 @@ void AABB3::AddPaddingToRadius( float paddingRadius )
 	maxs.z += paddingRadius;
 }
 
+//  =========================================================================================
 bool AABB3::IsPointInside(float x, float y, float z) const //is (x,y) within AABB3's interior?
 {
 	bool isPointInside = false;
@@ -159,10 +174,12 @@ bool AABB3::IsPointInside(float x, float y, float z) const //is (x,y) within AAB
 
 	return isPointInside;
 }
+
+//  =========================================================================================
 bool AABB3::IsPointInside(const Vector3& point) const //is "point" within AABB3's interior?
 {
 	bool isPointInside = false;
-	if(point.x < maxs.x && point.x > mins.x && point.y < maxs.y && point.y > mins.y && point.z < maxs.z && point.z > mins.z)
+	if(point.x <= maxs.x && point.x >= mins.x && point.y <= maxs.y && point.y >= mins.y && point.z <= maxs.z && point.z >= mins.z)
 	{
 		isPointInside = true;
 	}
@@ -170,6 +187,7 @@ bool AABB3::IsPointInside(const Vector3& point) const //is "point" within AABB3'
 	return isPointInside;
 }
 
+//  =========================================================================================
 bool AABB3::DoesOverlapWithSphere(const Vector3 & sphereCenter, float sphereRadius)
 {
 	//easy out if box scenter is inside the sphere
@@ -241,6 +259,19 @@ bool AABB3::DoesOverlapWithSphere(const Vector3 & sphereCenter, float sphereRadi
 	return false;
 }
 
+//  =========================================================================================
+Vector3 AABB3::GetClosestPointOnAABB3(const Vector3& position)
+{
+	Vector3 center = GetCenter();
+	Vector3 halfDimensions = GetDimensions() / 2.f;
+	float x = ClampFloat(position.x, center.x - halfDimensions.x, center.x + halfDimensions.x);
+	float y = ClampFloat(position.y, center.y - halfDimensions.y, center.y + halfDimensions.y);
+	float z = ClampFloat(position.z, center.z - halfDimensions.z, center.z + halfDimensions.z);
+
+	return Vector3(x, y, z);
+}
+
+//  =========================================================================================
 bool DoAABBsOverlap(const AABB3& box1, const AABB3& box2) // determine if boxes overlap
 {
 	bool doBoxesOverlap = true;
@@ -275,6 +306,7 @@ bool DoAABBsOverlap(const AABB3& box1, const AABB3& box2) // determine if boxes 
 	return doBoxesOverlap;
 }
 
+//  =========================================================================================
 Vector3 AABB3::GetDimensions() const //return a Vector3 of (width, height)
 {
 	float width = maxs.x - mins.x;
@@ -284,6 +316,8 @@ Vector3 AABB3::GetDimensions() const //return a Vector3 of (width, height)
 
 	return dimensions;
 }
+
+//  =========================================================================================
 Vector3 AABB3::GetCenter() const //return center position of the box
 {
 	Vector3 centerPoint = (mins + maxs) * .5;
@@ -291,6 +325,7 @@ Vector3 AABB3::GetCenter() const //return center position of the box
 	return centerPoint;
 }
 
+//  =========================================================================================
 void AABB3::operator+=(const Vector3& translation) //move
 {
 	mins.x += translation.x;
@@ -303,6 +338,7 @@ void AABB3::operator+=(const Vector3& translation) //move
 
 }
 
+//  =========================================================================================
 void AABB3::operator-=(const Vector3& translation) //move
 {
 	mins.x -= translation.x;
@@ -314,6 +350,7 @@ void AABB3::operator-=(const Vector3& translation) //move
 	maxs.z -= translation.z;
 }
 
+//  =========================================================================================
 AABB3 AABB3::operator+(const Vector3& translation) const //move
 {
 	AABB3 tempBox = AABB3(mins, maxs);
@@ -328,6 +365,7 @@ AABB3 AABB3::operator+(const Vector3& translation) const //move
 	return tempBox;
 }
 
+//  =========================================================================================
 AABB3 AABB3::operator-(const Vector3& translation) const //move
 {
 	AABB3 tempBox = AABB3(mins, maxs);
@@ -342,6 +380,7 @@ AABB3 AABB3::operator-(const Vector3& translation) const //move
 	return tempBox;
 }
 
+//  =========================================================================================
 const AABB3 Interpolate(const AABB3& start, const AABB3& end, float fractionTowardEnd)
 {
 	Vector3 lerpedMins = Vector3(Interpolate(start.mins.x, end.mins.x, fractionTowardEnd), Interpolate(start.mins.y, end.mins.y, fractionTowardEnd), Interpolate(start.mins.z, end.mins.z, fractionTowardEnd));
@@ -349,6 +388,7 @@ const AABB3 Interpolate(const AABB3& start, const AABB3& end, float fractionTowa
 	return AABB3(lerpedMins, lerpedMaxs);
 }
 
+//  =========================================================================================
 void AABB3::SetFromText(const char* text)
 {
 	std::string str(text);	
