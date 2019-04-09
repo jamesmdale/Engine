@@ -54,8 +54,6 @@ public:
 	double GetRunningTimeInSeconds();
 	double GetRunningTimeInMilliseconds();
 
-	float GetFPS();
-
 public:
 	TimeUnit m_frame; 
 	TimeUnit m_total; 
