@@ -14,6 +14,8 @@ int RoundDownToInt( float inValue );
 float RoundDownToDecimalPlace(float inValue, int decimalPlace); //100 would be 0.00
 float CalculateXPoint(float centerX, float radius, float radians);
 float CalculateYPoint(float centerY, float radius, float radians);
+float GetMaxFloat(float a, float b);
+int GetMaxInt(int a, int b);
 float GetMinFloat(float a, float b);
 int GetMinInt(int a, int b);
 int RotateRegularPolygon(float currentDegrees, float rotationDegrees);

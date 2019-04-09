@@ -39,6 +39,7 @@ public:
 	bool operator!=( const Vector3& compare ) const;				// vec3 != vec3
 	friend Vector3 operator*( float uniformScale, const Vector3& vecToScale);	// float * vec3
 	float GetLength() const;
+	float GetLengthXY() const;
 	float Dot(const Vector3& dotVector);
 	float GetLengthSquared() const;
 	float NormalizeAndGetLength();
@@ -46,6 +47,9 @@ public:
 	void Normalize();
 	bool CompareZero(float inclusiveMin = -0.01f, float inclusiveMax = 0.01f);
 	IntVector3 FloorAndCastToInt();
+	void ClipToLength(float length);
+	void ClipXYToLength(float length);
+	Vector2 XY() const;
 
 	//float GetOrientationDegrees() const;
 	//static Vector3 MakeDirectionAtDegrees(float degrees);

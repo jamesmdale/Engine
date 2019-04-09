@@ -220,6 +220,12 @@ float Vector3::GetLength() const
 }
 
 //  =========================================================================================
+float Vector3::GetLengthXY() const
+{
+	return sqrtf((x*x) + (y*y));
+}
+
+//  =========================================================================================
 float Vector3::Dot(const Vector3 & dotVector)
 {
 	return DotProduct(*this, dotVector);
@@ -255,7 +261,7 @@ Vector3 Vector3::GetNormalized() const
 		return Vector3((x/vectorLength), (y/vectorLength), (z/vectorLength));
 	}
 	else
-		return Vector3(0, 0, 0);
+		return Vector3::ZERO;
 }
 
 //  =========================================================================================
@@ -288,6 +294,36 @@ bool Vector3::CompareZero(float inclusiveMin, float inclusiveMax)
 IntVector3 Vector3::FloorAndCastToInt()
 {
 	return IntVector3((int)floorf(x), (int)floorf(y), (int)floorf(z));
+}
+
+//  =========================================================================================
+void Vector3::ClipToLength(float length)
+{
+	if (GetLength() > length);
+	{
+		Vector3 clippedVec3 = Vector3(GetNormalized() * length);
+		x = clippedVec3.x;
+		y = clippedVec3.y;
+		z = clippedVec3.z;
+	}
+		
+}
+
+//  =========================================================================================
+void Vector3::ClipXYToLength(float length)
+{
+	if (GetLengthXY() > length)
+	{
+		Vector2 clippedVec2 = Vector2(x, y).GetNormalized() * length;
+		x = clippedVec2.x;
+		y = clippedVec2.y;
+	}		
+}
+
+//  =========================================================================================
+Vector2 Vector3::XY() const
+{
+	return Vector2(x, y);
 }
 
 TODO("DirectionAtDegrees")

@@ -126,29 +126,39 @@ float CalculateYPoint(float centerY, float radius, float radians)
 }
 
 //  =========================================================================================
+float GetMaxFloat(float a, float b)
+{
+	if (a < b)
+		return b;
+	else
+		return a;
+}
+
+//  =========================================================================================
+int GetMaxInt(int a, int b)
+{
+	if (a < b)
+		return b;
+	else
+		return a;
+}
+
+//  =========================================================================================
 float GetMinFloat(float a, float b)
 {
 	if (a < b)
-	{
 		return a;
-	}
 	else
-	{
 		return b;
-	}
 }
 
 //  =========================================================================================
 int GetMinInt(int a, int b)
 {
 	if (a < b)
-	{
 		return a;
-	}
 	else
-	{
 		return b;
-	}
 }
 
 //  =========================================================================================
