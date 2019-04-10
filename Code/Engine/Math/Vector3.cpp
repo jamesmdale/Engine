@@ -267,13 +267,13 @@ Vector3 Vector3::GetNormalized() const
 //  =========================================================================================
 void Vector3::Normalize()
 {
-	float vectorLength = this->GetLength(); //probably should be fixed or renamed to GetLengthAndNormalize
-
+	float vectorLength = GetLength(); //probably should be fixed or renamed to GetLengthAndNormalize
 	if(vectorLength != 0.f)
 	{
-		this->x = x/vectorLength;
-		this->y = y/vectorLength;
-		this->z = z/vectorLength;
+		float scale = 1.f / vectorLength;
+		x = x * scale;
+		y = y * scale;
+		z = z * scale;
 	}
 }
 
