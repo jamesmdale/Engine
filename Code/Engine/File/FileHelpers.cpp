@@ -67,3 +67,12 @@ void ReadContainedFilePathsForPath(const std::string& path, std::vector<std::str
 	}
 }
 
+//  =========================================================================================
+bool DoesFileExist(const std::string& path)
+{
+	std::experimental::filesystem::path fileSystemPath = path.c_str();
+
+	bool doesExist = std::experimental::filesystem::exists(fileSystemPath);
+	return doesExist;
+}
+

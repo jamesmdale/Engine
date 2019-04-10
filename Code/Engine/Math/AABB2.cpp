@@ -7,6 +7,13 @@
 const AABB2 AABB2::ZERO_TO_ONE = AABB2(Vector2(0.f,0.f), Vector2(1.f,1.f));
 
 //  =========================================================================================
+AABB2::AABB2()
+{
+	mins = Vector2::ZERO;
+	maxs = Vector2::ONE;
+}
+
+//  =========================================================================================
 AABB2::AABB2( const AABB2& copy )	
 {
 	mins = copy.mins;
@@ -46,6 +53,29 @@ AABB2::AABB2(const AABB2& bounds, const Vector2& minsPercentage, const Vector2& 
 
 	mins = minsOffset + bounds.mins;
 	maxs = maxsOffset + bounds.mins;
+}
+
+//  =========================================================================================
+void AABB2::SetCenter(const Vector2 & center)
+{
+	Vector2 dimensions = GetDimensions() / 2.f;
+
+	mins.x = center.x - dimensions.x;
+	mins.y = center.y - dimensions.y;
+
+	maxs.x = center.x + dimensions.x;
+	maxs.y = center.y + dimensions.y;
+}
+
+//  =========================================================================================
+void AABB2::SetDimensions(float radiusX, float radiusY)
+{
+	Vector2 center = GetCenter();
+	mins.x = center.x - radiusX;
+	mins.y = center.y - radiusY;
+
+	maxs.x = center.x + radiusX;
+	maxs.y = center.y + radiusY;
 }
 
 //  =========================================================================================
@@ -214,6 +244,18 @@ Vector2 AABB2::GetDimensions() const //return a vector2 of (width, height)
 }
 
 //  =========================================================================================
+float AABB2::GetHeight() const
+{
+	return maxs.y - mins.y;
+}
+
+//  =========================================================================================
+float AABB2::GetWidth() const
+{
+	return maxs.x - mins.x;
+}
+
+//  =========================================================================================
 Vector2 AABB2::GetCenter() const //return center position of the box
 {
 	Vector2 centerPoint = (mins + maxs) * .5;
@@ -269,6 +311,18 @@ AABB2 AABB2::operator-(const Vector2& translation) const //move
 
 	tempBox.maxs.x -= translation.x;
 	tempBox.maxs.y -= translation.y;
+
+	return tempBox;
+}
+
+//  =========================================================================================
+AABB2 AABB2::operator*(float scale)
+{
+	AABB2 tempBox = AABB2(mins, maxs);
+	Vector2 dimensionScaled = tempBox.GetDimensions() * scale;
+
+	tempBox.mins -= dimensionScaled;
+	tempBox.maxs += dimensionScaled;
 
 	return tempBox;
 }

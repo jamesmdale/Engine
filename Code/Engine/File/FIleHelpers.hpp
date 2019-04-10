@@ -8,3 +8,4 @@ void ReadSubFolderNamesForPath(const std::string& path, std::vector<std::string>
 bool GetFileNameFromPath(const std::string & path, std::string & outFileName);
 bool GetFileNameFromPathNoExtension(const std::string& path, std::string& outFileName);
 void ReadContainedFilePathsForPath(const std::string& path, std::vector<std::string>& outFiles);
+bool DoesFileExist(const std::string& path);
