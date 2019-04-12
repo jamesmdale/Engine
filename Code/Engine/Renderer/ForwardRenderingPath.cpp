@@ -4,6 +4,7 @@
 #include "Engine\Time\Clock.hpp"
 #include "Engine\Profiler\Profiler.hpp"
 
+//  =========================================================================================
 ForwardRenderingPath::ForwardRenderingPath()
 {
 	//init camera
@@ -23,13 +24,15 @@ ForwardRenderingPath::ForwardRenderingPath()
 	m_shadowCamera->SetDepthStencilTarget(m_shadowDepthTarget);
 }
 
+//  =========================================================================================
 ForwardRenderingPath::~ForwardRenderingPath()
 {
 }
 
+//  =========================================================================================
 void ForwardRenderingPath::Render(RenderScene* scene)
 {
-	PROFILER_PUSH();
+	//PROFILER_PUSH();
 	for (int lightIndex = 0; lightIndex < (int)scene->m_lights.size(); ++lightIndex)
 	{
 		if (scene->m_lights[lightIndex]->m_light->m_isShadowCasting)
@@ -46,9 +49,10 @@ void ForwardRenderingPath::Render(RenderScene* scene)
 	scene = nullptr;
 }
 
+//  =========================================================================================
 void ForwardRenderingPath::RenderSceneForCamera(Camera* camera, RenderScene* scene)
 {
-	PROFILER_PUSH();
+	//PROFILER_PUSH();
 	Renderer* theRenderer = Renderer::GetInstance();
 
 	theRenderer->SetCamera(camera);
@@ -114,7 +118,7 @@ void ForwardRenderingPath::RenderSceneForCamera(Camera* camera, RenderScene* sce
 	scene = nullptr;
 }
 
-//sorts the array by sortingLayer
+//sorts the array by sortingLayer  =========================================================================================
 void ForwardRenderingPath::SortDrawsBySortOrder(std::vector<DrawCallData> outDrawCalls)
 {
 	for(int i = 0; i < (int)outDrawCalls.size(); i++)
@@ -129,7 +133,7 @@ void ForwardRenderingPath::SortDrawsBySortOrder(std::vector<DrawCallData> outDra
 	}
 }
 
-//sorts the array rendertype if layers are same
+//sorts the array rendertype if layers are same  =========================================================================================
 void ForwardRenderingPath::SortDrawsByRenderQueue(std::vector<DrawCallData> outDrawCalls)
 {
 	for(int i = 0; i < (int)outDrawCalls.size(); i++)
@@ -153,7 +157,7 @@ void ForwardRenderingPath::SortDrawsByRenderQueue(std::vector<DrawCallData> outD
 	}
 }
 
-//sorts the array by camera Z distance if layers and rendertypes are same
+//sorts the array by camera Z distance if layers and rendertypes are same  =========================================================================================
 void ForwardRenderingPath::SortDrawsByCameraDistance(std::vector<DrawCallData> outDrawCalls, const Vector3& cameraPosition)
 {
 	for(int i = 0; i < (int)outDrawCalls.size(); i++)
@@ -181,6 +185,7 @@ void ForwardRenderingPath::SortDrawsByCameraDistance(std::vector<DrawCallData> o
 	}
 }
 
+//  =========================================================================================
 void ForwardRenderingPath::RenderShadowCastingObjectsForLight(LightObject* light, RenderScene* scene)
 {
 	Renderer* renderer = Renderer::GetInstance();

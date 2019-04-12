@@ -65,7 +65,7 @@ const int MAX_MAX_CONSOLE_SIZE = 100;
 #define FLOAT_MIN (FLT_MIN)
 #define FLOAT_MAX (FLT_MAX)
 
-//#define PROFILER_ENABLED
+#define PROFILER_ENABLED
 
 // TYPEDEFS =============================================================================
 typedef unsigned char byte_t;

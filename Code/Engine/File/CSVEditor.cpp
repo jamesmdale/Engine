@@ -1,6 +1,7 @@
 #include "Engine\File\CSVEditor.hpp"
 #include "Engine\Core\StringUtils.hpp"
 #include "Engine\File\File.hpp"
+#include "Engine\Profiler\Profiler.hpp"
 
 //  =============================================================================
 CSVEditor::CSVEditor()
@@ -15,6 +16,8 @@ CSVEditor::~CSVEditor()
 //  =============================================================================
 void CSVEditor::AddCell(const std::string& cellContent, bool doesWriteNewline)
 {
+	PROFILER_PUSH();
+
 	//if our csv is longer than the given max simulation data csv size entries, return;
 	if ((int)m_content.size() >= MAX_SIMULATION_DATA_CSV_SIZE)
 		return;
