@@ -16,8 +16,8 @@ public:
 	int GetRandomInRange() const;
 	void SetFromText(const char* text);
 public: 
-	int min;
-	int max;
+	int min = 0;
+	int max = 0;
 };
 
 bool DoRangesOverlap(const IntRange& a, const IntRange& b);

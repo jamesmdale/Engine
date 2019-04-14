@@ -54,6 +54,18 @@ const std::vector<std::string> SplitStringOnCharacter(const std::string str, con
 	return splitString;
 }
 
+//  =========================================================================================
+void SplitStringOnCharacter(const std::string& str, const char splitChar, std::vector<std::string>& outVector)
+{
+	std::stringstream stream(str);
+	while (stream.good())
+	{
+		std::string substr;
+		std::getline(stream, substr, splitChar);
+		outVector.push_back(substr);
+	}
+}
+
 //  =============================================================================
 std::string SplitStringOnFirstWord(const std::string& inputString)
 {
@@ -348,12 +360,12 @@ bool ConvertStringToBool(const std::string& convertString)
 {
 	if(convertString != "")
 	{
-		if(convertString == "1" || convertString == "true")
+		if(convertString == "1" || convertString == "true" || convertString == "yes")
 		{
 			return true;
 		}		
 
-		if(convertString == "0" || convertString == "false")
+		if(convertString == "0" || convertString == "false" || convertString == "no")
 		{
 			return false;
 		}
