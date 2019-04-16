@@ -19,7 +19,7 @@ void CSVEditor::AddCell(const std::string& cellContent, bool doesWriteNewline)
 	PROFILER_PUSH();
 
 	//if our csv is longer than the given max simulation data csv size entries, return;
-	if ((int)m_content.size() >= MAX_SIMULATION_DATA_CSV_SIZE)
+	if (IsAtCapacity())
 		return;
 
 	if (IsStringNullOrEmpty(cellContent))
@@ -104,4 +104,13 @@ bool CSVEditor::ReadFromFile(const std::string& filePath)
 void CSVEditor::ClearContent()
 {
 	m_content.clear();
+}
+
+//  =============================================================================
+bool CSVEditor::IsAtCapacity()
+{
+	if ((int)m_content.size() < MAX_SIMULATION_DATA_CSV_SIZE)
+		return false;
+
+	return true;
 }

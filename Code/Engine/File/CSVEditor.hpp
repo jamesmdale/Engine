@@ -17,6 +17,7 @@ public:
 	bool WriteToFile(const std::string& filePath);
 	bool ReadFromFile(const std::string& filePath);
 	void ClearContent();
+	bool IsAtCapacity();
 
 public:
 	std::vector<std::string> m_content;
