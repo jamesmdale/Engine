@@ -425,7 +425,7 @@ double ProfilerConsole::ParseTimesForGraph(ProfileMeasurement* measurement)
 
 
 // console commands =============================================================================
-void OpenToggle(Command & cmd)
+void OpenToggle(Command& cmd)
 {
 	ProfilerConsole* console = ProfilerConsole::GetInstance();
 	InputSystem* theInput = InputSystem::GetInstance();
