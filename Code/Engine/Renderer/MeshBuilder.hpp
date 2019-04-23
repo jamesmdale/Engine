@@ -59,6 +59,20 @@ public:
 		return mesh;
 	}	
 
+	template <typename VERTEXTYPE>
+	void UpdateMesh(Mesh* mesh)
+	{
+		//mesh->ClearVertices();
+		//mesh->ClearIndices();
+
+		mesh->m_drawInstruction = DrawInstruction(m_type, 0, m_doesUseIndices);
+		TODO("Might want to evaluate element count in drawinstruction");
+
+		mesh->FromBuilderForType<VERTEXTYPE>(*this);
+
+		FlushBuilder();
+	}
+
 	// builder methods =========================================================================================
 	//3D
 	void CreatePoint(const Vector3& center, const Rgba& tint, float scale);
@@ -119,3 +133,32 @@ public:
 	}
 };
 
+//  =========================================================================================
+inline void MeshBuilder::SetColor(const Rgba& color)
+{
+	m_stamp.color = color;
+}
+
+//  =========================================================================================
+inline void MeshBuilder::SetUV(float u, float v)
+{
+	m_stamp.uv = Vector2(u, v);
+}
+
+//  =========================================================================================
+inline void MeshBuilder::SetUV(const Vector2& uv)
+{
+	m_stamp.uv = uv;
+}
+
+//  =========================================================================================
+inline void MeshBuilder::SetNormal(const Vector3& normal)
+{
+	m_stamp.normal = normal;
+}
+
+//  =========================================================================================
+inline void MeshBuilder::SetTangent(const Vector4& tangent)
+{
+	m_stamp.tangent = tangent;
+}

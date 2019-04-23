@@ -38,36 +38,6 @@ void MeshBuilder::Begin(DrawPrimitiveType type, bool doesUseIndices)
 }
 
 //  =========================================================================================
-void MeshBuilder::SetColor(const Rgba& color)
-{
-	m_stamp.color = color;
-}
-
-//  =========================================================================================
-void MeshBuilder::SetUV(float u, float v)
-{
-	m_stamp.uv = Vector2(u, v);
-}
-
-//  =========================================================================================
-void MeshBuilder::SetUV(const Vector2& uv)
-{
-	m_stamp.uv = uv;
-}
-
-//  =========================================================================================
-void MeshBuilder::SetNormal(const Vector3& normal)
-{
-	m_stamp.normal = normal;
-}
-
-//  =========================================================================================
-void MeshBuilder::SetTangent(const Vector4& tangent)
-{
-	m_stamp.tangent = tangent;
-}
-
-//  =========================================================================================
 int MeshBuilder::PushVertex(Vector3 position)
 {
 	m_stamp.position = position;
@@ -529,8 +499,7 @@ void MeshBuilder::CreateQuad3D(const Vector3& center, const Vector2& dimensions,
 	SetUV(Vector2(0.f,1.f));
 	SetNormal(Vector3(0.f, 0.f, -1.f));
 	SetTangent(Vector4(1.f, 0.f, 0.f, 1.f));
-	PushVertex(Vector3(center.x - xVal, center.y + yVal, 0.f));	
-	
+	PushVertex(Vector3(center.x - xVal, center.y + yVal, 0.f));		
 
 	AddQuadIndices(vertSize + 0, vertSize + 1, vertSize + 2, vertSize + 3);
 }

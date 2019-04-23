@@ -57,24 +57,25 @@ public:
 	void FromBuilderForType(const MeshBuilder& meshBuilder)
 	{
 		int vertexCount = (int)meshBuilder.m_vertices.size(); 
-		VERTEXTYPE* temp = (VERTEXTYPE*)malloc( sizeof(VERTEXTYPE) * vertexCount ); 
+		//VERTEXTYPE* temp = (VERTEXTYPE*)malloc( sizeof(VERTEXTYPE) * vertexCount ); 
+		
+		static std::vector<VERTEXTYPE> temp;
+		temp.clear();
 
 		for (int vertexIndex = 0; vertexIndex < vertexCount; vertexIndex++) 
 		{
 			// copy each vertex
-			temp[vertexIndex] = VERTEXTYPE( meshBuilder.m_vertices[vertexIndex] ); 
+			//temp[vertexIndex] = VERTEXTYPE( meshBuilder.m_vertices[vertexIndex] ); 
+			temp.emplace_back(meshBuilder.m_vertices[vertexIndex]);
 		}
 
 		//set vertices and indices
-		SetVertices<VERTEXTYPE>( vertexCount, temp );
+		SetVertices<VERTEXTYPE>( vertexCount, temp.data());
 
 		if(m_drawInstruction.m_isUsingIndices)
 		{
 			SetIndices(sizeof(int), (int)meshBuilder.m_indices.size(), meshBuilder.m_indices.data());
 		}		
-
-		// free our temp buffer
-		free( temp );
 	}
 
 public:
