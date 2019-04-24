@@ -1,3 +1,4 @@
+#include "Game\EngineBuildPreferences.hpp"
 #include "Engine\Profiler\ProfilerConsole.hpp"
 #include "Engine\Renderer\Renderer.hpp"
 #include "Engine\Window\Window.hpp"
@@ -10,7 +11,7 @@
 #include "Engine\Time\Clock.hpp"
 #include "Engine\Time\Time.hpp"
 #include "Engine\Input\InputSystem.hpp"
-#include "Game\EngineBuildPreferences.hpp"
+#include "Engine\Time\SimpleTimer.hpp"
 
 static ProfilerConsole* g_theProfilerConsole = nullptr;
 
@@ -179,7 +180,14 @@ void ProfilerConsole::UpdateFromInput()
 //  =============================================================================
 void ProfilerConsole::Update()
 {
-	PROFILER_PUSH();
+	PROFILER_PUSH();	
+
+	static SimpleTimer totalTimer;
+
+	totalTimer.Stop();
+	uint64_t totalTime = totalTimer.GetRunningTime();
+	totalTimer.Reset();
+	totalTimer.Start();
 
 	//update active report every frame so data isn't lost when we hit resume
 	if (!Profiler::GetInstance()->IsPaused())
