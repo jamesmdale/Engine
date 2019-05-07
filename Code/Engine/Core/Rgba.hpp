@@ -43,6 +43,7 @@ public:
 
 	static const Rgba RED;
 	static const Rgba GREEN;
+	static const Rgba DARK_GREEN;
 	static const Rgba BLUE;
 	static const Rgba WHITE;
 	static const Rgba YELLOW;

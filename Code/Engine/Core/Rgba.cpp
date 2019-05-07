@@ -7,6 +7,7 @@
 const Rgba Rgba::RED = Rgba(255, 0, 0, 255);
 const Rgba Rgba::ORANGE = Rgba(255, 140, 0, 255);
 const Rgba Rgba::GREEN = Rgba(0, 255, 0, 255);
+const Rgba Rgba::DARK_GREEN = Rgba(16,132,0, 255);
 const Rgba Rgba::BLUE = Rgba(0, 0, 255, 255);
 const Rgba Rgba::LIGHT_BLUE = Rgba(50, 50, 247, 255);
 const Rgba Rgba::LIGHT_YELLOW = Rgba (255, 210, 30, 255);

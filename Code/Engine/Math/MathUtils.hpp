@@ -58,6 +58,26 @@ unsigned int GetRandomUintInRange(unsigned int min, unsigned int max);
 Vector3 GetRandomVector3InSphere(float positionMin, float positionMax);
 
 //clamp functions
+//  =========================================================================================
+template <typename T>
+T Clamp(T inValue, T minInclusiveValue, T maxInclusiveValue)
+{
+	T clampedValue;
+	if (inValue > maxInclusiveValue)
+	{
+		clampedValue = maxInclusiveValue;
+	}
+	else if (inValue < minInclusiveValue)
+	{
+		clampedValue = minInclusiveValue;
+	}
+	else
+	{
+		clampedValue = inValue;
+	}
+	return clampedValue;
+}
+
 float ClampFloat(float inValue, float minInclusiveValue, float maxInclusiveValue);
 double ClampDouble(double inValue, double minInclusiveValue, double maxInclusiveValue);
 Vector3 ClampVector3Uniform(Vector3 inValue, Vector3 minInclusiveValue, Vector3 maxInclusiveValue);
