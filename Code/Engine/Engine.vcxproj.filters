@@ -355,6 +355,12 @@
     <ClCompile Include="Math\Sphere.cpp">
       <Filter>General</Filter>
     </ClCompile>
+    <ClCompile Include="Core\NamedProperties.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="EventSystem.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Vector2.hpp">
@@ -499,6 +505,8 @@
     <ClInclude Include="Math\RNG.hpp" />
     <ClInclude Include="File\CSVEditor.hpp" />
     <ClInclude Include="Math\Sphere.hpp" />
+    <ClInclude Include="Core\NamedProperties.hpp" />
+    <ClInclude Include="EventSystem.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="ThirdParty\fmod\fmod_vc.lib" />

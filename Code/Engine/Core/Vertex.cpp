@@ -15,6 +15,7 @@ const VertexLayout VertexPCU::s_layout = VertexLayout( (int)sizeof(VertexPCU), V
 
 //lit --------------------------------------------------------------------------------------------------------------------------------------------
 const VertexAttribute VertexLit::s_attributes[] = {
+
 	VertexAttribute( "POSITION", FLOAT_RENDER_TYPE,         3, false, offsetof(VertexLit, m_position) ),	
 	VertexAttribute( "COLOR",    UNSIGNED_BYTE_RENDER_TYPE, 4, true,  offsetof(VertexLit, m_color) ),
 	VertexAttribute( "UV",       FLOAT_RENDER_TYPE,         2, false, offsetof(VertexLit, m_UVs) ),

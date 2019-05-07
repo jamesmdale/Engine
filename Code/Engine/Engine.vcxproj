@@ -43,6 +43,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Core\NamedProperties.cpp" />
+    <ClCompile Include="EventSystem.cpp" />
     <ClCompile Include="File\FileHelpers.cpp" />
     <ClCompile Include="Math\Sphere.cpp" />
     <ClCompile Include="Net\NetMessageChannel.cpp" />
@@ -160,6 +162,8 @@
     <ClCompile Include="Window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\NamedProperties.hpp" />
+    <ClInclude Include="EventSystem.hpp" />
     <ClInclude Include="File\FIleHelpers.hpp" />
     <ClInclude Include="Math\Sphere.hpp" />
     <ClInclude Include="Net\NetMessageChannel.hpp" />
