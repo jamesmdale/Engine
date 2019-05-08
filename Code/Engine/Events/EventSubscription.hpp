@@ -56,7 +56,7 @@ public:
 
 	virtual bool Execute(NamedProperties& args) override
 	{
-		m_object->*m_method(args);
+		return (m_object->*m_method) (args);
 	}
 
 private:
