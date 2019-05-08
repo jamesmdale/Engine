@@ -43,8 +43,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Events\EventSubscription.cpp" />
     <ClCompile Include="Core\NamedProperties.cpp" />
-    <ClCompile Include="EventSystem.cpp" />
+    <ClCompile Include="Events\EventSystem.cpp" />
     <ClCompile Include="File\FileHelpers.cpp" />
     <ClCompile Include="Math\Sphere.cpp" />
     <ClCompile Include="Net\NetMessageChannel.cpp" />
@@ -162,8 +163,9 @@
     <ClCompile Include="Window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Events\EventSubscription.hpp" />
     <ClInclude Include="Core\NamedProperties.hpp" />
-    <ClInclude Include="EventSystem.hpp" />
+    <ClInclude Include="Events\EventSystem.hpp" />
     <ClInclude Include="File\FIleHelpers.hpp" />
     <ClInclude Include="Math\Sphere.hpp" />
     <ClInclude Include="Net\NetMessageChannel.hpp" />
@@ -633,6 +635,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)Code/;$(SolutionDir)Engine/;$(SolutionDir)Engine/Code/</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalUsingDirectories>$(SolutionDir)Code/;$(SolutionDir)Engine/;$(SolutionDir)Engine/Code/</AdditionalUsingDirectories>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

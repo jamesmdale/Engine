@@ -12,6 +12,7 @@
 #include "Engine\Net\NetSession.hpp"
 #include "Engine\Core\StringUtils.hpp"
 #include "Engine\Core\Vertex.hpp"
+#include "Engine\Events\EventSystem.hpp"
 #include <string>
 #include <ctime>
 #include <stdarg.h>
@@ -44,6 +45,9 @@ void EngineStartup()
 
 	ProfilerConsole::CreateInstance();
 	ProfilerConsole::GetInstance()->Startup();
+
+	EventSystem::CreateInstance();
+	EventSystem::GetInstance()->Startup();
 
 #ifdef REMOTE_COMMAND_ENABLED || NET_SESSION_ENABLED
 	Net::Startup();

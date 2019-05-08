@@ -358,7 +358,10 @@
     <ClCompile Include="Core\NamedProperties.cpp">
       <Filter>General</Filter>
     </ClCompile>
-    <ClCompile Include="EventSystem.cpp">
+    <ClCompile Include="Events\EventSystem.cpp">
+      <Filter>General</Filter>
+    </ClCompile>
+    <ClCompile Include="Events\EventSubscription.cpp">
       <Filter>General</Filter>
     </ClCompile>
   </ItemGroup>
@@ -506,7 +509,8 @@
     <ClInclude Include="File\CSVEditor.hpp" />
     <ClInclude Include="Math\Sphere.hpp" />
     <ClInclude Include="Core\NamedProperties.hpp" />
-    <ClInclude Include="EventSystem.hpp" />
+    <ClInclude Include="Events\EventSystem.hpp" />
+    <ClInclude Include="Events\EventSubscription.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="ThirdParty\fmod\fmod_vc.lib" />
