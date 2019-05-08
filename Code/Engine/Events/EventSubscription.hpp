@@ -57,7 +57,7 @@ public:
 	virtual bool Execute(NamedProperties& args) override
 	{
 		return (m_object->*m_method) (args);
-	}
+	} 
 
 private:
 	T* m_object = nullptr;
