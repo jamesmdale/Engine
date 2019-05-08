@@ -17,29 +17,29 @@ public:
 	static void Startup();
 	static void Shutdown();
 
-	static void Subscribe(const std::string& eventName, EventFunctionCallbackForPtrType callback);
-	static void Unsubscribe(const std::string& eventName, EventFunctionCallbackForPtrType callback);
+	void Subscribe(const std::string& eventName, EventFunctionCallbackForPtrType callback);
+	void Unsubscribe(const std::string& eventName, EventFunctionCallbackForPtrType callback);
 
 	template <class T, typename M>
-	static void Subscribe(const std::string& eventName, T* object, M callback)
+	void Subscribe(const std::string& eventName, T* object, M callback)
 	{
 		typedef bool (T::*EventObjectMethodCallbackPtr) (NamedProperties& args);
 		EventObjectMethodCallbackPtr castedMethodPtr = static_cast<EventObjectMethodCallbackPtr>(callback);
 
-		std::vector<EventSubscription*>& currentSubscribers = m_subscriptions[eventName];
-
-		for (int subscriptionIndex = 0; subscriptionIndex < (int)currentSubscribers.size(); ++subscriptionIndex)
+		std::vector<EventSubscription*>& subscriptions = m_subscriptions[eventName];
+		
+		for (int subscriptionIndex = 0; subscriptionIndex < (int)subscriptions.size(); ++subscriptionIndex)
 		{
-			EventObjectMethodSubscription* functionSubscription = (EventObjectMethodSubscription*)currentSubscribers[subscriptionIndex];
-			if (functionSubscription->m_functionPointer == callback)
+			EventObjectMethodSubscription<T>* functionSubscription = (EventObjectMethodSubscription<T>*)subscriptions[subscriptionIndex];
+			if (functionSubscription->m_method == callback)
 				return;
-		}
+		} 
 
-		currentSubscribers.push_back(new EventObjectMethodSubscription<T>(object, castedMethodPtr));
+		subscriptions.push_back(new EventObjectMethodSubscription<T>(object, castedMethodPtr));
 	}
 
 	template <class T, typename M>
-	static void Unsubscribe(const std::string& eventName, T* object, M callback)
+	void Unsubscribe(const std::string& eventName, T* object, M callback)
 	{
 		typedef bool (T:: * EventObjectMethodCallbackPtr) (NamedProperties & args);
 
